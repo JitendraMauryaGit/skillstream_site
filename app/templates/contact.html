@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .contact-container {
+        max-width: 800px;
+        margin: 3rem auto;
+        padding: 2rem;
+        background: #f4f7fa;
+        border-radius: 12px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-container h2 {
+        color: #4e54c8;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .contact-container p {
+        text-align: center;
+        color: #666;
+        margin-bottom: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #4e54c8;
+        outline: none;
+    }
+
+    .submit-btn {
+        background: #4e54c8;
+        color: white;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        display: block;
+        margin: 0 auto;
+        transition: background 0.3s;
+        box-shadow: 0 4px 12px rgba(78, 84, 200, 0.3);
+    }
+
+    .submit-btn:hover {
+        background: #6c70f3;
+    }
+
+    .thank-you-message {
+        display: none;
+        text-align: center;
+        color: #2e7d32;
+        font-size: 1.2rem;
+        margin-top: 2rem;
+    }
+</style>
+
+<div class="contact-container">
+    <h2>📬 Contact Us</h2>
+    <p>We’d love to hear from you! Please fill out the form below and we'll get in touch.</p>
+
+    <form id="contact-form" method="POST">
+        <div class="form-group">
+            <label for="name">👤 Full Name:</label>
+            <input type="text" name="name" id="name" required placeholder="Your name">
+        </div>
+
+        <div class="form-group">
+            <label for="email">📧 Email Address:</label>
+            <input type="email" name="email" id="email" required placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="message">💬 Message:</label>
+            <textarea name="message" id="message" rows="5" required placeholder="Type your message here..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+
+    <div class="thank-you-message" id="thank-you">
+        🎉 Thank you for reaching out! We'll get back to you as soon as possible.
+    </div>
+</div>
+
+<script>
+    // Handle form submission and show thank-you message
+    document.getElementById("contact-form").addEventListener("submit", function (e) {
+        e.preventDefault(); // prevent default submit
+        this.style.display = "none"; // hide the form
+        document.getElementById("thank-you").style.display = "block"; // show thank you message
+    });
+</script>
+{% endblock %}

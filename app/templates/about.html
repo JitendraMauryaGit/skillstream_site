@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section style="text-align:center; padding: 2rem 1rem;">
+    <h1 style="font-size: 2.5rem; color: #4e54c8;">🌟 About SkillStream Group</h1>
+    <p style="font-size: 1.2rem; max-width: 800px; margin: 1rem auto; color: #555;">
+        SkillStream Group is a multi-vertical digital ecosystem focused on <strong>Technology, Education, Gaming,
+            Digital Innovation, and Journalism</strong>. We empower learners, creators, and thinkers by providing access
+        to real-world projects, mentorship, and digital platforms.
+    </p>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 2rem 1rem;">
+    <!-- Education -->
+    <div style="flex: 1 1 260px; background: #e3f2fd; padding: 1.5rem; border-radius: 12px; text-align: center;">
+        <h2 style="color: #1976d2;">🎓 SkillStream Virtual Institute (SSVI)</h2>
+        <p>Offering 3-year Diploma (10th pass), 2-year PG Diploma (any graduate), and live project-based internships.
+        </p>
+        <a href="{{ url_for('main.education') }}" style="text-decoration: none;">
+            <button
+                style="background: #1976d2; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 20px;">Explore
+                Education</button>
+        </a>
+    </div>
+
+    <!-- Gaming -->
+    <div style="flex: 1 1 260px; background: #f3e5f5; padding: 1.5rem; border-radius: 12px; text-align: center;">
+        <h2 style="color: #8e24aa;">🎮 SkillStream Game Studios (SSGS)</h2>
+        <p>Building gaming IPs and offering internships for students to collaborate on real-world game development.</p>
+        <a href="{{ url_for('main.gaming') }}">
+            <button
+                style="background: #8e24aa; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 20px;">Explore
+                Gaming</button>
+        </a>
+    </div>
+
+    <!-- Journalism -->
+    <div style="flex: 1 1 260px; background: #ede7f6; padding: 1.5rem; border-radius: 12px; text-align: center;">
+        <h2 style="color: #5e35b1;">📰 SkillStream Insights (SSI)</h2>
+        <p>Fresh tech journalism driven by students and interns — covering startups, trends, and innovations globally.
+        </p>
+        <a href="{{ url_for('main.news') }}">
+            <button
+                style="background: #5e35b1; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 20px;">Explore
+                News</button>
+        </a>
+    </div>
+
+    <!-- Marketing -->
+    <div style="flex: 1 1 260px; background: #e8f5e9; padding: 1.5rem; border-radius: 12px; text-align: center;">
+        <h2 style="color: #388e3c;">💡 SkillStream Digital Studio (SSDS)</h2>
+        <p>Equipping individuals & SMEs with marketing skills, strategies, and tools to grow their brand digitally.</p>
+        <a href="{{ url_for('main.marketing') }}">
+            <button
+                style="background: #388e3c; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 20px;">Explore
+                Marketing</button>
+        </a>
+    </div>
+
+    <!-- Web Dev -->
+    <div style="flex: 1 1 260px; background: #fff3e0; padding: 1.5rem; border-radius: 12px; text-align: center;">
+        <h2 style="color: #f57c00;">🌐 SkillStream Web Division (SSWD)</h2>
+        <p>Delivering scalable websites & internal apps using modern web frameworks for clients and internal products.
+        </p>
+        <a href="{{ url_for('main.webdev') }}">
+            <button
+                style="background: #f57c00; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 20px;">Explore
+                Web Dev</button>
+        </a>
+    </div>
+</section>
+
+<section style="background: #fafafa; padding: 3rem 1rem; text-align: center;">
+    <h2 style="color: #4e54c8;">🚀 Our Mission</h2>
+    <p style="max-width: 700px; margin: 1rem auto; font-size: 1.1rem; color: #555;">
+        Our mission is to make real-world skills and opportunities accessible to everyone — from 10th pass students to
+        tech graduates — through a unified platform offering education, innovation, and career acceleration.
+    </p>
+</section>
+
+<section style="padding: 2rem 1rem; text-align: center;">
+    <h2 style="color: #4e54c8;">🌐 Join Our Ecosystem</h2>
+    <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto 1rem;">
+        Whether you're a student, graduate, intern, or entrepreneur — SkillStream is your launchpad into real-world
+        impact. Connect with our programs, contribute to our platforms, or partner with us!
+    </p>
+    <a href="{{ url_for('main.contact') }}">
+        <button
+            style="background: #4e54c8; color: white; padding: 0.8rem 2rem; font-size: 1rem; border: none; border-radius: 30px;">Contact
+            Us</button>
+    </a>
+</section>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .webdev-container {
+        max-width: 1000px;
+        margin: 3rem auto;
+        padding: 2rem;
+        background: #f5f8ff;
+        border-radius: 15px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .webdev-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .webdev-header h1 {
+        color: #4e54c8;
+        font-size: 2.5rem;
+    }
+
+    .webdev-header p {
+        color: #555;
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+    }
+
+    .project-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: space-between;
+    }
+
+    .project-box {
+        flex: 1 1 300px;
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(78, 84, 200, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .project-box:hover {
+        transform: translateY(-5px);
+    }
+
+    .project-box h2 {
+        color: #4e54c8;
+        margin-bottom: 1rem;
+    }
+
+    .project-box p {
+        color: #444;
+    }
+
+    .action-buttons {
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+    .action-buttons a {
+        display: inline-block;
+        margin: 0.5rem;
+        background: #4e54c8;
+        color: white;
+        padding: 0.7rem 1.6rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(78, 84, 200, 0.3);
+        transition: background 0.3s ease;
+    }
+
+    .action-buttons a:hover {
+        background: #6a6ff5;
+    }
+</style>
+
+<div class="webdev-container">
+    <div class="webdev-header">
+        <h1>💻 SkillStream Web Division (SSWD)</h1>
+        <p>Crafting next-gen websites, full-stack apps, and digital platforms for in-house and client projects.</p>
+    </div>
+
+    <div class="project-section">
+        <div class="project-box">
+            <h2>🏠 In-House Projects</h2>
+            <p>
+                Our talented team is building the SkillStream ecosystem including:
+            <ul>
+                <li>🎓 <strong>Education Portal (SSVI)</strong> – for diploma programs, internships, and training</li>
+                <li>📰 <strong>Tech News Platform (SSI)</strong> – powered by student journalists</li>
+                <li>📢 <strong>Digital Studio (SSDS)</strong> – managing content, marketing, and analytics</li>
+            </ul>
+            These platforms are used for real-world learning and portfolio development.
+            </p>
+        </div>
+
+        <div class="project-box">
+            <h2>🤝 Client Projects (Contract-Based)</h2>
+            <p>
+                We also take on 3rd-party client projects including:
+            <ul>
+                <li>🌐 Full-Stack Web Apps</li>
+                <li>📱 Mobile App Interfaces (Flutter/React Native)</li>
+                <li>🛒 E-commerce Portals and CMS Platforms</li>
+                <li>📈 Admin Panels & Dashboards</li>
+            </ul>
+            These offer hands-on experience in scaling and deployment.
+            </p>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <h3 style="color: #333; margin-bottom: 1rem;">🚀 Explore Our Other Divisions</h3>
+        <a href="{{ url_for('main.education') }}">🎓 Education</a>
+        <a href="{{ url_for('main.marketing') }}">📢 Digital Marketing</a>
+        <a href="{{ url_for('main.news') }}">📰 Tech News</a>
+        <a href="{{ url_for('main.contact') }}">📬 Contact Us</a>
+    </div>
+</div>
+{% endblock %}

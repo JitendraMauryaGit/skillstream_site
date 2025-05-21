@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Header -->
+<section
+    style="text-align: center; padding: 3rem 1rem; background: linear-gradient(135deg, #4e54c8, #8f94fb); color: white;">
+    <h1 style="font-size: 2.8rem; margin-bottom: 1rem;">🎓 SkillStream Virtual Institute</h1>
+    <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">
+        A modern education ecosystem offering diploma programs, internships, and live project-based training to launch
+        your tech career.
+    </p>
+</section>
+
+<!-- Program Highlights -->
+<section
+    style="display: flex; flex-wrap: wrap; justify-content: center; padding: 3rem 1rem; gap: 2rem; background: #f5f7ff;">
+    <div
+        style="flex: 1 1 300px; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+        <h2 style="color: #4e54c8;">📘 3-Year Diploma</h2>
+        <p>Minimum Qualification: 10th Pass</p>
+        <p>Core skills in software, DevOps, and cloud computing with hands-on banking project experience.</p>
+    </div>
+    <div
+        style="flex: 1 1 300px; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+        <h2 style="color: #4e54c8;">📗 PG Diploma (2 Years)</h2>
+        <p>Open for Any Graduate</p>
+        <p>Advanced project training in application support, observability, automation, and platform engineering.</p>
+    </div>
+    <div
+        style="flex: 1 1 300px; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+        <h2 style="color: #4e54c8;">💼 Internship & Training</h2>
+        <p>6 Months – 1 Year</p>
+        <p>Client-based or in-house projects across tech verticals — tailored to real job roles.</p>
+    </div>
+</section>
+
+<!-- Toggle Buttons -->
+<section style="text-align: center; margin: 3rem 1rem;">
+    <button onclick="toggleSection('enquiryBox')" class="toggle-btn">📋 Submit Your Interest</button>
+    <button onclick="toggleSection('verifyBox')" class="toggle-btn">🔍 Verify Certificate</button>
+</section>
+
+<!-- Enquiry Form Section -->
+<div id="enquiryBox" class="collapsible-box">
+    <form action="/submit_enquiry" method="post"
+        style="max-width: 600px; margin: 0 auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <h3 style="color: #4e54c8;">Submit Your Interest</h3>
+        <p>Our counselor will contact you based on the program you choose.</p>
+        <input name="name" type="text" placeholder="Your Full Name" required>
+        <input name="email" type="email" placeholder="Your Email Address" required>
+        <input name="phone" type="text" placeholder="Phone Number" required>
+        <select name="program" required>
+            <option value="">Select Program</option>
+            <option>3-Year Diploma</option>
+            <option>2-Year PG Diploma</option>
+            <option>Internship / Training</option>
+        </select>
+        <button type="submit" class="submit-btn">Submit Now</button>
+    </form>
+</div>
+
+<!-- Verify Certificate Section -->
+<div id="verifyBox" class="collapsible-box">
+    <form action="/verify_certificate" method="post"
+        style="max-width: 500px; margin: 0 auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <h3 style="color: #4e54c8;">Verify Your Certificate</h3>
+        <p>Enter your details to verify your certification issued by SkillStream Institute.</p>
+        <input name="roll_no" type="text" placeholder="Roll Number" required>
+        <input name="dob" type="date" placeholder="Date of Birth" required>
+        <button type="submit" class="submit-btn">Verify</button>
+    </form>
+    <p style="text-align: center; margin-top: 1rem;">Need a correction? Please use the enquiry form above to report
+        issues.</p>
+</div>
+
+<!-- Styles & Script -->
+<style>
+    .toggle-btn {
+        background: #4e54c8;
+        color: white;
+        padding: 0.8rem 1.8rem;
+        margin: 1rem;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(78, 84, 200, 0.4);
+        transition: background 0.3s;
+    }
+
+    .toggle-btn:hover {
+        background: #3b3f9d;
+    }
+
+    .collapsible-box {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.6s ease;
+    }
+
+    .collapsible-box.active {
+        max-height: 1000px;
+        margin-bottom: 2rem;
+    }
+
+    input,
+    select {
+        width: 100%;
+        margin: 0.6rem 0;
+        padding: 0.6rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    .submit-btn {
+        background: #4e54c8;
+        color: white;
+        padding: 0.7rem 1.5rem;
+        border: none;
+        border-radius: 30px;
+        margin-top: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .submit-btn:hover {
+        background-color: #3c3f91;
+    }
+</style>
+
+<script>
+    function toggleSection(id) {
+        const section = document.getElementById(id);
+        section.classList.toggle("active");
+    }
+</script>
+
+{% endblock %}

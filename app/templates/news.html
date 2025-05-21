@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .ssi-wrapper {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #f2f7ff, #e0f7fa);
+        padding: 2rem 1rem;
+        color: #222;
+    }
+
+    .ssi-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .ssi-header h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(to right, #0073e6, #00bcd4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .ssi-header p {
+        font-size: 1.2rem;
+        color: #444;
+        max-width: 700px;
+        margin: 0.75rem auto;
+    }
+
+    .news-section {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 115, 230, 0.1);
+        margin-bottom: 2rem;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .news-section:hover {
+        transform: scale(1.01);
+        box-shadow: 0 10px 28px rgba(0, 115, 230, 0.15);
+    }
+
+    .news-section h2 {
+        color: #0057b7;
+        font-weight: 700;
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .news-section p {
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 0.8rem;
+    }
+
+    .news-section a {
+        text-decoration: none;
+        font-weight: 600;
+        color: #0073e6;
+    }
+
+    .subscribe-box {
+        background: linear-gradient(to right, #0073e6, #00c6ff);
+        color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+    .subscribe-box input[type="email"] {
+        width: 70%;
+        padding: 0.75rem;
+        margin-top: 1rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 6px;
+    }
+
+    .subscribe-box button {
+        background: #004b99;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        margin-top: 1rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .subscribe-box button:hover {
+        background: #003366;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="ssi-wrapper">
+    <div class="ssi-header">
+        <h1>SkillStream Insights (SSI)</h1>
+        <p>Delivering global tech & innovation news, powered by student publishing and fresh perspectives. Stay ahead
+            with SkillStream.</p>
+    </div>
+
+    <!-- Article Section -->
+    <div class="news-section">
+        <h2>🚀 AI Breakthroughs Reshape Industries</h2>
+        <p>From healthcare to finance, AI is accelerating automation and decision-making. Our student contributors
+            explore how the latest models and platforms are transforming businesses.</p>
+        <a href="#">Explore Full Report →</a>
+    </div>
+
+    <div class="news-section">
+        <h2>🔒 Quantum Computing & The Future of Security</h2>
+        <p>Quantum computing is not science fiction anymore. We break down its implications on data encryption and
+            national cybersecurity initiatives.</p>
+        <a href="#">Read the Breakdown →</a>
+    </div>
+
+    <div class="news-section">
+        <h2>🌍 Green Tech Innovations for a Better Planet</h2>
+        <p>Green batteries, smart grids, and sustainable coding practices are redefining environmental responsibility in
+            tech. Find out how youth-led startups are leading the charge.</p>
+        <a href="#">Dive into the Green Movement →</a>
+    </div>
+
+    <div class="news-section">
+        <h2>🪙 Blockchain Beyond Crypto</h2>
+        <p>Discover how blockchain is driving transparency in logistics, identity management, and healthcare—not just
+            finance. SSI tracks the real-world impact of decentralized technology.</p>
+        <a href="#">See Blockchain Use Cases →</a>
+    </div>
+
+    <div class="news-section">
+        <h2>💡 Student Spotlight: SSI Campus Journalists</h2>
+        <p>Our platform empowers students across the globe to investigate, publish, and amplify stories in tech. Meet
+            our top contributors and learn how to join the movement.</p>
+        <a href="#">Join the Student Publisher Network →</a>
+    </div>
+
+    <!-- Subscribe CTA -->
+    <div class="subscribe-box">
+        <h2>📬 Subscribe to SSI Weekly</h2>
+        <p>Get fresh insights, student stories, and weekly tech roundups delivered straight to your inbox.</p>
+        <form action="/subscribe" method="POST">
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <br>
+            <button type="submit">Subscribe Now</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
