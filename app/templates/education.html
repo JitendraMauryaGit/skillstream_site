@@ -2,49 +2,41 @@
 {% block content %}
 
 <!-- Header -->
-<section
-    style="text-align: center; padding: 3rem 1rem; background: linear-gradient(135deg, #4e54c8, #8f94fb); color: white;">
-    <h1 style="font-size: 2.8rem; margin-bottom: 1rem;">🎓 SkillStream Virtual Institute</h1>
-    <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">
-        A modern education ecosystem offering diploma programs, internships, and live project-based training to launch
-        your tech career.
-    </p>
+<section class="fade-in header-section">
+    <h1>🎓 SkillStream Virtual Institute</h1>
+    <p>A modern education ecosystem offering diploma programs, internships, and live project-based training to launch
+        your tech career.</p>
 </section>
 
 <!-- Program Highlights -->
-<section
-    style="display: flex; flex-wrap: wrap; justify-content: center; padding: 3rem 1rem; gap: 2rem; background: #f5f7ff;">
-    <div
-        style="flex: 1 1 300px; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
-        <h2 style="color: #4e54c8;">📘 3-Year Diploma</h2>
+<section class="program-section fade-in">
+    <div class="card">
+        <h2>📘 3-Year Diploma</h2>
         <p>Minimum Qualification: 10th Pass</p>
         <p>Core skills in software, DevOps, and cloud computing with hands-on banking project experience.</p>
     </div>
-    <div
-        style="flex: 1 1 300px; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
-        <h2 style="color: #4e54c8;">📗 PG Diploma (2 Years)</h2>
+    <div class="card">
+        <h2>📗 PG Diploma (2 Years)</h2>
         <p>Open for Any Graduate</p>
         <p>Advanced project training in application support, observability, automation, and platform engineering.</p>
     </div>
-    <div
-        style="flex: 1 1 300px; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
-        <h2 style="color: #4e54c8;">💼 Internship & Training</h2>
+    <div class="card">
+        <h2>💼 Internship & Training</h2>
         <p>6 Months – 1 Year</p>
         <p>Client-based or in-house projects across tech verticals — tailored to real job roles.</p>
     </div>
 </section>
 
 <!-- Toggle Buttons -->
-<section style="text-align: center; margin: 3rem 1rem;">
+<section class="fade-in" style="text-align: center; margin: 3rem 1rem;">
     <button onclick="toggleSection('enquiryBox')" class="toggle-btn">📋 Submit Your Interest</button>
     <button onclick="toggleSection('verifyBox')" class="toggle-btn">🔍 Verify Certificate</button>
 </section>
 
 <!-- Enquiry Form Section -->
 <div id="enquiryBox" class="collapsible-box">
-    <form action="/submit_enquiry" method="post"
-        style="max-width: 600px; margin: 0 auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-        <h3 style="color: #4e54c8;">Submit Your Interest</h3>
+    <form action="/submit_enquiry" method="post" class="form-box">
+        <h3>Submit Your Interest</h3>
         <p>Our counselor will contact you based on the program you choose.</p>
         <input name="name" type="text" placeholder="Your Full Name" required>
         <input name="email" type="email" placeholder="Your Email Address" required>
@@ -61,22 +53,79 @@
 
 <!-- Verify Certificate Section -->
 <div id="verifyBox" class="collapsible-box">
-    <form action="/verify_certificate" method="post"
-        style="max-width: 500px; margin: 0 auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-        <h3 style="color: #4e54c8;">Verify Your Certificate</h3>
+    <form action="/verify_certificate" method="post" class="form-box">
+        <h3>Verify Your Certificate</h3>
         <p>Enter your details to verify your certification issued by SkillStream Institute.</p>
         <input name="roll_no" type="text" placeholder="Roll Number" required>
         <input name="dob" type="date" placeholder="Date of Birth" required>
         <button type="submit" class="submit-btn">Verify</button>
+        <p style="text-align: center; margin-top: 1rem;">Need a correction? Please use the enquiry form above to report
+            issues.</p>
     </form>
-    <p style="text-align: center; margin-top: 1rem;">Need a correction? Please use the enquiry form above to report
-        issues.</p>
 </div>
 
-<!-- Styles & Script -->
+<!-- Styles -->
 <style>
+    .fade-in {
+        animation: fadeInUp 1.4s ease-in-out both;
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .header-section {
+        text-align: center;
+        padding: 3rem 1rem;
+        background: linear-gradient(135deg, #4e54c8, #8f94fb);
+        color: white;
+        border-radius: 0 0 30px 30px;
+    }
+
+    .header-section h1 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .header-section p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .program-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        padding: 3rem 1rem;
+        background: #f5f7ff;
+    }
+
+    .card {
+        background: linear-gradient(135deg, #ffffff, #f3f4ff);
+        padding: 2rem;
+        border-radius: 16px;
+        flex: 1 1 300px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
     .toggle-btn {
-        background: #4e54c8;
+        background: linear-gradient(to right, #4e54c8, #8f94fb);
         color: white;
         padding: 0.8rem 1.8rem;
         margin: 1rem;
@@ -84,56 +133,97 @@
         border-radius: 25px;
         font-size: 1rem;
         cursor: pointer;
-        box-shadow: 0 4px 10px rgba(78, 84, 200, 0.4);
-        transition: background 0.3s;
+        box-shadow: 0 4px 12px rgba(78, 84, 200, 0.4);
+        transition: transform 0.2s ease, background 0.3s ease;
     }
 
     .toggle-btn:hover {
-        background: #3b3f9d;
+        transform: scale(1.05);
+        background: linear-gradient(to right, #3e42a8, #6e73f7);
     }
 
-    .collapsible-box {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.6s ease;
-    }
-
-    .collapsible-box.active {
-        max-height: 1000px;
-        margin-bottom: 2rem;
+    .form-box {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        animation: fadeInUp 1s ease forwards;
     }
 
     input,
     select {
         width: 100%;
         margin: 0.6rem 0;
-        padding: 0.6rem;
+        padding: 0.7rem;
         border: 1px solid #ccc;
-        border-radius: 6px;
+        border-radius: 8px;
+        font-size: 1rem;
     }
 
     .submit-btn {
         background: #4e54c8;
         color: white;
-        padding: 0.7rem 1.5rem;
+        padding: 0.8rem 1.6rem;
         border: none;
         border-radius: 30px;
-        margin-top: 1rem;
         font-weight: bold;
-        cursor: pointer;
         width: 100%;
+        margin-top: 1rem;
+        transition: background 0.3s;
     }
 
     .submit-btn:hover {
-        background-color: #3c3f91;
+        background-color: #3b3f9d;
+    }
+
+    .collapsible-box {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.6s ease, opacity 0.6s ease;
+        opacity: 0;
+    }
+
+    .collapsible-box.active {
+        max-height: 1000px;
+        opacity: 1;
+        margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .card {
+            flex: 1 1 90%;
+        }
     }
 </style>
 
+<!-- Script -->
 <script>
     function toggleSection(id) {
-        const section = document.getElementById(id);
-        section.classList.toggle("active");
+        const sections = document.querySelectorAll('.collapsible-box');
+        sections.forEach(section => {
+            if (section.id === id) {
+                section.classList.toggle('active');
+            } else {
+                section.classList.remove('active');
+            }
+        });
+        // Scroll to the opened section
+        setTimeout(() => {
+            const opened = document.getElementById(id);
+            if (opened.classList.contains('active')) {
+                opened.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 400);
     }
+
+    // Optional: Add animation trigger on load
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.classList.add("visible");
+        });
+    });
 </script>
 
 {% endblock %}

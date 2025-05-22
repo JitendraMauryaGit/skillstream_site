@@ -1,76 +1,164 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section style="text-align:center; margin-bottom: 3rem;">
-    <h1 style="font-size: 2.8rem; color: #4e54c8; margin-bottom: 0.3rem;">
-        Welcome to <span style="color: #8f94fb;">SkillStream Group</span> 🎓🎮📰
+<section class="intro-section fade-in-delayed">
+    <h1>
+        Welcome to <span>SkillStream Group</span> 🎓🎮📰
     </h1>
-    <p style="font-size: 1.2rem; color: #555; max-width: 700px; margin: 0 auto;">
+    <p>
         Empowering Technology, Education & Innovation — a multi-vertical digital ecosystem shaping the future of tech
         learning, gaming, and news.
     </p>
 </section>
 
-<section style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 4rem;">
+<section class="cards-section">
     <!-- Education -->
-    <div
-        style="flex: 1 1 280px; background: #eef2ff; padding: 1.8rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;">
-        <h2 style="color: #4e54c8;">🎓 Education</h2>
+    <div class="info-card bg-1">
+        <h2>🎓 Education</h2>
         <p>SkillStream Virtual Institute (SSVI) offers job-ready diplomas and live internships for students &
             early-career techies.</p>
         <a href="{{ url_for('main.education') }}" class="btn">Explore Education</a>
     </div>
 
     <!-- Gaming -->
-    <div
-        style="flex: 1 1 280px; background: #fdf6fd; padding: 1.8rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;">
-        <h2 style="color: #8f94fb;">🎮 Gaming</h2>
+    <div class="info-card bg-2">
+        <h2>🎮 Gaming</h2>
         <p>SkillStream Game Studios (SSGS) builds exciting game IPs and offers intern collaboration to bridge skill
             pipelines.</p>
         <a href="{{ url_for('main.gaming') }}" class="btn">Explore Gaming</a>
     </div>
 
     <!-- News -->
-    <div
-        style="flex: 1 1 280px; background: #e8f9f1; padding: 1.8rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;">
-        <h2 style="color: #4e54c8;">📰 Tech Journalism</h2>
+    <div class="info-card bg-3">
+        <h2>📰 Tech Journalism</h2>
         <p>SkillStream Insights (SSI) delivers global tech & innovation news, driven by student publishing and fresh
             perspectives.</p>
         <a href="{{ url_for('main.news') }}" class="btn">Explore News</a>
     </div>
 
     <!-- Marketing -->
-    <div
-        style="flex: 1 1 280px; background: #fff9ec; padding: 1.8rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;">
-        <h2 style="color: #8f94fb;">📣 Digital Marketing</h2>
+    <div class="info-card bg-4">
+        <h2>📣 Digital Marketing</h2>
         <p>SkillStream Digital Studio (SSDS) offers training and smart digital services tailored to SMEs and startups.
         </p>
         <a href="{{ url_for('main.marketing') }}" class="btn">Explore Marketing</a>
     </div>
 
     <!-- Web Dev -->
-    <div
-        style="flex: 1 1 280px; background: #f0f4ff; padding: 1.8rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;">
-        <h2 style="color: #4e54c8;">💻 Web Development</h2>
+    <div class="info-card bg-5">
+        <h2>💻 Web Development</h2>
         <p>SkillStream Web Division (SSWD) builds scalable client websites and internal portals using modern web
             technologies.</p>
         <a href="{{ url_for('main.webdev') }}" class="btn">Explore Web Dev</a>
     </div>
 </section>
 
-<section style="text-align:center; margin-bottom: 3rem;">
-    <h2 style="color: #333; margin-bottom: 0.5rem;">Join Us & Shape Your Future 🚀</h2>
-    <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto 1.5rem;">
+<section class="cta-section">
+    <h2>Join Us & Shape Your Future 🚀</h2>
+    <p>
         Explore our programs, internships, and projects designed to empower the next generation with skills and
         real-world experience.
     </p>
-    <a href="{{ url_for('main.education') }}"
-        style="display: inline-block; background: #4e54c8; color: white; padding: 0.75rem 1.8rem; border-radius: 30px; font-weight: 600; text-decoration: none; box-shadow: 0 4px 12px rgba(78, 84, 200, 0.5); transition: background-color 0.3s ease;">
+    <a href="{{ url_for('main.education') }}" class="btn">
         Explore Education Programs
     </a>
 </section>
 
 <style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to bottom right, #f8faff, #ffffff);
+    }
+
+    .fade-in-delayed {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 1s ease-out 0.5s forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .intro-section {
+        text-align: center;
+        margin: 4rem auto 3rem;
+        max-width: 800px;
+    }
+
+    .intro-section h1 {
+        font-size: 2.8rem;
+        color: #4e54c8;
+        margin-bottom: 0.5rem;
+    }
+
+    .intro-section h1 span {
+        color: #8f94fb;
+    }
+
+    .intro-section p {
+        font-size: 1.2rem;
+        color: #555;
+    }
+
+    .cards-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        padding: 0 1rem;
+        margin-bottom: 4rem;
+    }
+
+    .info-card {
+        flex: 1 1 280px;
+        max-width: 300px;
+        background: #fff;
+        padding: 1.8rem;
+        border-radius: 16px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .info-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .bg-1 {
+        background-color: #eef2ff;
+    }
+
+    .bg-2 {
+        background-color: #fdf6fd;
+    }
+
+    .bg-3 {
+        background-color: #e8f9f1;
+    }
+
+    .bg-4 {
+        background-color: #fff9ec;
+    }
+
+    .bg-5 {
+        background-color: #f0f4ff;
+    }
+
+    .info-card h2 {
+        color: #4e54c8;
+        margin-bottom: 0.8rem;
+    }
+
+    .info-card p {
+        color: #444;
+        font-size: 0.95rem;
+    }
+
     .btn {
         display: inline-block;
         margin-top: 1rem;
@@ -86,6 +174,31 @@
 
     .btn:hover {
         background-color: #8f94fb;
+    }
+
+    .cta-section {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 0 1rem;
+    }
+
+    .cta-section h2 {
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    .cta-section p {
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto 1.5rem;
+        color: #555;
+    }
+
+    @media (max-width: 768px) {
+        .cards-section {
+            flex-direction: column;
+            align-items: center;
+        }
     }
 </style>
 {% endblock %}

@@ -14,17 +14,26 @@
     .webdev-header {
         text-align: center;
         margin-bottom: 2rem;
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .webdev-header.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 
     .webdev-header h1 {
         color: #4e54c8;
         font-size: 2.5rem;
+        margin-bottom: 0.3rem;
     }
 
     .webdev-header p {
         color: #555;
         font-size: 1.1rem;
-        margin-top: 0.5rem;
+        margin-top: 0;
     }
 
     .project-section {
@@ -40,11 +49,23 @@
         padding: 1.5rem;
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(78, 84, 200, 0.1);
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: default;
+        user-select: text;
     }
 
-    .project-box:hover {
-        transform: translateY(-5px);
+    .project-box:hover,
+    .project-box:focus {
+        transform: scale(1.05);
+        box-shadow:
+            0 8px 15px rgba(78, 84, 200, 0.4),
+            0 0 12px rgba(78, 84, 200, 0.3);
+        outline: none;
+    }
+
+    .project-box:focus-visible {
+        outline: 2px solid #4e54c8;
+        outline-offset: 3px;
     }
 
     .project-box h2 {
@@ -71,22 +92,33 @@
         text-decoration: none;
         font-weight: 600;
         box-shadow: 0 4px 10px rgba(78, 84, 200, 0.3);
-        transition: background 0.3s ease;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .action-buttons a:hover {
+    .action-buttons a:hover,
+    .action-buttons a:focus {
         background: #6a6ff5;
+        transform: scale(1.05);
+        box-shadow:
+            0 8px 15px rgba(78, 84, 200, 0.5),
+            0 0 12px rgba(78, 84, 200, 0.4);
+        outline: none;
+    }
+
+    .action-buttons a:focus-visible {
+        outline: 2px solid #4e54c8;
+        outline-offset: 3px;
     }
 </style>
 
-<div class="webdev-container">
-    <div class="webdev-header">
+<div class="webdev-container" role="main" aria-label="SkillStream Web Division content">
+    <div class="webdev-header" id="webdev-header">
         <h1>💻 SkillStream Web Division (SSWD)</h1>
         <p>Crafting next-gen websites, full-stack apps, and digital platforms for in-house and client projects.</p>
     </div>
 
     <div class="project-section">
-        <div class="project-box">
+        <div class="project-box" tabindex="0">
             <h2>🏠 In-House Projects</h2>
             <p>
                 Our talented team is building the SkillStream ecosystem including:
@@ -99,7 +131,7 @@
             </p>
         </div>
 
-        <div class="project-box">
+        <div class="project-box" tabindex="0">
             <h2>🤝 Client Projects (Contract-Based)</h2>
             <p>
                 We also take on 3rd-party client projects including:
@@ -116,10 +148,20 @@
 
     <div class="action-buttons">
         <h3 style="color: #333; margin-bottom: 1rem;">🚀 Explore Our Other Divisions</h3>
-        <a href="{{ url_for('main.education') }}">🎓 Education</a>
-        <a href="{{ url_for('main.marketing') }}">📢 Digital Marketing</a>
-        <a href="{{ url_for('main.news') }}">📰 Tech News</a>
-        <a href="{{ url_for('main.contact') }}">📬 Contact Us</a>
+        <a href="{{ url_for('main.education') }}" tabindex="0">🎓 Education</a>
+        <a href="{{ url_for('main.marketing') }}" tabindex="0">📢 Digital Marketing</a>
+        <a href="{{ url_for('main.news') }}" tabindex="0">📰 Tech News</a>
+        <a href="{{ url_for('main.contact') }}" tabindex="0">📬 Contact Us</a>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const header = document.getElementById("webdev-header");
+        // Delay fade-in
+        setTimeout(() => {
+            header.classList.add("visible");
+        }, 300);
+    });
+</script>
 {% endblock %}
