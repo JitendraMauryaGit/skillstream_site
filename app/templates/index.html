@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-
 {% block content %}
+<!-- ======== START: Intro Section ======== -->
 <section class="intro-section fade-in-delayed">
     <h1>
         Welcome to <span>SkillStream Group</span> 🎓🎮📰
@@ -11,194 +11,519 @@
     </p>
 </section>
 
-<section class="cards-section">
-    <!-- Education -->
-    <div class="info-card bg-1">
-        <h2>🎓 Education</h2>
-        <p>SkillStream Virtual Institute (SSVI) offers job-ready diplomas and live internships for students &
-            early-career techies.</p>
-        <a href="{{ url_for('main.education') }}" class="btn">Explore Education</a>
-    </div>
-
-    <!-- Gaming -->
-    <div class="info-card bg-2">
-        <h2>🎮 Gaming</h2>
-        <p>SkillStream Game Studios (SSGS) builds exciting game IPs and offers intern collaboration to bridge skill
-            pipelines.</p>
-        <a href="{{ url_for('main.gaming') }}" class="btn">Explore Gaming</a>
-    </div>
-
-    <!-- News -->
-    <div class="info-card bg-3">
-        <h2>📰 Tech Journalism</h2>
-        <p>SkillStream Insights (SSI) delivers global tech & innovation news, driven by student publishing and fresh
-            perspectives.</p>
-        <a href="{{ url_for('main.news') }}" class="btn">Explore News</a>
-    </div>
-
-    <!-- Marketing -->
-    <div class="info-card bg-4">
-        <h2>📣 Digital Marketing</h2>
-        <p>SkillStream Digital Studio (SSDS) offers training and smart digital services tailored to SMEs and startups.
-        </p>
-        <a href="{{ url_for('main.marketing') }}" class="btn">Explore Marketing</a>
-    </div>
-
-    <!-- Web Dev -->
-    <div class="info-card bg-5">
-        <h2>💻 Web Development</h2>
-        <p>SkillStream Web Division (SSWD) builds scalable client websites and internal portals using modern web
-            technologies.</p>
-        <a href="{{ url_for('main.webdev') }}" class="btn">Explore Web Dev</a>
-    </div>
-</section>
-
-<section class="cta-section">
-    <h2>Join Us & Shape Your Future 🚀</h2>
-    <p>
-        Explore our programs, internships, and projects designed to empower the next generation with skills and
-        real-world experience.
-    </p>
-    <a href="{{ url_for('main.education') }}" class="btn">
-        Explore Education Programs
-    </a>
-</section>
-
 <style>
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(to bottom right, #f8faff, #ffffff);
-    }
-
-    .fade-in-delayed {
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeIn 1s ease-out 0.5s forwards;
-    }
-
-    @keyframes fadeIn {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
+    /* Main container */
     .intro-section {
         text-align: center;
         margin: 4rem auto 3rem;
         max-width: 800px;
+        padding: 2rem;
+        border-radius: 20px;
+        background-color: #f9f9ff;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        transition: transform 0.4s ease, background-color 0.4s ease;
     }
 
+    /* Hover on the whole section */
+    .intro-section:hover {
+        transform: scale(1.03);
+        background-color: #f1f2ff;
+    }
+
+    /* Heading */
     .intro-section h1 {
         font-size: 2.8rem;
         color: #4e54c8;
         margin-bottom: 0.5rem;
+        cursor: pointer;
+        transition: color 0.3s ease, transform 0.3s ease;
     }
 
+    /* Span in heading */
     .intro-section h1 span {
         color: #8f94fb;
+        transition: color 0.3s ease;
     }
 
+    /* Hover on h1 */
+    .intro-section h1:hover {
+        color: #6f75f9;
+        transform: scale(1.05);
+    }
+
+    .intro-section h1:hover span {
+        color: #a1a7ff;
+    }
+
+    /* Paragraph */
     .intro-section p {
         font-size: 1.2rem;
         color: #555;
+        margin-top: 0.5rem;
     }
 
-    .cards-section {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2rem;
-        padding: 0 1rem;
-        margin-bottom: 4rem;
+    /* Fade-in with grow effect */
+    .fade-in-delayed {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+        animation: fadeGrow 1.2s ease-out 0.8s forwards;
     }
 
-    .info-card {
-        flex: 1 1 280px;
-        max-width: 300px;
-        background: #fff;
-        padding: 1.8rem;
-        border-radius: 16px;
-        text-align: center;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .info-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .bg-1 {
-        background-color: #eef2ff;
-    }
-
-    .bg-2 {
-        background-color: #fdf6fd;
-    }
-
-    .bg-3 {
-        background-color: #e8f9f1;
-    }
-
-    .bg-4 {
-        background-color: #fff9ec;
-    }
-
-    .bg-5 {
-        background-color: #f0f4ff;
-    }
-
-    .info-card h2 {
-        color: #4e54c8;
-        margin-bottom: 0.8rem;
-    }
-
-    .info-card p {
-        color: #444;
-        font-size: 0.95rem;
-    }
-
-    .btn {
-        display: inline-block;
-        margin-top: 1rem;
-        padding: 0.6rem 1.4rem;
-        background-color: #4e54c8;
-        color: white;
-        font-weight: bold;
-        text-decoration: none;
-        border-radius: 30px;
-        box-shadow: 0 3px 8px rgba(78, 84, 200, 0.3);
-        transition: background 0.3s ease;
-    }
-
-    .btn:hover {
-        background-color: #8f94fb;
-    }
-
-    .cta-section {
-        text-align: center;
-        margin-bottom: 4rem;
-        padding: 0 1rem;
-    }
-
-    .cta-section h2 {
-        color: #333;
-        margin-bottom: 0.5rem;
-    }
-
-    .cta-section p {
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto 1.5rem;
-        color: #555;
-    }
-
-    @media (max-width: 768px) {
-        .cards-section {
-            flex-direction: column;
-            align-items: center;
+    @keyframes fadeGrow {
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
         }
     }
 </style>
+<!-- ======== END: Intro Section ======== -->
+
+<!-- ======== START: Education & Gaming Cards Section ======== -->
+<div class="card-wrapper">
+
+    <!-- Card 1: Education -->
+    <div class="info-card bg-1 fade-in-delay-1">
+        <div class="card-content">
+            <h2>🎓 Education</h2>
+            <p>
+                SkillStream Virtual Institute (SSVI) offers job-ready diplomas and live internships for students &
+                early-career techies.
+            </p>
+            <a href="{{ url_for('main.education') }}" class="btn">Explore Education</a>
+        </div>
+    </div>
+
+    <!-- Card 2: Gaming -->
+    <div class="info-card bg-2 fade-in-delay-2">
+        <div class="card-content">
+            <h2>🎮 Gaming</h2>
+            <p>
+                SkillStream Game Studios (SSGS) builds exciting game IPs and offers intern collaboration to bridge skill
+                pipelines.
+            </p>
+            <a href="{{ url_for('main.gaming') }}" class="btn">Explore Gaming</a>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    /* === Layout: Centered Flexbox Row === */
+    .card-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 3rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    /* === Base Card Style === */
+    .info-card {
+        width: 100%;
+        max-width: 400px;
+        padding: 2rem;
+        border-radius: 16px;
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        background-size: cover;
+        transform: scale(0.95) translateY(20px);
+        opacity: 0;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        overflow: hidden;
+    }
+
+    /* === Animate On Hover (Card + Content) === */
+    .info-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-card:hover .card-content h2,
+    .info-card:hover .card-content p {
+        transform: scale(1.03);
+        color: #fff;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* === Separate Button Hover Effect === */
+    .btn {
+        align-self: start;
+        padding: 0.6rem 1.2rem;
+        background-color: #ffffff;
+        color: #333;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        /* Make sure button transform origin is center */
+        transform-origin: center center;
+    }
+
+    /* Grow + color change ONLY on button hover */
+    .btn:hover {
+        transform: scale(1.1);
+        background-color: #333;
+        color: #fff;
+    }
+
+    /* === Card Content Styling === */
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    /* === Headings === */
+    .card-content h2 {
+        font-size: 1.6rem;
+        margin: 0;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* === Paragraphs === */
+    .card-content p {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin: 0;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* === Background Gradients === */
+    .bg-1 {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+    }
+
+    .bg-2 {
+        background: linear-gradient(135deg, #ff6a00, #ee0979);
+    }
+
+    /* === Fade-in Animation === */
+    @keyframes fadeGrow {
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    .fade-in-delay-1 {
+        animation: fadeGrow 1s ease-out 0.5s forwards;
+    }
+
+    .fade-in-delay-2 {
+        animation: fadeGrow 1s ease-out 1.3s forwards;
+    }
+
+    /* === Responsive for Small Screens === */
+    @media (max-width: 768px) {
+        .card-wrapper {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info-card {
+            max-width: 90%;
+        }
+
+        .btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+<!-- ======== END: Education & Gaming Cards Section ======== -->
+<!-- ======== START: News & Marketing Cards Section ======== -->
+<div class="card-wrapper">
+
+    <!-- Card 1: News -->
+    <div class="info-card bg-3 fade-in-delay-1">
+        <div class="card-content">
+            <h2>📰 Tech Journalism</h2>
+            <p>
+                SkillStream Insights (SSI) delivers global tech & innovation news, driven by student publishing and
+                fresh
+                perspectives.
+            </p>
+            <a href="{{ url_for('main.news') }}" class="btn">Explore News</a>
+        </div>
+    </div>
+
+    <!-- Card 2: Marketing -->
+    <div class="info-card bg-4 fade-in-delay-2">
+        <div class="card-content">
+            <h2>📣 Digital Marketing</h2>
+            <p>
+                SkillStream Digital Studio (SSDS) offers training and smart digital services tailored to SMEs and
+                startups.
+            </p>
+            <a href="{{ url_for('main.marketing') }}" class="btn">Explore Marketing</a>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    /* === Layout: Centered Flexbox Row === */
+    .card-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 3rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    /* === Base Card Style === */
+    .info-card {
+        width: 100%;
+        max-width: 400px;
+        padding: 2rem;
+        border-radius: 16px;
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        background-size: cover;
+        transform: scale(0.95) translateY(20px);
+        opacity: 0;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        overflow: hidden;
+    }
+
+    /* === Animate On Hover (Card + Content) === */
+    .info-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-card:hover .card-content h2,
+    .info-card:hover .card-content p {
+        transform: scale(1.03);
+        color: #fff;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* === Separate Button Hover Effect === */
+    .btn {
+        align-self: start;
+        padding: 0.6rem 1.2rem;
+        background-color: #ffffff;
+        color: #333;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        transform-origin: center center;
+    }
+
+    /* Grow + color change ONLY on button hover */
+    .btn:hover {
+        transform: scale(1.1);
+        background-color: #333;
+        color: #fff;
+    }
+
+    /* === Card Content Styling === */
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    /* === Headings === */
+    .card-content h2 {
+        font-size: 1.6rem;
+        margin: 0;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* === Paragraphs === */
+    .card-content p {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin: 0;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* === Background Gradients === */
+    .bg-3 {
+        background: linear-gradient(135deg, #00b09b, #96c93d);
+        /* Teal-green */
+    }
+
+    .bg-4 {
+        background: linear-gradient(135deg, #f7971e, #ffd200);
+        /* Yellow-orange */
+    }
+
+    /* === Fade-in Animation === */
+    @keyframes fadeGrow {
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    .fade-in-delay-1 {
+        animation: fadeGrow 1s ease-out 0.5s forwards;
+    }
+
+    .fade-in-delay-2 {
+        animation: fadeGrow 1s ease-out 1.3s forwards;
+    }
+
+    /* === Responsive for Small Screens === */
+    @media (max-width: 768px) {
+        .card-wrapper {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info-card {
+            max-width: 90%;
+        }
+
+        .btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+<!-- ======== END: News & Marketing Cards Section ======== -->
+
+<!-- ======== START: Web Development Card Section ======== -->
+<div class="single-card-wrapper">
+
+    <!-- Web Development Card -->
+    <div class="info-card bg-5 fade-in-delay-1">
+        <div class="card-content">
+            <h2>💻 Web Development</h2>
+            <p>
+                SkillStream Web Division (SSWD) builds scalable client websites and internal portals using modern web
+                technologies.
+            </p>
+            <a href="{{ url_for('main.webdev') }}" class="btn">Explore Web Dev</a>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    /* === Layout: Center single card === */
+    .single-card-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 3rem 1rem;
+    }
+
+    /* === Reuse .info-card styles from previous sections but can redefine or extend if needed === */
+    .info-card {
+        width: 100%;
+        max-width: 450px;
+        padding: 2rem;
+        border-radius: 16px;
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        background-size: cover;
+        transform: scale(0.95) translateY(20px);
+        opacity: 0;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        overflow: hidden;
+    }
+
+    /* Hover effect for card and content */
+    .info-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-card:hover .card-content h2,
+    .info-card:hover .card-content p {
+        transform: scale(1.03);
+        color: #fff;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* Button styles */
+    .btn {
+        align-self: start;
+        padding: 0.6rem 1.2rem;
+        background-color: #ffffff;
+        color: #333;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        transform-origin: center center;
+    }
+
+    /* Button hover effect (separate grow + color change) */
+    .btn:hover {
+        transform: scale(1.1);
+        background-color: #333;
+        color: #fff;
+    }
+
+    /* Card content styling */
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    /* Headings */
+    .card-content h2 {
+        font-size: 1.8rem;
+        margin: 0;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* Paragraphs */
+    .card-content p {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        margin: 0;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* Background Gradient for Web Dev */
+    .bg-5 {
+        background: linear-gradient(135deg, #1f4037, #99f2c8);
+        /* Dark teal to light mint */
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeGrow {
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    .fade-in-delay-1 {
+        animation: fadeGrow 1s ease-out 0.5s forwards;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .single-card-wrapper {
+            padding: 2rem 1rem;
+        }
+
+        .info-card {
+            max-width: 90%;
+        }
+
+        .btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+<!-- ======== END: Web Development Card Section ======== -->
+
+
+
+
 {% endblock %}
