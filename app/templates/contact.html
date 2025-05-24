@@ -1,114 +1,149 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- {# ===================== START: Contact Us Page ===================== #} -->
 <style>
+    body {
+        background: radial-gradient(circle at top left, #0f172a, #111827);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+    }
+
     .contact-container {
-        max-width: 800px;
-        margin: 3rem auto;
-        padding: 2rem;
-        background: #f4f7fa;
-        border-radius: 12px;
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(40px);
+        animation: fadeInUp 1.2s ease-out forwards;
+        animation-delay: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 30px;
     }
 
-    .contact-container h2 {
-        color: #4e54c8;
-        text-align: center;
-        margin-bottom: 1rem;
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
-    .contact-container p {
-        text-align: center;
-        color: #666;
-        margin-bottom: 2rem;
-    }
-
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-
-    .form-group label {
-        font-weight: 600;
-        color: #333;
-    }
-
-    .form-group input,
-    .form-group textarea {
+    .contact-card {
+        background: linear-gradient(145deg, #1e293b, #0f172a);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(255, 255, 255, 0.02);
+        border-radius: 20px;
+        padding: 50px 40px;
+        max-width: 750px;
         width: 100%;
-        padding: 0.75rem;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 1rem;
-        margin-top: 0.5rem;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-        border-color: #4e54c8;
-        outline: none;
-    }
-
-    .submit-btn {
-        background: #4e54c8;
-        color: white;
-        padding: 0.75rem 2rem;
-        font-weight: 600;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-        display: block;
-        margin: 0 auto;
-        transition: background 0.3s;
-        box-shadow: 0 4px 12px rgba(78, 84, 200, 0.3);
-    }
-
-    .submit-btn:hover {
-        background: #6c70f3;
-    }
-
-    .thank-you-message {
-        display: none;
         text-align: center;
-        color: #2e7d32;
+        transform-style: preserve-3d;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .contact-card:hover {
+        transform: scale(1.02) rotateX(2deg) rotateY(2deg);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75), inset 0 0 50px rgba(255, 255, 255, 0.04);
+    }
+
+    .contact-title {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #facc15;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.15);
+    }
+
+    .contact-subtitle {
         font-size: 1.2rem;
-        margin-top: 2rem;
+        font-weight: 500;
+        color: #e2e8f0;
+        margin-bottom: 30px;
+    }
+
+    .contact-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #cbd5e1;
+        margin-bottom: 18px;
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.08);
+    }
+
+    .highlight {
+        color: #60a5fa;
+        font-weight: 600;
+        transition: transform 0.3s ease;
+    }
+
+    .highlight:hover {
+        transform: scale(1.1);
+        color: #3b82f6;
+    }
+
+    .cta {
+        margin-top: 30px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #38bdf8;
+        text-shadow: 0 0 4px rgba(56, 189, 248, 0.3);
+    }
+
+    .cta:hover {
+        color: #0ea5e9;
+        transform: scale(1.05);
+        cursor: pointer;
     }
 </style>
 
 <div class="contact-container">
-    <h2>📬 Contact Us</h2>
-    <p>We’d love to hear from you! Please fill out the form below and we'll get in touch.</p>
-
-    <form id="contact-form" method="POST">
-        <div class="form-group">
-            <label for="name">👤 Full Name:</label>
-            <input type="text" name="name" id="name" required placeholder="Your name">
+    <div class="contact-card">
+        <div class="contact-title">📞 Get in Touch</div>
+        <div class="contact-subtitle">
+            Let’s co-create the future of <span class="highlight">technology</span>, <span
+                class="highlight">education</span>, and <span class="highlight">media</span>.
+        </div>
+        <p class="contact-text">
+            At <span class="highlight">SkillStream</span>, we believe in the power of community, creativity, and
+            collaboration. Whether you're a passionate <span class="highlight">student</span>, an ambitious <span
+                class="highlight">entrepreneur</span>, a visionary <span class="highlight">educator</span>, or a
+            talented <span class="highlight">creator</span> — your ideas are welcome here.
+        </p>
+        <p class="contact-text">
+            We’re always open to <span class="highlight">partnerships</span>, <span
+                class="highlight">investments</span>, and <span class="highlight">creative alliances</span>. Let’s unite
+            our strengths to drive <span class="highlight">digital transformation</span> across the globe.
+        </p>
+        <p class="contact-text">
+            Join us in reimagining the way the world <span class="highlight">learns</span>, <span
+                class="highlight">plays</span>, <span class="highlight">teaches</span>, and <span
+                class="highlight">connects</span>.
+        </p>
+        <div class="cta" id="openChatbot" onclick="toggleForm()"
+            style="cursor:pointer; text-align: center; padding: 20px;">
+            🌐 Ready to connect? Let’s start something amazing together.
+            <br />
+            <button style="
+                      margin-top: 15px;
+                      padding: 10px 24px;
+                      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+                      color: #fff;
+                      font-size: 1rem;
+                      font-weight: bold;
+                      border: none;
+                      border-radius: 8px;
+                      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+                      cursor: pointer;
+                      transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                                  box-shadow 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+                    "
+                onmouseover="this.style.transform='scale(1.08)'; this.style.boxShadow='0 8px 20px rgba(37, 99, 235, 0.6)'"
+                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.4)'">
+                Click Here
+            </button>
         </div>
 
-        <div class="form-group">
-            <label for="email">📧 Email Address:</label>
-            <input type="email" name="email" id="email" required placeholder="you@example.com">
-        </div>
 
-        <div class="form-group">
-            <label for="message">💬 Message:</label>
-            <textarea name="message" id="message" rows="5" required placeholder="Type your message here..."></textarea>
-        </div>
-
-        <button type="submit" class="submit-btn">Send Message</button>
-    </form>
-
-    <div class="thank-you-message" id="thank-you">
-        🎉 Thank you for reaching out! We'll get back to you as soon as possible.
     </div>
-</div>
+    <!-- #=====================END: Contact Us Page=======================# -->
 
-<script>
-    // Handle form submission and show thank-you message
-    document.getElementById("contact-form").addEventListener("submit", function (e) {
-        e.preventDefault(); // prevent default submit
-        this.style.display = "none"; // hide the form
-        document.getElementById("thank-you").style.display = "block"; // show thank you message
-    });
-</script>
-{% endblock %}
+    {% endblock %}
