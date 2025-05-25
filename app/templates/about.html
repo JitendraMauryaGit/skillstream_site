@@ -1,197 +1,354 @@
 {% extends "base.html" %}
 
 {% block content %}
-<style>
-    /* Animations */
-    @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes fadeInHeader {
-        0% {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Header animation */
-    .animated-header {
-        animation: fadeInHeader 1s ease forwards;
-        animation-delay: 0.4s;
-        opacity: 0;
-    }
-
-    /* Common card styles with hover scale + glow */
-    .card {
-        flex: 1 1 260px;
-        padding: 1.5rem;
-        border-radius: 12px;
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: pointer;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        will-change: transform, box-shadow;
-    }
-
-    .card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
-        /* Yellow glow */
-    }
-
-    .ssvi {
-        background: #e3f2fd;
-        color: #1976d2;
-    }
-
-    .ssgs {
-        background: #f3e5f5;
-        color: #8e24aa;
-    }
-
-    .ssi {
-        background: #ede7f6;
-        color: #5e35b1;
-    }
-
-    .ssds {
-        background: #e8f5e9;
-        color: #388e3c;
-    }
-
-    .sswd {
-        background: #fff3e0;
-        color: #f57c00;
-        opacity: 0;
-        animation: fadeInUp 0.8s ease forwards;
-        animation-delay: 0.6s;
-    }
-
-    /* Button Style */
-    .card button {
-        background: #fdd835;
-        /* Yellow color */
-        color: #333;
-        padding: 0.6rem 1.4rem;
-        border: none;
-        border-radius: 30px;
-        font-weight: 600;
-        cursor: pointer;
-        font-size: 1rem;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 12px rgba(255, 235, 59, 0.8);
-    }
-
-    /* Contact button */
-    .contact-button {
-        background: #fdd835;
-        color: #333;
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-        border: none;
-        border-radius: 30px;
-        font-weight: bold;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .contact-button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 15px rgba(255, 235, 59, 0.8);
-    }
-</style>
-
-<section style="text-align:center; padding: 2rem 1rem;">
-    <h1 class="animated-header" style="font-size: 2.5rem; color: #4e54c8;">🌟 About SkillStream Group</h1>
-    <p style="font-size: 1.2rem; max-width: 800px; margin: 1rem auto; color: #555;">
-        SkillStream Group is a multi-vertical digital ecosystem focused on <strong>Technology, Education, Gaming,
-            Digital Innovation, and Journalism</strong>. We empower learners, creators, and thinkers by providing access
+<!-- -------------------- START Head Section -------------------- -->
+<section class="about-section fade-in-3d" onmousemove="rotateSection(event)" onmouseleave="resetSection(this)">
+    <h1 class="animated-header icon-link" title="Learn About SkillStream">🌟 About SkillStream Group</h1>
+    <p>
+        <strong>SkillStream Group</strong> is a multi-vertical digital ecosystem focused on
+        <strong>Technology, Education, Gaming, Digital Innovation, and Journalism</strong>. We empower learners,
+        creators, and thinkers by providing access
         to real-world projects, mentorship, and digital platforms.
     </p>
 </section>
 
-<section style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 2rem 1rem;">
-    <!-- Education -->
-    <div class="card ssvi">
-        <h2>🎓 SkillStream Virtual Institute (SSVI)</h2>
-        <p>Offering 3-year Diploma (10th pass), 2-year PG Diploma (any graduate), and live project-based internships.
-        </p>
-        <a href="{{ url_for('main.education') }}" style="text-decoration: none;">
-            <button>Explore Education</button>
-        </a>
-    </div>
+<style>
+    /* === Section Base Styling === */
+    .about-section {
+        text-align: center;
+        padding: 3rem 1rem;
+        max-width: 900px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, #e0eafc, #cfdef3);
+        border-radius: 20px;
+        transform: perspective(1000px) scale(0.95) translateY(30px);
+        opacity: 0;
+        transition: transform 0.6s ease, box-shadow 0.6s ease, border 0.4s ease;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        border: 1px solid transparent;
+        will-change: transform;
+    }
 
-    <!-- Gaming -->
-    <div class="card ssgs">
-        <h2>🎮 SkillStream Game Studios (SSGS)</h2>
-        <p>Building gaming IPs and offering internships for students to collaborate on real-world game development.</p>
-        <a href="{{ url_for('main.gaming') }}">
-            <button>Explore Gaming</button>
-        </a>
-    </div>
+    /* === Glow & Depth on Hover === */
+    .about-section:hover {
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2), 0 0 15px rgba(78, 84, 200, 0.2);
+        border: 1px solid rgba(78, 84, 200, 0.3);
+    }
 
-    <!-- Journalism -->
-    <div class="card ssi">
-        <h2>📰 SkillStream Insights (SSI)</h2>
-        <p>Fresh tech journalism driven by students and interns — covering startups, trends, and innovations globally.
-        </p>
-        <a href="{{ url_for('main.news') }}">
-            <button>Explore News</button>
-        </a>
-    </div>
+    /* === Header Styling with Emoji === */
+    .animated-header {
+        font-size: 2.5rem;
+        color: #4e54c8;
+        margin-bottom: 1rem;
+        transition: transform 0.4s ease, color 0.4s ease;
+        display: inline-block;
+        cursor: pointer;
+    }
 
-    <!-- Marketing -->
-    <div class="card ssds">
-        <h2>💡 SkillStream Digital Studio (SSDS)</h2>
-        <p>Equipping individuals & SMEs with marketing skills, strategies, and tools to grow their brand digitally.</p>
-        <a href="{{ url_for('main.marketing') }}">
-            <button>Explore Marketing</button>
-        </a>
-    </div>
+    /* Emoji hover interaction */
+    .icon-link:hover {
+        transform: scale(1.2);
+    }
 
-    <!-- Web Dev with delayed fade-in -->
-    <div class="card sswd">
-        <h2>🌐 SkillStream Web Division (SSWD)</h2>
-        <p>Delivering scalable websites & internal apps using modern web frameworks for clients and internal products.
-        </p>
-        <a href="{{ url_for('main.webdev') }}">
-            <button>Explore Web Dev</button>
-        </a>
-    </div>
-</section>
+    /* === Paragraph Styling === */
+    .about-section p {
+        font-size: 1.2rem;
+        color: #333;
+        line-height: 1.7;
+        margin: 0 auto;
+        max-width: 800px;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
 
-<section style="background: #fafafa; padding: 3rem 1rem; text-align: center;">
-    <h2 style="color: #4e54c8;">🚀 Our Mission</h2>
-    <p style="max-width: 700px; margin: 1rem auto; font-size: 1.1rem; color: #555;">
-        Our mission is to make real-world skills and opportunities accessible to everyone — from 10th pass students to
-        tech graduates — through a unified platform offering education, innovation, and career acceleration.
+    /* === Fade-Grow Entry Animation === */
+    @keyframes fadeInGrow {
+        to {
+            opacity: 1;
+            transform: perspective(1000px) scale(1) translateY(0);
+        }
+    }
+
+    .fade-in-3d {
+        animation: fadeInGrow 1s ease-out 0.5s forwards;
+    }
+
+    /* === Responsive Design === */
+    @media (max-width: 768px) {
+        .animated-header {
+            font-size: 2rem;
+        }
+
+        .about-section p {
+            font-size: 1rem;
+            padding: 0 1rem;
+        }
+    }
+</style>
+
+<script>
+    function rotateSection(e) {
+        const section = e.currentTarget;
+        const rect = section.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = -(y - centerY) / 25;
+        const rotateY = (x - centerX) / 25;
+
+        section.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+    }
+
+    function resetSection(section) {
+        section.style.transform = "perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg)";
+    }
+</script>
+
+<!-- -------------------- END Head Section ---------------------- -->
+<!-- -------------------- START Mission Section ---------------------- -->
+<section class="mission-section fade-in-3d-delayed" onmousemove="rotateSection(event)"
+    onmouseleave="resetSection(this)">
+    <h2 class="animated-title icon-link" title="Mission Section">🚀 Our Mission</h2>
+    <p>
+        Our mission is to make real-world skills and opportunities accessible to everyone —
+        from 10th pass students to tech graduates — through a unified platform offering
+        education, innovation, and career acceleration.
     </p>
 </section>
 
-<section style="padding: 2rem 1rem; text-align: center;">
-    <h2 style="color: #4e54c8;">🌐 Join Our Ecosystem</h2>
-    <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto 1rem;">
+<style>
+    /* === Base Styling for Mission Section === */
+    .mission-section {
+        background: #fafafa;
+        padding: 3rem 1rem;
+        text-align: center;
+        border-radius: 16px;
+        max-width: 850px;
+        margin: 2rem auto;
+        transform: perspective(1000px) scale(0.95) translateY(30px);
+        opacity: 0;
+        transition: transform 0.6s ease, box-shadow 0.6s ease, border 0.4s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid transparent;
+        will-change: transform;
+    }
+
+    /* === Hover Glow & Depth Effect === */
+    .mission-section:hover {
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12), 0 0 15px rgba(78, 84, 200, 0.15);
+        border: 1px solid rgba(78, 84, 200, 0.25);
+    }
+
+    /* === Title Style with Emoji Hover === */
+    .animated-title {
+        color: #4e54c8;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .icon-link:hover {
+        transform: scale(1.15);
+    }
+
+    /* === Paragraph Styling === */
+    .mission-section p {
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 1rem auto;
+        color: #555;
+        line-height: 1.6;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* === Fade-Grow Animation === */
+    @keyframes fadeGrowDelayed {
+        to {
+            opacity: 1;
+            transform: perspective(1000px) scale(1) translateY(0);
+        }
+    }
+
+    .fade-in-3d-delayed {
+        animation: fadeGrowDelayed 1s ease-out 1s forwards;
+        /* 1s delay */
+    }
+
+    /* === Responsive Styling === */
+    @media (max-width: 768px) {
+        .animated-title {
+            font-size: 1.6rem;
+        }
+
+        .mission-section p {
+            font-size: 1rem;
+            padding: 0 1rem;
+        }
+
+        .mission-section {
+            padding: 2rem 1rem;
+            margin: 1rem;
+        }
+    }
+</style>
+
+<script>
+    function rotateSection(e) {
+        const section = e.currentTarget;
+        const rect = section.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = -(y - centerY) / 25;
+        const rotateY = (x - centerX) / 25;
+
+        section.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    }
+
+    function resetSection(section) {
+        section.style.transform = "perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg)";
+    }
+</script>
+
+<!-- -------------------- END Mission Section ---------------------- -->
+<!-- -------------------- START Botton Section ---------------------- -->
+<section class="ecosystem-section fade-in-3d-delayed" onmousemove="rotateSection(event)"
+    onmouseleave="resetSection(this)">
+
+    <h2 class="ecosystem-heading icon-link" title="Explore Our Ecosystem">🌐 Join Our Ecosystem</h2>
+
+    <p>
         Whether you're a student, graduate, intern, or entrepreneur — SkillStream is your launchpad into real-world
         impact. Connect with our programs, contribute to our platforms, or partner with us!
     </p>
+
     <a href="{{ url_for('main.contact') }}">
         <button class="contact-button">Contact Us</button>
     </a>
+
 </section>
+
+<style>
+    /* === Ecosystem Section Styling === */
+    .ecosystem-section {
+        padding: 3rem 1.5rem;
+        text-align: center;
+        background: #fefefe;
+        border-radius: 16px;
+        max-width: 850px;
+        margin: 2rem auto;
+        transform: perspective(1000px) scale(0.95) translateY(40px);
+        opacity: 0;
+        transition: transform 0.6s ease, box-shadow 0.6s ease, border 0.4s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid transparent;
+        will-change: transform;
+    }
+
+    /* === Heading with Clickable Emoji Effect === */
+    .ecosystem-heading {
+        color: #4e54c8;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+    .icon-link:hover {
+        transform: scale(1.15) rotateZ(2deg);
+    }
+
+    /* === Paragraph Styling === */
+    .ecosystem-section p {
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto 1.5rem;
+        color: #444;
+        line-height: 1.6;
+        transition: transform 0.3s ease;
+    }
+
+    /* === Fade-Grow Entry Animation === */
+    @keyframes fadeGrowDelayed {
+        to {
+            opacity: 1;
+            transform: perspective(1000px) scale(1) translateY(0);
+        }
+    }
+
+    .fade-in-3d-delayed {
+        animation: fadeGrowDelayed 1s ease-out 1.2s forwards;
+        /* Delayed appearance */
+    }
+
+    /* === Glow & Border on Hover === */
+    .ecosystem-section:hover {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 0 20px rgba(78, 84, 200, 0.15);
+        border: 1px solid rgba(78, 84, 200, 0.25);
+    }
+
+    /* === Contact Button Styling === */
+    .contact-button {
+        padding: 0.7rem 1.5rem;
+        background: #4e54c8;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .contact-button:hover {
+        transform: scale(1.08);
+        background: #5d62d1;
+    }
+
+    /* === Mobile Responsive === */
+    @media (max-width: 768px) {
+        .ecosystem-section {
+            padding: 2rem 1rem;
+            margin: 1rem;
+        }
+
+        .ecosystem-heading {
+            font-size: 1.6rem;
+        }
+
+        .contact-button {
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .ecosystem-section p {
+            font-size: 1rem;
+            padding: 0 0.5rem;
+        }
+    }
+</style>
+
+<script>
+    function rotateSection(e) {
+        const section = e.currentTarget;
+        const rect = section.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = -(y - centerY) / 25;
+        const rotateY = (x - centerX) / 25;
+
+        section.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    }
+
+    function resetSection(section) {
+        section.style.transform = "perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg)";
+    }
+</script>
+
 {% endblock %}

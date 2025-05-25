@@ -1,204 +1,576 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- Header -->
-<section class="fade-in header-section">
-    <h1>🎓 SkillStream Virtual Institute</h1>
+<!-- Header Section -->
+<section class="section header-section fade-in delay-1">
+    <h1>🎓 SkillStream Virtual Institute (SSVI)</h1>
     <p>A modern education ecosystem offering diploma programs, internships, and live project-based training to launch
         your tech career.</p>
 </section>
 
+<!-- Why Choose Us -->
+<section class="section why-us-section fade-in delay-2">
+    <h2>🌟 Why Choose SkillStream?</h2>
+    <ul>
+        <li>🔧 Real-time project training on banking & cloud infra</li>
+        <li>🧠 Mentorship from industry experts (7–15 years exp.)</li>
+        <li>🌐 Hybrid learning: online, weekend & recorded</li>
+        <li>🚀 Placement assistance + resume & LinkedIn prep</li>
+        <li>🎓 After completing any diploma from SSVI, based on counselling and test, we offer internships and training
+            on our in-house live projects like gaming, development, news, digital marketing, etc.</li>
+        <li>🤝 We also have ongoing client-based live projects for practical exposure.</li>
+        <li>🏢 We hire only our institute students for these internships and projects, ensuring focused career growth.
+        </li>
+    </ul>
+</section>
+
+<style>
+    .why-us-section {
+        background-color: #121212;
+        /* Dark background for contrast */
+        padding: 2rem 1rem;
+        border-radius: 12px;
+        max-width: 800px;
+        margin: 2rem auto;
+        box-shadow:
+            0 2px 4px rgba(255, 255, 255, 0.12),
+            /* 2D subtle glow */
+            0 4px 8px rgba(255, 255, 255, 0.08),
+            /* 4D softer spread */
+            0 5px 20px rgba(255, 255, 255, 0.06);
+        /* 5D extended glow */
+    }
+
+    .why-us-section h2 {
+        color: #fff;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        text-shadow:
+            0 1px 3px rgba(255, 255, 255, 0.5),
+            0 2px 5px rgba(255, 255, 255, 0.3);
+    }
+
+    .why-us-section ul {
+        list-style: none;
+        padding-left: 0;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #eee;
+        /* white text, slightly softer */
+        transition: color 0.3s ease;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .why-us-section ul li {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+        position: relative;
+        cursor: default;
+        text-shadow:
+            0 0 5px rgba(255, 255, 255, 0.3),
+            0 0 10px rgba(255, 255, 255, 0.15);
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .why-us-section ul li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.5rem;
+        line-height: 1;
+        top: 0.2rem;
+        text-shadow:
+            0 0 5px rgba(255, 255, 255, 0.6),
+            0 0 10px rgba(255, 255, 255, 0.4);
+        transition: color 0.3s ease;
+    }
+
+    .why-us-section ul li:hover {
+        color: #fff;
+        text-shadow:
+            0 0 8px rgba(255, 255, 255, 0.8),
+            0 0 15px rgba(255, 255, 255, 0.6),
+            0 0 25px rgba(255, 255, 255, 0.5);
+    }
+
+    .why-us-section ul li:hover::before {
+        color: #fff;
+        text-shadow:
+            0 0 10px rgba(255, 255, 255, 1),
+            0 0 20px rgba(255, 255, 255, 0.8);
+    }
+</style>
+
+
+
 <!-- Program Highlights -->
-<section class="program-section fade-in">
-    <div class="card">
+<section class="section program-section fade-in delay-3">
+    <div class="card card-1">
         <h2>📘 3-Year Diploma</h2>
-        <p>Minimum Qualification: 10th Pass</p>
-        <p>Core skills in software, DevOps, and cloud computing with hands-on banking project experience.</p>
+        <p>For 10th Pass | Learn software, DevOps, and Cloud with core infra & automation tools.</p>
     </div>
-    <div class="card">
+    <div class="card card-2">
         <h2>📗 PG Diploma (2 Years)</h2>
-        <p>Open for Any Graduate</p>
-        <p>Advanced project training in application support, observability, automation, and platform engineering.</p>
+        <p>For Any Graduate | Specialize in observability, platform ops, SRE, and real client projects.</p>
     </div>
-    <div class="card">
+    <div class="card card-3">
         <h2>💼 Internship & Training</h2>
-        <p>6 Months – 1 Year</p>
-        <p>Client-based or in-house projects across tech verticals — tailored to real job roles.</p>
+        <p>6 Months – 1 Year | Skill-up with live support projects on AWS, CI/CD, and monitoring tools.</p>
     </div>
 </section>
 
-<!-- Toggle Buttons -->
-<section class="fade-in" style="text-align: center; margin: 3rem 1rem;">
-    <button onclick="toggleSection('enquiryBox')" class="toggle-btn">📋 Submit Your Interest</button>
-    <button onclick="toggleSection('verifyBox')" class="toggle-btn">🔍 Verify Certificate</button>
+<!-- Career Tracks -->
+<section class="section tracks-section fade-in delay-4">
+    <h2>🧭 Career Tracks</h2>
+    <div class="track-grid">
+        <a href="javascript:void(0)" class="track track-1" onclick="openChatbot()">Application Support Engineer</a>
+        <a href="javascript:void(0)" class="track track-2" onclick="openChatbot()">Data Analyst</a>
+        <a href="javascript:void(0)" class="track track-3" onclick="openChatbot()">DevOps Engineer</a>
+        <a href="javascript:void(0)" class="track track-4" onclick="openChatbot()">Cloud Support Specialist</a>
+        <a href="javascript:void(0)" class="track track-1" onclick="openChatbot()">Site Reliability Engineer</a>
+        <a href="javascript:void(0)" class="track track-2" onclick="openChatbot()">Monitoring Analyst</a>
+        <a href="javascript:void(0)" class="track track-3" onclick="openChatbot()">Systems Support Engineer</a>
+        <a href="javascript:void(0)" class="track track-4" onclick="openChatbot()">Infrastructure Engineer</a>
+        <a href="javascript:void(0)" class="track track-1" onclick="openChatbot()">Technical Operations Engineer</a>
+    </div>
 </section>
 
-<!-- Enquiry Form Section -->
-<div id="enquiryBox" class="collapsible-box">
-    <form action="/submit_enquiry" method="post" class="form-box">
-        <h3>Submit Your Interest</h3>
-        <p>Our counselor will contact you based on the program you choose.</p>
-        <input name="name" type="text" placeholder="Your Full Name" required>
-        <input name="email" type="email" placeholder="Your Email Address" required>
-        <input name="phone" type="text" placeholder="Phone Number" required>
-        <select name="program" required>
-            <option value="">Select Program</option>
-            <option>3-Year Diploma</option>
-            <option>2-Year PG Diploma</option>
-            <option>Internship / Training</option>
-        </select>
-        <button type="submit" class="submit-btn">Submit Now</button>
-    </form>
-</div>
+<style>
+    .track-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
 
-<!-- Verify Certificate Section -->
-<div id="verifyBox" class="collapsible-box">
-    <form action="/verify_certificate" method="post" class="form-box">
-        <h3>Verify Your Certificate</h3>
-        <p>Enter your details to verify your certification issued by SkillStream Institute.</p>
-        <input name="roll_no" type="text" placeholder="Roll Number" required>
-        <input name="dob" type="date" placeholder="Date of Birth" required>
-        <button type="submit" class="submit-btn">Verify</button>
-        <p style="text-align: center; margin-top: 1rem;">Need a correction? Please use the enquiry form above to report
-            issues.</p>
-    </form>
-</div>
+    .track {
+        display: inline-block;
+        background: #4e54c8;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        user-select: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(78, 84, 200, 0.4);
+    }
+
+    .track:hover,
+    .track:focus {
+        transform: scale(1.1);
+        box-shadow: 0 8px 16px rgba(78, 84, 200, 0.7);
+        outline: none;
+    }
+</style>
+
+<script>
+    function openChatbot() {
+        const chatbot = document.getElementById('chatbot');
+        const form = document.getElementById('chatForm');
+        if (!chatbot.classList.contains('visible')) {
+            chatbot.classList.add('visible');
+        }
+        form.style.display = 'flex';
+        const welcomeMsg = document.getElementById('welcomeMessage');
+        welcomeMsg.style.display = 'none';
+        welcomeMsg.classList.remove('fade-out');
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+</script>
+
+
+<!-- Alumni Testimonials -->
+<section class="section testimonials-section fade-in delay-6">
+    <h2>🎤 Alumni Speak</h2>
+    <p>"SkillStream helped me switch from support to DevOps in 6 months — with real banking projects!" – Anjali R.</p>
+    <p>"Their project-based learning is no joke — I cracked 3 interviews within 2 months!" – Rakesh M.</p>
+</section>
 
 <!-- Styles -->
 <style>
+    /* General Styling */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+    }
+
+    /* Section base */
+    .section {
+        padding: 3rem 1.5rem;
+        border-radius: 20px;
+        margin: 1.5rem auto;
+        max-width: 1000px;
+        box-sizing: border-box;
+        transition: background-color 0.6s ease, color 0.6s ease;
+    }
+
+    /* Fade In Animation with Delay */
     .fade-in {
-        animation: fadeInUp 1.4s ease-in-out both;
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+        animation-fill-mode: forwards;
+        animation-name: fadeInUp;
+        animation-duration: 1s;
+        animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+    }
+
+    /* Delay classes for sequential fade-ins */
+    .delay-1 {
+        animation-delay: 0.3s;
+    }
+
+    .delay-2 {
+        animation-delay: 0.8s;
+    }
+
+    .delay-3 {
+        animation-delay: 1.3s;
+    }
+
+    .delay-4 {
+        animation-delay: 1.8s;
+    }
+
+    .delay-5 {
+        animation-delay: 2.3s;
+    }
+
+    .delay-6 {
+        animation-delay: 2.8s;
     }
 
     @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-        }
-
-        100% {
+        to {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
     }
 
+    /* Header Section */
     .header-section {
+        background: #1a237e;
+        /* deep navy blue */
+        color: #f0f0f0;
+        /* bright off-white */
         text-align: center;
-        padding: 3rem 1rem;
-        background: linear-gradient(135deg, #4e54c8, #8f94fb);
-        color: white;
-        border-radius: 0 0 30px 30px;
+        box-shadow: 0 8px 30px rgb(26 35 126 / 0.6);
     }
 
     .header-section h1 {
         font-size: 2.8rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
     }
 
     .header-section p {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+        font-weight: 500;
         max-width: 700px;
         margin: 0 auto;
     }
 
+    /* Why Choose Us Section */
+    .why-us-section {
+        background: #004d40;
+        /* dark teal */
+        color: #b2dfdb;
+        /* light teal */
+        box-shadow: 0 8px 20px rgb(0 77 64 / 0.5);
+    }
+
+    .why-us-section h2 {
+        font-size: 2.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .why-us-section ul {
+        list-style-type: none;
+        padding-left: 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .why-us-section li {
+        margin: 0.8rem 0;
+    }
+
+    /* Program Section */
     .program-section {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         gap: 2rem;
-        padding: 3rem 1rem;
-        background: #f5f7ff;
     }
 
     .card {
-        background: linear-gradient(135deg, #ffffff, #f3f4ff);
+        flex: 1 1 280px;
+        border-radius: 20px;
         padding: 2rem;
-        border-radius: 16px;
-        flex: 1 1 300px;
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 10px 20px rgb(0 0 0 / 0.15);
+        cursor: pointer;
+        transition:
+            transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 600;
+        color: #fff;
+        text-align: center;
     }
 
+    /* Different backgrounds for each card for contrast */
+    .card-1 {
+        background-color: #4a148c;
+        /* purple */
+    }
+
+    .card-2 {
+        background-color: #006064;
+        /* cyan/dark */
+    }
+
+    .card-3 {
+        background-color: #bf360c;
+        /* deep orange/red */
+    }
+
+    /* Growing hover effect */
     .card:hover {
-        transform: scale(1.03);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        transform: scale(1.08) perspective(600px) rotateX(4deg);
+        box-shadow: 0 18px 30px rgb(0 0 0 / 0.25);
+    }
+
+    /* Program card titles */
+    .card h2 {
+        margin-bottom: 0.7rem;
+        font-size: 1.6rem;
+    }
+
+    /* Program card paragraphs */
+    .card p {
+        font-size: 1.1rem;
+        line-height: 1.4;
+    }
+
+    /* Career Tracks Section */
+    .tracks-section {
+        background: #311b92;
+        /* indigo */
+        color: #d1c4e9;
+        /* light lavender */
+        text-align: center;
+        box-shadow: 0 8px 30px rgb(49 27 146 / 0.7);
+    }
+
+    .tracks-section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 1.3rem;
+        font-weight: 700;
+    }
+
+    .track-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .track {
+        background-color: #512da8;
+        /* deeper purple */
+        color: #e8eaf6;
+        /* light lavender */
+        padding: 1rem 1.6rem;
+        border-radius: 15px;
+        font-weight: 700;
+        font-size: 1.15rem;
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        flex: 1 1 180px;
+    }
+
+    /* Different track backgrounds for subtle contrast */
+    .track-1 {
+        background-color: #673ab7;
+    }
+
+    .track-2 {
+        background-color: #7e57c2;
+    }
+
+    .track-3 {
+        background-color: #9575cd;
+    }
+
+    .track-4 {
+        background-color: #b39ddb;
+    }
+
+    .track:hover {
+        transform: scale(1.1);
+        background-color: #d1c4e9;
+        color: #311b92;
+        font-weight: 800;
+        box-shadow: 0 8px 25px rgb(0 0 0 / 0.25);
+    }
+
+    /* Toggle Buttons Section */
+    .toggle-section {
+        text-align: center;
+        background: #0d47a1;
+        /* strong blue */
+        color: #bbdefb;
+        /* light blue */
+        box-shadow: 0 8px 30px rgb(13 71 161 / 0.6);
+        border-radius: 30px;
+        padding: 2rem 1rem;
     }
 
     .toggle-btn {
-        background: linear-gradient(to right, #4e54c8, #8f94fb);
-        color: white;
-        padding: 0.8rem 1.8rem;
-        margin: 1rem;
+        background: linear-gradient(90deg, #42a5f5, #1e88e5);
+        color: #fff;
         border: none;
-        border-radius: 25px;
-        font-size: 1rem;
+        padding: 0.9rem 2.5rem;
+        margin: 0 1rem;
+        border-radius: 35px;
+        font-size: 1.15rem;
         cursor: pointer;
-        box-shadow: 0 4px 12px rgba(78, 84, 200, 0.4);
-        transition: transform 0.2s ease, background 0.3s ease;
+        font-weight: 700;
+        box-shadow: 0 4px 12px rgb(66 165 245 / 0.6);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .toggle-btn:hover {
-        transform: scale(1.05);
-        background: linear-gradient(to right, #3e42a8, #6e73f7);
+        transform: scale(1.08);
+        box-shadow: 0 8px 25px rgb(30 136 229 / 0.8);
+    }
+
+    /* Collapsible Boxes */
+    .collapsible-box {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.6s ease, opacity 0.6s ease;
+        margin: 0 auto 0;
+        max-width: 600px;
+        background: #e3f2fd;
+        padding: 0 2rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+    }
+
+    .collapsible-box.active {
+        max-height: 1200px;
+        opacity: 1;
+        padding: 2rem;
+        margin-bottom: 3rem;
     }
 
     .form-box {
-        max-width: 600px;
-        margin: 0 auto;
-        background: #fff;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        animation: fadeInUp 1s ease forwards;
+        display: flex;
+        flex-direction: column;
     }
 
     input,
     select {
-        width: 100%;
-        margin: 0.6rem 0;
-        padding: 0.7rem;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 1rem;
+        padding: 0.9rem 1rem;
+        margin: 0.8rem 0;
+        border-radius: 10px;
+        border: 1.5px solid #90caf9;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: border-color 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+        border-color: #1e88e5;
+        outline: none;
+        box-shadow: 0 0 6px #1e88e5aa;
     }
 
     .submit-btn {
-        background: #4e54c8;
-        color: white;
-        padding: 0.8rem 1.6rem;
+        margin-top: 1.2rem;
+        background-color: #1976d2;
         border: none;
-        border-radius: 30px;
-        font-weight: bold;
-        width: 100%;
-        margin-top: 1rem;
-        transition: background 0.3s;
+        color: white;
+        padding: 1rem;
+        font-size: 1.2rem;
+        border-radius: 35px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: background-color 0.3s ease;
     }
 
     .submit-btn:hover {
-        background-color: #3b3f9d;
+        background-color: #115293;
     }
 
-    .collapsible-box {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.6s ease, opacity 0.6s ease;
-        opacity: 0;
+    /* Alumni Testimonials */
+    .testimonials-section {
+        background: #311b0b;
+        /* dark brown */
+        color: #fbe9e7;
+        /* pale cream */
+        text-align: center;
+        box-shadow: 0 10px 30px rgb(49 27 11 / 0.7);
     }
 
-    .collapsible-box.active {
-        max-height: 1000px;
-        opacity: 1;
-        margin-bottom: 2rem;
+    .testimonials-section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
     }
 
-    @media (max-width: 768px) {
-        .card {
-            flex: 1 1 90%;
+    .testimonials-section p {
+        max-width: 700px;
+        margin: 1rem auto;
+        font-style: italic;
+        font-weight: 600;
+        font-size: 1.15rem;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 900px) {
+        .program-section {
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .track-grid {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .track {
+            flex: 1 1 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .header-section h1 {
+            font-size: 2rem;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+        }
+
+        .toggle-btn {
+            font-size: 1rem;
+            padding: 0.75rem 1.8rem;
+            margin: 0.5rem 0.5rem;
         }
     }
 </style>
 
-<!-- Script -->
+<!-- Scripts -->
 <script>
     function toggleSection(id) {
         const sections = document.querySelectorAll('.collapsible-box');
@@ -209,7 +581,7 @@
                 section.classList.remove('active');
             }
         });
-        // Scroll to the opened section
+
         setTimeout(() => {
             const opened = document.getElementById(id);
             if (opened.classList.contains('active')) {
@@ -217,13 +589,6 @@
             }
         }, 400);
     }
-
-    // Optional: Add animation trigger on load
-    document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.classList.add("visible");
-        });
-    });
 </script>
 
 {% endblock %}

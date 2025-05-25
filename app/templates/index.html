@@ -3,63 +3,168 @@
 <!-- ======== START: Intro Section ======== -->
 <section class="intro-section fade-in-delayed">
     <h1>
-        Welcome to <span>SkillStream Group</span> 🎓🎮📰
+        Welcome to <span>SkillStream Group</span>
     </h1>
     <p>
-        Empowering Technology, Education & Innovation — a multi-vertical digital ecosystem shaping the future of tech
-        learning, gaming, and news.
+        Empowering Technology, Education, Gaming, News, Digital Marketing, and Development —
+        a multi-vertical digital ecosystem shaping the future of tech learning, innovation, and creativity.
     </p>
+    <div class="symbols-label">Our Focus Areas</div>
+    <div class="symbols-row" role="list">
+        <a href="/education" class="symbol-link" aria-label="Education section" role="listitem"
+            title="Education 🎓">🎓</a>
+        <a href="/gaming" class="symbol-link" aria-label="Gaming section" role="listitem" title="Gaming 🎮">🎮</a>
+        <a href="/news" class="symbol-link" aria-label="News section" role="listitem" title="News 📰">📰</a>
+        <a href="/marketing" class="symbol-link" aria-label="Digital Marketing section" role="listitem"
+            title="Digital Marketing 📈">📈</a>
+        <a href="/webdev" class="symbol-link" aria-label="Development section" role="listitem"
+            title="Development ⚙️">⚙️</a>
+    </div>
 </section>
-
 <style>
-    /* Main container */
+    /* === 3D / 4D / 5D Enhanced Intro Section === */
     .intro-section {
         text-align: center;
         margin: 4rem auto 3rem;
         max-width: 800px;
-        padding: 2rem;
-        border-radius: 20px;
-        background-color: #f9f9ff;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-        transition: transform 0.4s ease, background-color 0.4s ease;
+        padding: 3rem 2.5rem;
+        border-radius: 24px;
+        background: linear-gradient(135deg, #f9f9ff, #dbe0ff);
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.08),
+            inset 0 0 40px rgba(143, 148, 251, 0.15);
+        transition:
+            transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1),
+            background 0.6s cubic-bezier(0.25, 0.8, 0.25, 1),
+            box-shadow 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transform-style: preserve-3d;
+        perspective: 1200px;
+        cursor: default;
     }
 
-    /* Hover on the whole section */
     .intro-section:hover {
-        transform: scale(1.03);
-        background-color: #f1f2ff;
+        transform: scale(1.05) rotateX(3deg) rotateY(3deg);
+        background: linear-gradient(135deg, #e6e8ff, #bfc6ff);
+        box-shadow:
+            0 12px 40px rgba(0, 0, 0, 0.12),
+            inset 0 0 60px rgba(143, 148, 251, 0.3);
     }
 
-    /* Heading */
+    /* Heading with 3D layered effect */
     .intro-section h1 {
-        font-size: 2.8rem;
+        font-size: 3rem;
         color: #4e54c8;
         margin-bottom: 0.5rem;
         cursor: pointer;
-        transition: color 0.3s ease, transform 0.3s ease;
+        transition: color 0.4s ease, transform 0.4s ease;
+        transform-style: preserve-3d;
+        text-shadow:
+            1px 1px 2px rgba(78, 84, 200, 0.5),
+            2px 2px 5px rgba(143, 148, 251, 0.7);
     }
 
-    /* Span in heading */
+    /* Span inside heading with smooth color shift */
     .intro-section h1 span {
         color: #8f94fb;
-        transition: color 0.3s ease;
+        transition: color 0.4s ease;
+        text-shadow:
+            0 0 5px #8f94fb,
+            0 0 15px #a1a7ff;
     }
 
-    /* Hover on h1 */
+    /* Hover effect on heading */
     .intro-section h1:hover {
         color: #6f75f9;
-        transform: scale(1.05);
+        transform: scale(1.07) translateZ(15px);
+        text-shadow:
+            2px 2px 8px rgba(111, 117, 249, 0.9),
+            4px 4px 18px rgba(161, 167, 255, 0.9);
     }
 
     .intro-section h1:hover span {
         color: #a1a7ff;
+        text-shadow:
+            0 0 10px #a1a7ff,
+            0 0 25px #c0c7ff;
     }
 
-    /* Paragraph */
+    /* Paragraph styling with smooth color transition and subtle depth */
     .intro-section p {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
         color: #555;
-        margin-top: 0.5rem;
+        margin-top: 1rem;
+        transition: color 0.5s ease;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        transform-style: preserve-3d;
+    }
+
+    .intro-section:hover p {
+        color: #444;
+        transform: translateZ(8px);
+    }
+
+    /* Label for the symbols */
+    .symbols-label {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #555;
+        margin-top: 2.5rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        user-select: none;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Symbols row */
+    .symbols-row {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        transform-style: preserve-3d;
+    }
+
+    /* Symbol link styles */
+    .symbol-link {
+        font-size: 3rem;
+        color: #6f75f9;
+        text-shadow:
+            1px 1px 5px rgba(111, 117, 249, 0.8),
+            0 0 20px rgba(161, 167, 255, 0.7);
+        transition:
+            color 0.4s ease,
+            transform 0.4s ease,
+            text-shadow 0.4s ease,
+            filter 0.4s ease;
+        cursor: pointer;
+        display: inline-block;
+        user-select: none;
+        border-radius: 12px;
+        padding: 0.2rem 0.4rem;
+        will-change: transform;
+        /* For smooth 3D effect */
+        transform-style: preserve-3d;
+    }
+
+    /* Hover and focus effects on each symbol */
+    .symbol-link:hover,
+    .symbol-link:focus {
+        color: #4e54c8;
+        text-shadow:
+            2px 2px 10px rgba(78, 84, 200, 1),
+            0 0 35px rgba(143, 148, 251, 0.95);
+        transform: scale(1.2) translateZ(20px) rotateY(10deg);
+        filter: drop-shadow(0 0 6px rgba(78, 84, 200, 0.7));
+        outline: none;
+        background: rgba(111, 117, 249, 0.1);
+        box-shadow: 0 0 15px rgba(143, 148, 251, 0.3);
+        transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    /* Active click effect */
+    .symbol-link:active {
+        transform: scale(1.1) translateZ(10px) rotateY(5deg);
+        filter: drop-shadow(0 0 3px rgba(78, 84, 200, 0.5));
     }
 
     /* Fade-in with grow effect */
@@ -75,6 +180,64 @@
             transform: scale(1) translateY(0);
         }
     }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .intro-section {
+            padding: 2rem 1.5rem;
+            margin: 3rem 1rem 2rem;
+        }
+
+        .intro-section h1 {
+            font-size: 2.4rem;
+        }
+
+        .intro-section p {
+            font-size: 1.1rem;
+        }
+
+        .symbols-label {
+            font-size: 1rem;
+            margin-top: 2rem;
+        }
+
+        .symbols-row {
+            gap: 1.5rem;
+        }
+
+        .symbol-link {
+            font-size: 2.4rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .intro-section {
+            padding: 1.5rem 1rem;
+            margin: 2rem 0.5rem 1.5rem;
+            border-radius: 16px;
+        }
+
+        .intro-section h1 {
+            font-size: 2rem;
+        }
+
+        .intro-section p {
+            font-size: 1rem;
+        }
+
+        .symbols-label {
+            font-size: 0.9rem;
+            margin-top: 1.8rem;
+        }
+
+        .symbols-row {
+            gap: 1rem;
+        }
+
+        .symbol-link {
+            font-size: 2rem;
+        }
+    }
 </style>
 <!-- ======== END: Intro Section ======== -->
 
@@ -84,7 +247,9 @@
     <!-- Card 1: Education -->
     <div class="info-card bg-1 fade-in-delay-1">
         <div class="card-content">
-            <h2>🎓 Education</h2>
+            <a href="{{ url_for('main.education') }}" class="icon-link">
+                <h2>🎓 Education</h2>
+            </a>
             <p>
                 SkillStream Virtual Institute (SSVI) offers job-ready diplomas and live internships for students &
                 early-career techies.
@@ -96,7 +261,9 @@
     <!-- Card 2: Gaming -->
     <div class="info-card bg-2 fade-in-delay-2">
         <div class="card-content">
-            <h2>🎮 Gaming</h2>
+            <a href="{{ url_for('main.gaming') }}" class="icon-link">
+                <h2>🎮 Gaming</h2>
+            </a>
             <p>
                 SkillStream Game Studios (SSGS) builds exciting game IPs and offers intern collaboration to bridge skill
                 pipelines.
@@ -106,7 +273,6 @@
     </div>
 
 </div>
-
 <style>
     /* === Layout: Centered Flexbox Row === */
     .card-wrapper {
@@ -116,6 +282,7 @@
         gap: 2rem;
         padding: 3rem 1rem;
         flex-wrap: wrap;
+        perspective: 1200px;
     }
 
     /* === Base Card Style === */
@@ -123,69 +290,81 @@
         width: 100%;
         max-width: 400px;
         padding: 2rem;
-        border-radius: 16px;
+        border-radius: 20px;
         color: #fff;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         background-size: cover;
-        transform: scale(0.95) translateY(20px);
+        transform: scale(0.95) translateY(20px) rotateX(10deg);
         opacity: 0;
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        transition: all 0.5s ease-in-out;
         overflow: hidden;
+        transform-style: preserve-3d;
+        border: 2px solid transparent;
     }
 
-    /* === Animate On Hover (Card + Content) === */
+    /* === Animate On Hover === */
     .info-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05) rotateX(0deg) rotateY(3deg);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        border-color: rgba(255, 255, 255, 0.2);
     }
 
     .info-card:hover .card-content h2,
     .info-card:hover .card-content p {
         transform: scale(1.03);
-        color: #fff;
-        transition: transform 0.3s ease, color 0.3s ease;
+        transition: transform 0.4s ease, color 0.4s ease;
     }
 
-    /* === Separate Button Hover Effect === */
+    /* === Link for Icon === */
+    .icon-link {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .icon-link:hover {
+        color: #ffeb3b;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    /* === Button === */
     .btn {
-        align-self: start;
+        align-self: flex-start;
         padding: 0.6rem 1.2rem;
-        background-color: #ffffff;
+        background-color: #fff;
         color: #333;
         font-weight: bold;
         text-decoration: none;
-        border-radius: 8px;
-        transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-        /* Make sure button transform origin is center */
+        border-radius: 10px;
+        transition: all 0.3s ease;
         transform-origin: center center;
     }
 
-    /* Grow + color change ONLY on button hover */
     .btn:hover {
         transform: scale(1.1);
         background-color: #333;
         color: #fff;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
     }
 
-    /* === Card Content Styling === */
+    /* === Card Content === */
     .card-content {
         display: flex;
         flex-direction: column;
         gap: 1rem;
         transition: transform 0.3s ease;
+        will-change: transform;
     }
 
-    /* === Headings === */
     .card-content h2 {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         margin: 0;
         transition: transform 0.3s ease, color 0.3s ease;
     }
 
-    /* === Paragraphs === */
     .card-content p {
         font-size: 1rem;
-        line-height: 1.5;
+        line-height: 1.6;
         margin: 0;
         transition: transform 0.3s ease, color 0.3s ease;
     }
@@ -199,11 +378,11 @@
         background: linear-gradient(135deg, #ff6a00, #ee0979);
     }
 
-    /* === Fade-in Animation === */
+    /* === Fade-in Entrance Animation === */
     @keyframes fadeGrow {
         to {
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: scale(1) translateY(0) rotateX(0deg);
         }
     }
 
@@ -215,7 +394,7 @@
         animation: fadeGrow 1s ease-out 1.3s forwards;
     }
 
-    /* === Responsive for Small Screens === */
+    /* === Responsive Design === */
     @media (max-width: 768px) {
         .card-wrapper {
             flex-direction: column;
@@ -233,17 +412,18 @@
     }
 </style>
 <!-- ======== END: Education & Gaming Cards Section ======== -->
+
 <!-- ======== START: News & Marketing Cards Section ======== -->
 <div class="card-wrapper">
-
     <!-- Card 1: News -->
     <div class="info-card bg-3 fade-in-delay-1">
         <div class="card-content">
-            <h2>📰 Tech Journalism</h2>
+            <h2>
+                <a href="{{ url_for('main.news') }}" class="icon-link">📰</a> Tech Journalism
+            </h2>
             <p>
                 SkillStream Insights (SSI) delivers global tech & innovation news, driven by student publishing and
-                fresh
-                perspectives.
+                fresh perspectives.
             </p>
             <a href="{{ url_for('main.news') }}" class="btn">Explore News</a>
         </div>
@@ -252,7 +432,9 @@
     <!-- Card 2: Marketing -->
     <div class="info-card bg-4 fade-in-delay-2">
         <div class="card-content">
-            <h2>📣 Digital Marketing</h2>
+            <h2>
+                <a href="{{ url_for('main.marketing') }}" class="icon-link">📣</a> Digital Marketing
+            </h2>
             <p>
                 SkillStream Digital Studio (SSDS) offers training and smart digital services tailored to SMEs and
                 startups.
@@ -260,11 +442,9 @@
             <a href="{{ url_for('main.marketing') }}" class="btn">Explore Marketing</a>
         </div>
     </div>
-
 </div>
-
 <style>
-    /* === Layout: Centered Flexbox Row === */
+    /* === Layout === */
     .card-wrapper {
         display: flex;
         justify-content: center;
@@ -274,67 +454,70 @@
         flex-wrap: wrap;
     }
 
-    /* === Base Card Style === */
+    /* === Card Core === */
     .info-card {
         width: 100%;
         max-width: 400px;
         padding: 2rem;
         border-radius: 16px;
         color: #fff;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         background-size: cover;
-        transform: scale(0.95) translateY(20px);
+        background-position: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(0.95) translateY(20px);
         opacity: 0;
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        transition: transform 0.6s ease, box-shadow 0.6s ease;
         overflow: hidden;
+        backdrop-filter: blur(2px);
+        border: 2px solid transparent;
     }
 
-    /* === Animate On Hover (Card + Content) === */
+    /* === 3D Hover Effects === */
     .info-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1.05) translateY(0);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.2);
     }
 
-    .info-card:hover .card-content h2,
-    .info-card:hover .card-content p {
-        transform: scale(1.03);
-        color: #fff;
-        transition: transform 0.3s ease, color 0.3s ease;
+    /* === Glow Effect on Hover === */
+    .info-card:hover::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent);
+        z-index: 0;
+        pointer-events: none;
     }
 
-    /* === Separate Button Hover Effect === */
-    .btn {
-        align-self: start;
-        padding: 0.6rem 1.2rem;
-        background-color: #ffffff;
-        color: #333;
-        font-weight: bold;
-        text-decoration: none;
-        border-radius: 8px;
-        transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-        transform-origin: center center;
-    }
-
-    /* Grow + color change ONLY on button hover */
-    .btn:hover {
-        transform: scale(1.1);
-        background-color: #333;
-        color: #fff;
-    }
-
-    /* === Card Content Styling === */
+    /* === Card Content === */
     .card-content {
+        position: relative;
+        z-index: 1;
         display: flex;
         flex-direction: column;
         gap: 1rem;
         transition: transform 0.3s ease;
     }
 
-    /* === Headings === */
+    /* === Heading with Icon Link === */
     .card-content h2 {
         font-size: 1.6rem;
         margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
         transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* === Icon Links === */
+    .icon-link {
+        font-size: 1.6rem;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+    }
+
+    .icon-link:hover {
+        transform: scale(1.3) rotate(10deg);
     }
 
     /* === Paragraphs === */
@@ -345,22 +528,46 @@
         transition: transform 0.3s ease, color 0.3s ease;
     }
 
-    /* === Background Gradients === */
+    /* === CTA Button === */
+    .btn {
+        align-self: start;
+        padding: 0.6rem 1.2rem;
+        background-color: #fff;
+        color: #333;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        transform-origin: center;
+    }
+
+    .btn:hover {
+        transform: scale(1.1);
+        background-color: #333;
+        color: #fff;
+    }
+
+    /* === Background Themes === */
     .bg-3 {
         background: linear-gradient(135deg, #00b09b, #96c93d);
-        /* Teal-green */
+        /* Green-teal */
     }
 
     .bg-4 {
         background: linear-gradient(135deg, #f7971e, #ffd200);
-        /* Yellow-orange */
+        /* Orange-yellow */
     }
 
-    /* === Fade-in Animation === */
+    /* === 5D Fade-Grow Entry Animation === */
     @keyframes fadeGrow {
-        to {
+        0% {
+            opacity: 0;
+            transform: perspective(1000px) rotateX(10deg) rotateY(-10deg) scale(0.9) translateY(30px);
+        }
+
+        100% {
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1) translateY(0);
         }
     }
 
@@ -369,10 +576,10 @@
     }
 
     .fade-in-delay-2 {
-        animation: fadeGrow 1s ease-out 1.3s forwards;
+        animation: fadeGrow 1s ease-out 1.2s forwards;
     }
 
-    /* === Responsive for Small Screens === */
+    /* === Mobile Responsive === */
     @media (max-width: 768px) {
         .card-wrapper {
             flex-direction: column;
@@ -387,17 +594,23 @@
             width: 100%;
             text-align: center;
         }
+
+        .card-content h2 {
+            font-size: 1.4rem;
+        }
     }
 </style>
 <!-- ======== END: News & Marketing Cards Section ======== -->
 
 <!-- ======== START: Web Development Card Section ======== -->
 <div class="single-card-wrapper">
-
     <!-- Web Development Card -->
-    <div class="info-card bg-5 fade-in-delay-1">
+    <div class="info-card bg-5 fade-in-delay-1" onmousemove="rotateCard(event)" onmouseleave="resetCard(this)">
         <div class="card-content">
-            <h2>💻 Web Development</h2>
+            <h2>
+                <a href="{{ url_for('main.webdev') }}" class="icon-link" title="Explore Web Dev">💻</a>
+                Web Development
+            </h2>
             <p>
                 SkillStream Web Division (SSWD) builds scalable client websites and internal portals using modern web
                 technologies.
@@ -405,48 +618,68 @@
             <a href="{{ url_for('main.webdev') }}" class="btn">Explore Web Dev</a>
         </div>
     </div>
-
 </div>
-
 <style>
-    /* === Layout: Center single card === */
+    /* === Layout: Center Single Card === */
     .single-card-wrapper {
         display: flex;
         justify-content: center;
         padding: 3rem 1rem;
     }
 
-    /* === Reuse .info-card styles from previous sections but can redefine or extend if needed === */
+    /* === Card Base Style with Transitions and Glow === */
     .info-card {
         width: 100%;
         max-width: 450px;
         padding: 2rem;
-        border-radius: 16px;
+        border-radius: 20px;
         color: #fff;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         background-size: cover;
-        transform: scale(0.95) translateY(20px);
+        background-position: center;
+        transform: perspective(1000px) scale(0.95) translateY(20px);
         opacity: 0;
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        border: 1px solid transparent;
+        transition: transform 0.5s ease, box-shadow 0.5s ease, border 0.4s ease;
         overflow: hidden;
+        will-change: transform;
     }
 
-    /* Hover effect for card and content */
+    /* === Hover Glow & Depth Effect === */
     .info-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 16px 45px rgba(0, 255, 255, 0.25), 0 0 12px rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .info-card:hover .card-content h2,
-    .info-card:hover .card-content p {
-        transform: scale(1.03);
-        color: #fff;
+    /* === Card Content === */
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transition: transform 0.4s ease;
+    }
+
+    /* Headings and Emoji Icon */
+    .card-content h2 {
+        font-size: 1.8rem;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
         transition: transform 0.3s ease, color 0.3s ease;
     }
 
-    /* Button styles */
+    /* Paragraph */
+    .card-content p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 0;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    /* Button */
     .btn {
-        align-self: start;
+        align-self: flex-start;
         padding: 0.6rem 1.2rem;
         background-color: #ffffff;
         color: #333;
@@ -457,47 +690,33 @@
         transform-origin: center center;
     }
 
-    /* Button hover effect (separate grow + color change) */
     .btn:hover {
         transform: scale(1.1);
         background-color: #333;
         color: #fff;
     }
 
-    /* Card content styling */
-    .card-content {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+    /* Clickable Icon Link */
+    .icon-link {
+        text-decoration: none;
+        font-size: 1.9rem;
         transition: transform 0.3s ease;
     }
 
-    /* Headings */
-    .card-content h2 {
-        font-size: 1.8rem;
-        margin: 0;
-        transition: transform 0.3s ease, color 0.3s ease;
+    .icon-link:hover {
+        transform: scale(1.3);
     }
 
-    /* Paragraphs */
-    .card-content p {
-        font-size: 1.1rem;
-        line-height: 1.5;
-        margin: 0;
-        transition: transform 0.3s ease, color 0.3s ease;
-    }
-
-    /* Background Gradient for Web Dev */
+    /* === Background Gradient === */
     .bg-5 {
         background: linear-gradient(135deg, #1f4037, #99f2c8);
-        /* Dark teal to light mint */
     }
 
-    /* Fade-in animation */
+    /* === Fade-Grow Animation on Entry === */
     @keyframes fadeGrow {
         to {
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: perspective(1000px) scale(1) translateY(0);
         }
     }
 
@@ -505,7 +724,7 @@
         animation: fadeGrow 1s ease-out 0.5s forwards;
     }
 
-    /* Responsive */
+    /* === Responsive Design === */
     @media (max-width: 768px) {
         .single-card-wrapper {
             padding: 2rem 1rem;
@@ -519,8 +738,34 @@
             width: 100%;
             text-align: center;
         }
+
+        .card-content h2 {
+            font-size: 1.5rem;
+        }
+
+        .card-content p {
+            font-size: 1rem;
+        }
     }
 </style>
+<script>
+    function rotateCard(e) {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = -(y - centerY) / 20;
+        const rotateY = (x - centerX) / 20;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    }
+
+    function resetCard(card) {
+        card.style.transform = "perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg)";
+    }
+</script>
 <!-- ======== END: Web Development Card Section ======== -->
 
 
