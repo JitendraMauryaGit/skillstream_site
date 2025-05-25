@@ -38,12 +38,31 @@
         width: 100%;
         text-align: center;
         transform-style: preserve-3d;
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        transition: transform 0.4s ease, box-shadow 0.4s ease, border 0.4s ease;
+        will-change: transform;
+        /* for subtle 4D/5D effect - subtle shifting light */
+        background-position: center;
+        background-size: 150% 150%;
+        animation: bgShift 15s ease-in-out infinite alternate;
     }
 
+    /* 3D Rotation on hover */
     .contact-card:hover {
-        transform: scale(1.02) rotateX(2deg) rotateY(2deg);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75), inset 0 0 50px rgba(255, 255, 255, 0.04);
+        transform: scale(1.05) rotateX(4deg) rotateY(6deg);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85), inset 0 0 60px rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background-position: 80% 80%;
+    }
+
+    /* subtle moving background for 4D/5D effect */
+    @keyframes bgShift {
+        0% {
+            background-position: 70% 70%;
+        }
+
+        100% {
+            background-position: 30% 30%;
+        }
     }
 
     .contact-title {
@@ -52,6 +71,8 @@
         color: #facc15;
         margin-bottom: 20px;
         text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.15);
+        cursor: default;
+        user-select: none;
     }
 
     .contact-subtitle {
@@ -72,12 +93,39 @@
     .highlight {
         color: #60a5fa;
         font-weight: 600;
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, color 0.3s ease;
+        cursor: pointer;
     }
 
+    /* Hover scale & color for highlights */
     .highlight:hover {
         transform: scale(1.1);
         color: #3b82f6;
+    }
+
+    /* Clickable emoji effect with bounce */
+    .contact-title::before {
+        content: "📞";
+        display: inline-block;
+        margin-right: 0.5rem;
+        cursor: pointer;
+        transition: transform 0.35s ease;
+    }
+
+    .contact-title::before:hover {
+        animation: bounce 0.6s ease forwards;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
     }
 
     .cta {
@@ -86,64 +134,135 @@
         font-weight: 600;
         color: #38bdf8;
         text-shadow: 0 0 4px rgba(56, 189, 248, 0.3);
+        transition: transform 0.3s ease, color 0.3s ease;
+        cursor: pointer;
     }
 
     .cta:hover {
         color: #0ea5e9;
         transform: scale(1.05);
+    }
+
+    .cta button {
+        margin-top: 15px;
+        padding: 10px 24px;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
         cursor: pointer;
+        transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1),
+            box-shadow 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .cta button:hover {
+        transform: scale(1.08);
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.6);
+    }
+
+    /* Responsive for mobile */
+    @media (max-width: 768px) {
+        .contact-container {
+            padding: 20px;
+            min-height: auto;
+        }
+
+        .contact-card {
+            padding: 30px 25px;
+            max-width: 100%;
+        }
+
+        .contact-title {
+            font-size: 2.2rem;
+        }
+
+        .contact-subtitle {
+            font-size: 1rem;
+        }
+
+        .contact-text {
+            font-size: 1rem;
+        }
+
+        .cta {
+            font-size: 1.1rem;
+        }
+
+        .cta button {
+            width: 100%;
+            font-size: 1rem;
+        }
     }
 </style>
 
 <div class="contact-container">
-    <div class="contact-card">
-        <div class="contact-title">📞 Get in Touch</div>
+    <div class="contact-card" id="contactCard">
+        <div class="contact-title" title="Contact Icon">Get in Touch</div>
         <div class="contact-subtitle">
             Let’s co-create the future of <span class="highlight">technology</span>, <span
-                class="highlight">education</span>, and <span class="highlight">media</span>.
+                class="highlight">education</span>,
+            and <span class="highlight">media</span>.
         </div>
         <p class="contact-text">
             At <span class="highlight">SkillStream</span>, we believe in the power of community, creativity, and
-            collaboration. Whether you're a passionate <span class="highlight">student</span>, an ambitious <span
-                class="highlight">entrepreneur</span>, a visionary <span class="highlight">educator</span>, or a
-            talented <span class="highlight">creator</span> — your ideas are welcome here.
+            collaboration.
+            Whether you're a passionate <span class="highlight">student</span>, an ambitious <span
+                class="highlight">entrepreneur</span>,
+            a visionary <span class="highlight">educator</span>, or a talented <span class="highlight">creator</span> —
+            your ideas are welcome here.
         </p>
         <p class="contact-text">
             We’re always open to <span class="highlight">partnerships</span>, <span
-                class="highlight">investments</span>, and <span class="highlight">creative alliances</span>. Let’s unite
-            our strengths to drive <span class="highlight">digital transformation</span> across the globe.
+                class="highlight">investments</span>, and
+            <span class="highlight">creative alliances</span>. Let’s unite our strengths to drive
+            <span class="highlight">digital transformation</span> across the globe.
         </p>
         <p class="contact-text">
             Join us in reimagining the way the world <span class="highlight">learns</span>, <span
-                class="highlight">plays</span>, <span class="highlight">teaches</span>, and <span
-                class="highlight">connects</span>.
+                class="highlight">plays</span>,
+            <span class="highlight">teaches</span>, and <span class="highlight">connects</span>.
         </p>
         <div class="cta" id="openChatbot" onclick="toggleForm()"
             style="cursor:pointer; text-align: center; padding: 20px;">
             🌐 Ready to connect? Let’s start something amazing together.
             <br />
-            <button style="
-                      margin-top: 15px;
-                      padding: 10px 24px;
-                      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-                      color: #fff;
-                      font-size: 1rem;
-                      font-weight: bold;
-                      border: none;
-                      border-radius: 8px;
-                      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-                      cursor: pointer;
-                      transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                                  box-shadow 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-                    "
+            <button
                 onmouseover="this.style.transform='scale(1.08)'; this.style.boxShadow='0 8px 20px rgba(37, 99, 235, 0.6)'"
                 onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.4)'">
                 Click Here
             </button>
         </div>
-
-
     </div>
-    <!-- #=====================  END: Contact Us Page =======================# -->
+</div>
 
-    {% endblock %}
+<script>
+    // 3D rotation with mouse movement on the card for extra dynamic effect
+    const contactCard = document.getElementById("contactCard");
+
+    contactCard.addEventListener("mousemove", (e) => {
+        const rect = contactCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = -(y - centerY) / 25;
+        const rotateY = (x - centerX) / 25;
+        contactCard.style.transform = `scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    contactCard.addEventListener("mouseleave", () => {
+        contactCard.style.transform = "scale(1) rotateX(0deg) rotateY(0deg)";
+    });
+
+    // Dummy toggle function for chatbot button (replace with actual logic)
+    function toggleForm() {
+        alert("Chatbot form toggle triggered!");
+    }
+</script>
+
+<!-- #=====================  END: Contact Us Page =======================# -->
+
+{% endblock %}
