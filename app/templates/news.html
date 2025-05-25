@@ -2,166 +2,241 @@
 
 {% block content %}
 <style>
-    .ssi-wrapper {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(to right, #f2f7ff, #e0f7fa);
-        padding: 2rem 1rem;
-        color: #222;
+    .news-wrapper {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to bottom right, #f1f8e9, #dcedc8);
+        padding: 3rem 1rem;
+        color: #2e2e2e;
     }
 
-    .ssi-header {
+    .news-header {
         text-align: center;
         margin-bottom: 3rem;
-        animation: fadeIn 1.5s ease-in-out;
+        animation: slideInTop 1.5s ease;
     }
 
-    .ssi-header h1 {
+    .news-header h1 {
         font-size: 3rem;
-        font-weight: 800;
-        background: linear-gradient(to right, #0073e6, #00bcd4);
+        font-weight: 900;
+        background: linear-gradient(to right, #33691e, #558b2f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    .ssi-header p {
-        font-size: 1.2rem;
-        color: #444;
+    .news-header p {
+        font-size: 1.1rem;
         max-width: 700px;
-        margin: 0.75rem auto;
+        margin: 1rem auto;
+        color: #4e4e4e;
     }
 
-    .news-section {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0, 115, 230, 0.1);
-        margin-bottom: 2rem;
+    .card-grid-news {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .news-card {
+        background: #fff;
+        border-radius: 20px;
         padding: 2rem;
-        transition: all 0.3s ease;
+        width: 300px;
+        box-shadow: 0 15px 30px rgba(85, 139, 47, 0.15);
+        transition: transform 0.6s ease, box-shadow 0.6s ease, filter 0.6s ease;
+        transform-style: preserve-3d;
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+        will-change: transform;
+        opacity: 0;
+        animation: fadeInNewsCard 1s ease forwards;
     }
 
-    .news-section:hover {
-        transform: scale(1.01);
-        box-shadow: 0 10px 28px rgba(0, 115, 230, 0.15);
+    /* 3+2 Layout Animation Delays */
+    .news-card:nth-child(1) {
+        animation-delay: 0.3s;
     }
 
-    .news-section h2 {
-        color: #0057b7;
-        font-weight: 700;
-        font-size: 1.6rem;
-        margin-bottom: 0.5rem;
+    .news-card:nth-child(2) {
+        animation-delay: 0.6s;
     }
 
-    .news-section p {
+    .news-card:nth-child(3) {
+        animation-delay: 0.9s;
+    }
+
+    .news-card:nth-child(4) {
+        animation-delay: 1.2s;
+    }
+
+    .news-card:nth-child(5) {
+        animation-delay: 1.5s;
+    }
+
+    .news-card:hover {
+        transform: perspective(1000px) scale(1.06) rotateX(5deg) rotateY(5deg);
+        box-shadow: 0 25px 40px rgba(85, 139, 47, 0.25);
+        filter: brightness(1.1) contrast(1.15) saturate(1.2);
+    }
+
+    .news-card .tag {
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: #dcedc8;
+        color: #33691e;
+        padding: 0.3rem 0.75rem;
+        border-radius: 15px;
+        margin-bottom: 0.8rem;
+        display: inline-block;
+    }
+
+    .news-card h3 {
+        font-size: 1.4rem;
+        color: #33691e;
+        margin-bottom: 0.6rem;
+    }
+
+    .news-card p {
+        font-size: 1rem;
+        line-height: 1.5;
         color: #555;
-        line-height: 1.6;
+    }
+
+    .cta-news {
+        margin-top: 4rem;
+        background: linear-gradient(to right, #7cb342, #9ccc65);
+        padding: 2rem;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+        animation: slideInBottom 2s ease;
+    }
+
+    .cta-news h2 {
+        font-size: 2rem;
         margin-bottom: 0.8rem;
     }
 
-    .news-section a {
-        text-decoration: none;
-        font-weight: 600;
-        color: #0073e6;
-    }
-
-    .subscribe-box {
-        background: linear-gradient(to right, #0073e6, #00c6ff);
-        color: white;
-        padding: 2rem;
-        border-radius: 12px;
-        text-align: center;
-        margin-top: 3rem;
-    }
-
-    .subscribe-box input[type="email"] {
-        width: 70%;
-        padding: 0.75rem;
-        margin-top: 1rem;
-        font-size: 1rem;
-        border: none;
-        border-radius: 6px;
-    }
-
-    .subscribe-box button {
-        background: #004b99;
-        color: white;
+    .cta-news a {
+        display: inline-block;
+        background: white;
+        color: #558b2f;
         padding: 0.75rem 1.5rem;
-        margin-top: 1rem;
-        border: none;
-        border-radius: 6px;
-        font-weight: 600;
-        cursor: pointer;
+        border-radius: 10px;
+        font-weight: bold;
+        text-decoration: none;
         transition: background 0.3s ease;
     }
 
-    .subscribe-box button:hover {
-        background: #003366;
+    .cta-news a:hover {
+        background: #f1f8e9;
     }
 
-    @keyframes fadeIn {
-        from {
+    @keyframes slideInTop {
+        0% {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(-50px);
         }
 
-        to {
+        100% {
             opacity: 1;
             transform: translateY(0);
         }
     }
+
+    @keyframes slideInBottom {
+        0% {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInNewsCard {
+        0% {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 767px) {
+        .news-header h1 {
+            font-size: 2.2rem;
+        }
+
+        .cta-news h2 {
+            font-size: 1.6rem;
+        }
+
+        .news-card {
+            width: 100%;
+        }
+    }
 </style>
 
-<div class="ssi-wrapper">
-    <div class="ssi-header">
-        <h1>SkillStream Insights (SSI)</h1>
-        <p>Delivering global tech & innovation news, powered by student publishing and fresh perspectives. Stay ahead
-            with SkillStream.</p>
+<div class="news-wrapper">
+    <div class="news-header">
+        <h1>Tech News & Insights</h1>
+        <p>SkillStream Insights brings you in-house journalism, tech updates, thought leadership, and engineering trends
+            from our internal and global ecosystem.</p>
     </div>
 
-    <!-- Article Section -->
-    <div class="news-section">
-        <h2>🚀 AI Breakthroughs Reshape Industries</h2>
-        <p>From healthcare to finance, AI is accelerating automation and decision-making. Our student contributors
-            explore how the latest models and platforms are transforming businesses.</p>
-        <a href="#">Explore Full Report →</a>
+    <div class="card-grid-news">
+        <!-- Card 1 -->
+        <div class="news-card">
+            <div class="tag">📢 Update</div>
+            <h3>Launch of Our Microservices Architecture</h3>
+            <p>Learn how SkillStream re-architected its core platforms with containerized services and async processing.
+                A major performance leap.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="news-card">
+            <div class="tag">🧠 Thought Leadership</div>
+            <h3>Interns Building Production Systems</h3>
+            <p>We trust interns with real systems. Here's how they ship live modules and gain deep industry exposure
+                before graduation.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="news-card">
+            <div class="tag">🔥 Trending</div>
+            <h3>Top 5 DevOps Trends to Watch in 2025</h3>
+            <p>Infrastructure-as-Code, platform engineering, GitOps, and more. Our engineers discuss what’s next in
+                DevOps culture and tooling.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="news-card">
+            <div class="tag">🕵️‍♂️ Behind the Scenes</div>
+            <h3>How We Handle Downtime & Outages</h3>
+            <p>Our incident team shares their approach to real-time response, RCA, and internal war rooms — from Yes
+                Bank days to SkillStream now.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="news-card">
+            <div class="tag">📊 Insight</div>
+            <h3>Why Observability Beats Monitoring</h3>
+            <p>Beyond metrics: our ops team reflects on proactive vs. reactive observability and why it's a mindset
+                shift for every engineer.</p>
+        </div>
     </div>
 
-    <div class="news-section">
-        <h2>🔒 Quantum Computing & The Future of Security</h2>
-        <p>Quantum computing is not science fiction anymore. We break down its implications on data encryption and
-            national cybersecurity initiatives.</p>
-        <a href="#">Read the Breakdown →</a>
-    </div>
-
-    <div class="news-section">
-        <h2>🌍 Green Tech Innovations for a Better Planet</h2>
-        <p>Green batteries, smart grids, and sustainable coding practices are redefining environmental responsibility in
-            tech. Find out how youth-led startups are leading the charge.</p>
-        <a href="#">Dive into the Green Movement →</a>
-    </div>
-
-    <div class="news-section">
-        <h2>🪙 Blockchain Beyond Crypto</h2>
-        <p>Discover how blockchain is driving transparency in logistics, identity management, and healthcare—not just
-            finance. SSI tracks the real-world impact of decentralized technology.</p>
-        <a href="#">See Blockchain Use Cases →</a>
-    </div>
-
-    <div class="news-section">
-        <h2>💡 Student Spotlight: SSI Campus Journalists</h2>
-        <p>Our platform empowers students across the globe to investigate, publish, and amplify stories in tech. Meet
-            our top contributors and learn how to join the movement.</p>
-        <a href="#">Join the Student Publisher Network →</a>
-    </div>
-
-    <!-- Subscribe CTA -->
-    <div class="subscribe-box">
-        <h2>📬 Subscribe to SSI Weekly</h2>
-        <p>Get fresh insights, student stories, and weekly tech roundups delivered straight to your inbox.</p>
-        <form action="/subscribe" method="POST">
-            <input type="email" name="email" placeholder="Enter your email address" required>
-            <br>
-            <button type="submit">Subscribe Now</button>
-        </form>
+    <div class="cta-news">
+        <h2>Have a story or insight to share?</h2>
+        <p>We publish thought pieces, tech deep dives, and internal knowledge from SkillStreamers like you.</p>
+        <a href="/contact">📝 Submit Your Article</a>
     </div>
 </div>
 {% endblock %}

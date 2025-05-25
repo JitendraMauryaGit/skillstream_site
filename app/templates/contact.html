@@ -1,12 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- {# ===================== START: Contact Us Page ===================== #} -->
+<!-- ===================== START: Contact Us Page ===================== -->
 <style>
     body {
         background: radial-gradient(circle at top left, #0f172a, #111827);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
+    }
+
+    .page-title {
+        font-size: 3rem;
+        font-weight: 800;
+        text-align: center;
+        padding-top: 40px;
+        color: #facc15;
+        text-shadow: 3px 3px 10px rgba(250, 204, 21, 0.3);
+        transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    .page-title:hover {
+        transform: scale(1.06);
+        filter: contrast(120%);
     }
 
     .contact-container {
@@ -19,6 +34,7 @@
         justify-content: center;
         min-height: 100vh;
         padding: 30px;
+        flex-direction: column;
     }
 
     @keyframes fadeInUp {
@@ -40,13 +56,11 @@
         transform-style: preserve-3d;
         transition: transform 0.4s ease, box-shadow 0.4s ease, border 0.4s ease;
         will-change: transform;
-        /* for subtle 4D/5D effect - subtle shifting light */
         background-position: center;
         background-size: 150% 150%;
         animation: bgShift 15s ease-in-out infinite alternate;
     }
 
-    /* 3D Rotation on hover */
     .contact-card:hover {
         transform: scale(1.05) rotateX(4deg) rotateY(6deg);
         box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85), inset 0 0 60px rgba(255, 255, 255, 0.06);
@@ -54,7 +68,6 @@
         background-position: 80% 80%;
     }
 
-    /* subtle moving background for 4D/5D effect */
     @keyframes bgShift {
         0% {
             background-position: 70% 70%;
@@ -97,13 +110,11 @@
         cursor: pointer;
     }
 
-    /* Hover scale & color for highlights */
     .highlight:hover {
         transform: scale(1.1);
         color: #3b82f6;
     }
 
-    /* Clickable emoji effect with bounce */
     .contact-title::before {
         content: "📞";
         display: inline-block;
@@ -163,8 +174,12 @@
         box-shadow: 0 8px 20px rgba(37, 99, 235, 0.6);
     }
 
-    /* Responsive for mobile */
     @media (max-width: 768px) {
+        .page-title {
+            font-size: 2.2rem;
+            padding-top: 20px;
+        }
+
         .contact-container {
             padding: 20px;
             min-height: auto;
@@ -199,12 +214,14 @@
 </style>
 
 <div class="contact-container">
+    <!-- New Page Title -->
+    <div class="page-title">📬 Contact Us</div>
+
     <div class="contact-card" id="contactCard">
         <div class="contact-title" title="Contact Icon">Get in Touch</div>
         <div class="contact-subtitle">
             Let’s co-create the future of <span class="highlight">technology</span>, <span
-                class="highlight">education</span>,
-            and <span class="highlight">media</span>.
+                class="highlight">education</span>, and <span class="highlight">media</span>.
         </div>
         <p class="contact-text">
             At <span class="highlight">SkillStream</span>, we believe in the power of community, creativity, and
@@ -216,8 +233,8 @@
         </p>
         <p class="contact-text">
             We’re always open to <span class="highlight">partnerships</span>, <span
-                class="highlight">investments</span>, and
-            <span class="highlight">creative alliances</span>. Let’s unite our strengths to drive
+                class="highlight">investments</span>,
+            and <span class="highlight">creative alliances</span>. Let’s unite our strengths to drive
             <span class="highlight">digital transformation</span> across the globe.
         </p>
         <p class="contact-text">
@@ -229,17 +246,12 @@
             style="cursor:pointer; text-align: center; padding: 20px;">
             🌐 Ready to connect? Let’s start something amazing together.
             <br />
-            <button
-                onmouseover="this.style.transform='scale(1.08)'; this.style.boxShadow='0 8px 20px rgba(37, 99, 235, 0.6)'"
-                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.4)'">
-                Click Here
-            </button>
+            <button>Click Here</button>
         </div>
     </div>
 </div>
 
 <script>
-    // 3D rotation with mouse movement on the card for extra dynamic effect
     const contactCard = document.getElementById("contactCard");
 
     contactCard.addEventListener("mousemove", (e) => {
@@ -257,12 +269,9 @@
         contactCard.style.transform = "scale(1) rotateX(0deg) rotateY(0deg)";
     });
 
-    // Dummy toggle function for chatbot button (replace with actual logic)
     function toggleForm() {
         alert("Chatbot form toggle triggered!");
     }
 </script>
-
-<!-- #=====================  END: Contact Us Page =======================# -->
-
+<!-- ===================== END: Contact Us Page ======================= -->
 {% endblock %}

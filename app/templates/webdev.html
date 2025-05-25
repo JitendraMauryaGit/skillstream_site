@@ -2,166 +2,257 @@
 
 {% block content %}
 <style>
-    .webdev-container {
-        max-width: 1000px;
-        margin: 3rem auto;
-        padding: 2rem;
-        background: #f5f8ff;
-        border-radius: 15px;
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    .webdev-wrapper {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #e3f2fd, #bbdefb);
+        padding: 3rem 1rem;
+        color: #333;
+        overflow-x: hidden;
     }
 
     .webdev-header {
         text-align: center;
-        margin-bottom: 2rem;
-        opacity: 0;
-        transform: translateY(15px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .webdev-header.visible {
-        opacity: 1;
-        transform: translateY(0);
+        margin-bottom: 3rem;
+        animation: fadeInDown 1.5s ease-in-out;
     }
 
     .webdev-header h1 {
-        color: #4e54c8;
-        font-size: 2.5rem;
-        margin-bottom: 0.3rem;
+        font-size: 3rem;
+        font-weight: 900;
+        background: linear-gradient(to right, #1976d2, #2196f3, #64b5f6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .webdev-header p {
-        color: #555;
-        font-size: 1.1rem;
-        margin-top: 0;
-    }
-
-    .project-section {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: space-between;
-    }
-
-    .project-box {
-        flex: 1 1 300px;
-        background: white;
-        padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(78, 84, 200, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: default;
-        user-select: text;
-    }
-
-    .project-box:hover,
-    .project-box:focus {
-        transform: scale(1.05);
-        box-shadow:
-            0 8px 15px rgba(78, 84, 200, 0.4),
-            0 0 12px rgba(78, 84, 200, 0.3);
-        outline: none;
-    }
-
-    .project-box:focus-visible {
-        outline: 2px solid #4e54c8;
-        outline-offset: 3px;
-    }
-
-    .project-box h2 {
-        color: #4e54c8;
-        margin-bottom: 1rem;
-    }
-
-    .project-box p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 1rem auto;
         color: #444;
     }
 
-    .action-buttons {
-        text-align: center;
-        margin-top: 3rem;
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 2rem;
+        animation: fadeIn 1s ease forwards;
     }
 
-    .action-buttons a {
+    .webdev-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(33, 150, 243, 0.15);
+        transition: all 0.4s ease;
+        transform-style: preserve-3d;
+        transform: perspective(1000px);
+        will-change: transform;
+        opacity: 0;
+        animation: fadeUpCard 1s ease forwards;
+    }
+
+    /* Staggered animation delays */
+    .webdev-card:nth-child(1) {
+        animation-delay: 0.3s;
+    }
+
+    .webdev-card:nth-child(2) {
+        animation-delay: 0.6s;
+    }
+
+    .webdev-card:nth-child(3) {
+        animation-delay: 0.9s;
+    }
+
+    .webdev-card:nth-child(4) {
+        animation-delay: 1.2s;
+    }
+
+    .webdev-card:nth-child(5) {
+        animation-delay: 1.5s;
+    }
+
+    .webdev-card:nth-child(6) {
+        animation-delay: 1.8s;
+    }
+
+    .webdev-card:hover {
+        transform: scale(1.05) rotateX(5deg) rotateY(5deg);
+        box-shadow: 0 25px 40px rgba(33, 150, 243, 0.3);
+        filter: brightness(1.1) contrast(1.2);
+    }
+
+    .badge {
         display: inline-block;
-        margin: 0.5rem;
-        background: #4e54c8;
-        color: white;
-        padding: 0.7rem 1.6rem;
-        border-radius: 30px;
-        text-decoration: none;
+        background: #bbdefb;
+        color: #0d47a1;
+        padding: 0.3rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
         font-weight: 600;
-        box-shadow: 0 4px 10px rgba(78, 84, 200, 0.3);
-        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 1rem;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
     }
 
-    .action-buttons a:hover,
-    .action-buttons a:focus {
-        background: #6a6ff5;
-        transform: scale(1.05);
-        box-shadow:
-            0 8px 15px rgba(78, 84, 200, 0.5),
-            0 0 12px rgba(78, 84, 200, 0.4);
-        outline: none;
+    .webdev-card h3 {
+        color: #1976d2;
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
     }
 
-    .action-buttons a:focus-visible {
-        outline: 2px solid #4e54c8;
-        outline-offset: 3px;
+    .webdev-card p {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    .cta-webdev {
+        margin-top: 4rem;
+        background: linear-gradient(to right, #1976d2, #2196f3);
+        padding: 2rem;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+        animation: fadeInUp 2s ease-in-out;
+    }
+
+    .cta-webdev h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .cta-webdev a {
+        display: inline-block;
+        background: white;
+        color: #1976d2;
+        padding: 0.75rem 1.5rem;
+        font-weight: 700;
+        border-radius: 10px;
+        text-decoration: none;
+        margin-top: 1rem;
+        transition: background 0.3s ease;
+    }
+
+    .cta-webdev a:hover {
+        background: #e3f2fd;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeUpCard {
+        0% {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (min-width: 768px) {
+        .card-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 767px) {
+        .webdev-header h1 {
+            font-size: 2.2rem;
+        }
+
+        .cta-webdev h2 {
+            font-size: 1.6rem;
+        }
     }
 </style>
 
-<div class="webdev-container" role="main" aria-label="SkillStream Web Division content">
-    <div class="webdev-header" id="webdev-header">
-        <h1>💻 SkillStream Web Division (SSWD)</h1>
-        <p>Crafting next-gen websites, full-stack apps, and digital platforms for in-house and client projects.</p>
+<div class="webdev-wrapper">
+    <div class="webdev-header">
+        <h1>Web & App Development</h1>
+        <p>We build future-ready websites and apps — from in-house products to client solutions — with robust
+            technology, agile delivery, and UX excellence.</p>
     </div>
 
-    <div class="project-section">
-        <div class="project-box" tabindex="0">
-            <h2>🏠 In-House Projects</h2>
-            <p>
-                Our talented team is building the SkillStream ecosystem including:
-            <ul>
-                <li>🎓 <strong>Education Portal (SSVI)</strong> – for diploma programs, internships, and training</li>
-                <li>📰 <strong>Tech News Platform (SSI)</strong> – powered by student journalists</li>
-                <li>📢 <strong>Digital Studio (SSDS)</strong> – managing content, marketing, and analytics</li>
-            </ul>
-            These platforms are used for real-world learning and portfolio development.
-            </p>
+    <div class="card-grid">
+        <!-- Card 1 -->
+        <div class="webdev-card">
+            <div class="badge">📦 In-House</div>
+            <h3>Product Engineering</h3>
+            <p>From SkillStream Virtual Institute to our game studios and news portals — all web platforms are designed
+                and engineered by our in-house team.</p>
         </div>
 
-        <div class="project-box" tabindex="0">
-            <h2>🤝 Client Projects (Contract-Based)</h2>
-            <p>
-                We also take on 3rd-party client projects including:
-            <ul>
-                <li>🌐 Full-Stack Web Apps</li>
-                <li>📱 Mobile App Interfaces (Flutter/React Native)</li>
-                <li>🛒 E-commerce Portals and CMS Platforms</li>
-                <li>📈 Admin Panels & Dashboards</li>
-            </ul>
-            These offer hands-on experience in scaling and deployment.
-            </p>
+        <!-- Card 2 -->
+        <div class="webdev-card">
+            <div class="badge">💼 Client Work</div>
+            <h3>Full-Stack Projects</h3>
+            <p>We build scalable websites, e-commerce apps, CRMs, and dashboards using modern stacks like MERN, Django,
+                Laravel, React Native, and Flutter.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="webdev-card">
+            <div class="badge">🎓 Talent Pipeline</div>
+            <h3>Intern to Hire</h3>
+            <p>All development projects involve our SSVI interns. After 6–12 months of live training, high performers
+                are hired full-time or placed with clients.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="webdev-card">
+            <div class="badge">🎨 Design First</div>
+            <h3>UI/UX Excellence</h3>
+            <p>We start with user journeys and Figma prototypes. Clean interfaces, accessibility, and mobile-first
+                layouts are baked into every project.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="webdev-card">
+            <div class="badge">📱 Multi-Platform</div>
+            <h3>Web + Mobile</h3>
+            <p>We create progressive web apps, cross-platform mobile apps, admin dashboards, and hybrid native apps with
+                responsive behavior across devices.</p>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="webdev-card">
+            <div class="badge">🌀 Agile</div>
+            <h3>Sprints & DevOps</h3>
+            <p>Using Git, CI/CD, Jira, and automated testing, we deliver weekly sprint releases and maintain DevOps
+                practices for performance and scalability.</p>
         </div>
     </div>
 
-    <div class="action-buttons">
-        <h3 style="color: #333; margin-bottom: 1rem;">🚀 Explore Our Other Divisions</h3>
-        <a href="{{ url_for('main.education') }}" tabindex="0">🎓 Education</a>
-        <a href="{{ url_for('main.marketing') }}" tabindex="0">📢 Digital Marketing</a>
-        <a href="{{ url_for('main.news') }}" tabindex="0">📰 Tech News</a>
-        <a href="{{ url_for('main.contact') }}" tabindex="0">📬 Contact Us</a>
+    <div class="cta-webdev">
+        <h2>Need a team to build your app or website?</h2>
+        <p>We build. We maintain. We scale — across web and mobile platforms.</p>
+        <a href="/contact">🚀 Start Your Project</a>
     </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const header = document.getElementById("webdev-header");
-        // Delay fade-in
-        setTimeout(() => {
-            header.classList.add("visible");
-        }, 300);
-    });
-</script>
 {% endblock %}

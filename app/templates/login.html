@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Login - SkillStream Virtual Institute{% endblock %}
+
+{% block content %}
+<style>
+    .login-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4vh 2vw;
+        min-height: 100vh;
+        background: linear-gradient(145deg, #2d2d2d, #1c1c1c);
+        color: white;
+        box-sizing: border-box;
+    }
+
+    .login-container {
+        background: linear-gradient(145deg, #202020, #303030);
+        box-shadow:
+            0 5px 15px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05),
+            0 0 20px rgba(0, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 2rem;
+        width: 100%;
+        max-width: 400px;
+        transition: all 0.3s ease-in-out;
+        transform-style: preserve-3d;
+    }
+
+    .login-container:hover {
+        transform: scale(1.02) rotateX(2deg);
+        box-shadow:
+            0 10px 30px rgba(0, 255, 255, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        filter: contrast(1.2);
+    }
+
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, #00ffff, #00aaff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+        font-size: 1.8rem;
+    }
+
+    .login-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    .login-container input {
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 12px;
+        background-color: #1e1e1e;
+        color: white;
+        font-size: 1rem;
+        box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .login-container input:focus {
+        outline: none;
+        box-shadow: 0 0 10px #00ffff, inset 0 0 5px #00ffff;
+        background-color: #2a2a2a;
+    }
+
+    .login-container button {
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(45deg, #00c6ff, #0072ff);
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+    }
+
+    .login-container button:hover {
+        transform: scale(1.05);
+        filter: contrast(1.3);
+        box-shadow: 0 6px 20px rgba(0, 255, 255, 0.7);
+    }
+
+    @media screen and (max-width: 480px) {
+        .login-container {
+            padding: 1.5rem;
+        }
+
+        .login-container h2 {
+            font-size: 1.5rem;
+        }
+
+        .login-container input,
+        .login-container button {
+            font-size: 0.95rem;
+            padding: 0.7rem 0.9rem;
+        }
+    }
+</style>
+
+<div class="login-wrapper">
+    <div class="login-container">
+        <h2>Student Login</h2>
+        <form action="/student-login" method="POST">
+            <input type="text" name="student_id" placeholder="Login ID (Provided by Institute)" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

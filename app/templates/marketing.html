@@ -2,103 +2,147 @@
 
 {% block content %}
 <style>
-    .ssds-wrapper {
+    .marketing-wrapper {
         font-family: 'Poppins', sans-serif;
-        background: linear-gradient(to right, #f0f9ff, #e0f7fa);
+        background: linear-gradient(to right, #fefcea, #f1da36);
         padding: 3rem 1rem;
-        color: #222;
+        color: #333;
+        overflow-x: hidden;
     }
 
-    .ssds-header {
+    .marketing-header {
         text-align: center;
         margin-bottom: 3rem;
-        animation: fadeIn 1.5s ease-in-out;
+        animation: fadeInDown 1.5s ease-in-out;
     }
 
-    .ssds-header h1 {
+    .marketing-header h1 {
         font-size: 3rem;
         font-weight: 900;
-        background: linear-gradient(to right, #ff6f00, #ff8f00, #ffc107);
+        background: linear-gradient(to right, #ff6f00, #ff8f00, #ffd54f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    .ssds-header p {
+    .marketing-header p {
         font-size: 1.2rem;
         max-width: 700px;
         margin: 1rem auto;
         color: #444;
     }
 
-    .dm-section {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(255, 140, 0, 0.15);
-        padding: 2rem;
-        margin-bottom: 2rem;
-        transition: all 0.3s ease-in-out;
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 2rem;
+        animation: fadeIn 1s ease forwards;
     }
 
-    .dm-section:hover {
-        transform: scale(1.01);
-        box-shadow: 0 12px 36px rgba(255, 111, 0, 0.2);
-    }
-
-    .dm-section h2 {
-        font-size: 1.8rem;
-        color: #ff6f00;
-        margin-bottom: 0.5rem;
-    }
-
-    .dm-section p {
-        color: #444;
-        line-height: 1.7;
-    }
-
-    .dm-badge {
-        background: #ffcc80;
-        padding: 0.4rem 1rem;
-        display: inline-block;
+    .marketing-card {
+        background: #fff;
         border-radius: 20px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-        color: #4e342e;
-    }
-
-    .cta-section {
-        background: linear-gradient(to right, #ff6f00, #ff8f00);
-        color: white;
         padding: 2rem;
-        border-radius: 16px;
-        text-align: center;
-        margin-top: 4rem;
+        box-shadow: 0 10px 30px rgba(255, 111, 0, 0.15);
+        transition: all 0.4s ease;
+        transform-style: preserve-3d;
+        transform: perspective(1000px);
+        will-change: transform;
+        opacity: 0;
+        animation: fadeUpCard 1s ease forwards;
     }
 
-    .cta-section h3 {
+    /* Delayed animation for each card */
+    .marketing-card:nth-child(1) {
+        animation-delay: 0.3s;
+    }
+
+    .marketing-card:nth-child(2) {
+        animation-delay: 0.6s;
+    }
+
+    .marketing-card:nth-child(3) {
+        animation-delay: 0.9s;
+    }
+
+    .marketing-card:nth-child(4) {
+        animation-delay: 1.2s;
+    }
+
+    .marketing-card:nth-child(5) {
+        animation-delay: 1.5s;
+    }
+
+    .marketing-card:nth-child(6) {
+        animation-delay: 1.8s;
+    }
+
+    .marketing-card:hover {
+        transform: scale(1.05) rotateX(5deg) rotateY(5deg);
+        box-shadow: 0 25px 40px rgba(255, 87, 34, 0.3);
+        filter: brightness(1.1) contrast(1.2);
+    }
+
+    .badge {
+        display: inline-block;
+        background: #ffcc80;
+        color: #4e342e;
+        padding: 0.3rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .marketing-card h3 {
+        color: #e65100;
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .marketing-card p {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    .cta-marketing {
+        margin-top: 4rem;
+        background: linear-gradient(to right, #ff6f00, #ff8f00);
+        padding: 2rem;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+        animation: fadeInUp 2s ease-in-out;
+    }
+
+    .cta-marketing h2 {
         font-size: 2rem;
-        font-weight: bold;
         margin-bottom: 1rem;
     }
 
-    .cta-section a {
+    .cta-marketing a {
+        display: inline-block;
         background: white;
         color: #ff6f00;
         padding: 0.75rem 1.5rem;
-        border-radius: 8px;
+        font-weight: 700;
+        border-radius: 10px;
         text-decoration: none;
-        font-weight: bold;
+        margin-top: 1rem;
         transition: background 0.3s ease;
     }
 
-    .cta-section a:hover {
+    .cta-marketing a:hover {
         background: #ffe0b2;
     }
 
-    @keyframes fadeIn {
+    @keyframes fadeInDown {
         from {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(-50px);
         }
 
         to {
@@ -106,69 +150,109 @@
             transform: translateY(0);
         }
     }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeUpCard {
+        0% {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (min-width: 768px) {
+        .card-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 767px) {
+        .marketing-header h1 {
+            font-size: 2.2rem;
+        }
+
+        .cta-marketing h2 {
+            font-size: 1.6rem;
+        }
+    }
 </style>
 
-<div class="ssds-wrapper">
-    <div class="ssds-header">
-        <h1>SkillStream Digital Studio (SSDS)</h1>
-        <p>Empowering SMEs and startups with cutting-edge digital marketing strategies and practical training for
-            tomorrow’s online world.</p>
+<div class="marketing-wrapper">
+    <div class="marketing-header">
+        <h1>SkillStream Digital Marketing</h1>
+        <p>Marketing solutions built for modern startups, creators, and product teams — powered by real projects and
+            hands-on expertise.</p>
     </div>
 
-    <!-- Training Section -->
-    <div class="dm-section">
-        <div class="dm-badge">🎓 TRAINING</div>
-        <h2>Digital Marketing Bootcamps</h2>
-        <p>
-            We offer intensive, real-world focused training on SEO, SEM, content creation, email marketing, social media
-            strategy, and influencer marketing — designed for students, freelancers, and startup teams.
-        </p>
+    <div class="card-grid">
+        <!-- Card 1 -->
+        <div class="marketing-card">
+            <div class="badge">🏢 In-House</div>
+            <h3>Product Branding</h3>
+            <p>We handle marketing for our own verticals: Education (SSVI), Gaming (SSGS), Tech News (SSI), and Web
+                Services — using integrated campaigns and storytelling.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="marketing-card">
+            <div class="badge">🤝 Clients</div>
+            <h3>Third-party Campaigns</h3>
+            <p>From social media to search ads, we manage creative & data-driven campaigns for SMEs, startups, and
+                digital-first brands across India and abroad.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="marketing-card">
+            <div class="badge">🎓 Talent</div>
+            <h3>Internship-to-Hire Model</h3>
+            <p>SSVI interns work on real projects for 6–12 months. Based on performance, we offer full-time roles or
+                refer them to hiring partners and clients.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="marketing-card">
+            <div class="badge">🧠 Strategy</div>
+            <h3>Campaign Planning</h3>
+            <p>We create end-to-end marketing strategies: research, competitor analysis, customer journey mapping, KPI
+                targeting, and launch timelines.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="marketing-card">
+            <div class="badge">📊 Analytics</div>
+            <h3>Real-Time Optimization</h3>
+            <p>Using tools like Google Analytics, Meta Pixel, and SEMrush, we continuously monitor, optimize, and report
+                on campaign performance.</p>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="marketing-card">
+            <div class="badge">🧰 Tech Stack</div>
+            <h3>Tools We Use</h3>
+            <p>We rely on HubSpot, Buffer, Canva, Mailchimp, WordPress, and Trello — blending automation with creativity
+                to streamline delivery.</p>
+        </div>
     </div>
 
-    <!-- Services Section -->
-    <div class="dm-section">
-        <div class="dm-badge">🛠️ SERVICES</div>
-        <h2>Smart Digital Services</h2>
-        <p>
-            From social media management and ad campaign optimization to content design and brand identity — we deliver
-            creative, budget-conscious digital solutions tailor-made for SMEs and new-age startups.
-        </p>
-    </div>
-
-    <!-- Technology Stack -->
-    <div class="dm-section">
-        <div class="dm-badge">💻 TECH STACK</div>
-        <h2>Tools & Technologies We Use</h2>
-        <p>
-            Our team leverages tools like Google Analytics, Meta Ads Manager, Canva, HubSpot, SEMrush, Mailchimp,
-            Buffer, and WordPress to deliver high-impact campaigns and monitor key KPIs.
-        </p>
-    </div>
-
-    <!-- Internship & Live Projects -->
-    <div class="dm-section">
-        <div class="dm-badge">📈 CAREER</div>
-        <h2>Internships & Project-Based Learning</h2>
-        <p>
-            Join our live marketing campaigns to gain real-time experience in analytics, A/B testing, market
-            segmentation, campaign planning, and funnel optimization. Certificates and job referrals for top performers.
-        </p>
-    </div>
-
-    <!-- Why Us -->
-    <div class="dm-section">
-        <div class="dm-badge">🌟 WHY CHOOSE SSDS?</div>
-        <h2>What Makes Us Different</h2>
-        <p>
-            We bridge the gap between theory and execution. Our ecosystem includes training + services + real campaigns.
-            We don’t just teach marketing — we do marketing. And we let you join the journey.
-        </p>
-    </div>
-
-    <!-- Call to Action -->
-    <div class="cta-section">
-        <h3>Ready to level up your digital presence?</h3>
-        <a href="/contact">📬 Let's Talk Strategy</a>
+    <div class="cta-marketing">
+        <h2>Need marketing for your brand or idea?</h2>
+        <p>Let’s build something impactful together — in-house or outsourced.</p>
+        <a href="/contact">📬 Let’s Talk</a>
     </div>
 </div>
 {% endblock %}
