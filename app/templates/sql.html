@@ -1,0 +1,452 @@
+{% extends 'base.html' %}
+{% block title %}MySQL Quiz Adventure - SkillStream{% endblock %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Ensure page is scrollable */
+        body {
+            overflow-y: auto;
+            min-height: 100vh;
+        }
+
+        /* Game Container Styling */
+        .game-container {
+            margin: 5%;
+            padding: 3%;
+            transform: perspective(1000px) rotateX(2deg) rotateY(1deg);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .game-container:hover {
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(20px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Question Box Styling */
+        .question-box {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .question-box:hover {
+            transform: scale(1.05) translateZ(10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Option Styling */
+        .option {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .option:hover {
+            transform: scale(1.05);
+            background-color: rgba(6, 182, 212, 0.2);
+        }
+
+        /* Checkbox Styling */
+        input[type="checkbox"] {
+            accent-color: #06b6d4;
+            transform: scale(1.2);
+            transition: transform 0.2s ease;
+        }
+
+        input[type="checkbox"]:hover {
+            transform: scale(1.4);
+        }
+
+        /* Submit Button Styling */
+        .submit-btn {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.1) translateZ(10px);
+            box-shadow: 0 10px 20px rgba(6, 182, 212, 0.5);
+        }
+
+        /* Replay Button Styling */
+        .replay-btn {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .replay-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.5);
+        }
+
+        /* High Contrast Text */
+        .text-high-contrast {
+            color: #f9fafb;
+            text-shadow: 0 0 6px rgba(0, 255, 255, 0.6);
+        }
+
+        /* Progress Bar Random Effect */
+        .progress-bar {
+            transition: width 0.5s ease, background 0.5s ease;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 640px) {
+            .game-container {
+                margin: 3%;
+                padding: 2%;
+                margin-bottom: 3%;
+            }
+
+            .question-box {
+                padding: 0.8rem;
+            }
+
+            .text-4xl {
+                font-size: 1.25rem;
+            }
+
+            .text-xl {
+                font-size: 0.75rem;
+            }
+
+            .submit-btn {
+                width: 80%;
+            }
+
+            .replay-btn {
+                width: 60%;
+            }
+
+            .character {
+                width: 12px;
+                height: 12px;
+                bottom: 6px;
+                left: 6px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .game-container {
+                max-width: 90%;
+            }
+        }
+
+        /* Particle Background */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 4s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateY(-20px);
+                opacity: 0.9;
+            }
+        }
+
+        /* Fallback Message */
+        .fallback-message {
+            color: #f9fafb;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 0.8rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-gray-900 via-blue-900 to-black text-white font-sans">
+    <div class="relative min-h-fit flex flex-col items-center justify-center p-4 mb-[3%] pb-[2%]">
+        <!-- Particle Background -->
+        <div class="fixed inset-0 pointer-events-none z-0">
+            <div class="particle" style="left: 15%; top: 25%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 35%; top: 55%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 55%; top: 35%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 75%; top: 65%; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 85%; top: 45%; animation-delay: 4s;"></div>
+        </div>
+
+        <!-- Game Container -->
+        <div
+            class="game-container relative z-10 max-w-2xl w-full bg-black bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 shadow-2xl shadow-cyan-500/50 border border-cyan-400 my-auto">
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-cyan-300 mb-6 drop-shadow-lg text-high-contrast">
+                🐬 MySQL Quiz Adventure 🚀</h1>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-700 rounded-full h-4 mb-4">
+                <div id="progress-bar" class="progress-bar h-4 rounded-full transition-all duration-500"
+                    style="width: 0%"></div>
+            </div>
+
+            <!-- Question Box -->
+            <div class="question-box bg-gray-800 bg-opacity-70 rounded-xl p-6 transform transition-all duration-300">
+                <div id="question" class="text-xl md:text-2xl font-semibold mb-4 text-center text-high-contrast"></div>
+                <form id="quiz-form" class="space-y-4" autocomplete="off"></form>
+                <button id="submit-btn"
+                    class="submit-btn mt-6 w-1/2 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-bold text-lg transform transition-all duration-300">Submit</button>
+                <div id="message" class="mt-4 text-lg font-bold text-center text-high-contrast"></div>
+            </div>
+
+            <!-- Completion Message -->
+            <div id="completion-message" class="hidden mt-6 text-center">
+                <h2 class="text-3xl font-bold text-green-400 text-high-contrast">🎉 Congratulations!</h2>
+                <p id="time-taken" class="text-xl mt-2 text-high-contrast"></p>
+                <p id="score-breakdown" class="text-lg mt-2 text-high-contrast"></p>
+                <button id="replay-btn"
+                    class="replay-btn mt-4 w-1/3 py-2 px-6 bg-green-500 text-white rounded-lg font-bold transform transition-all duration-300">Play
+                    Again</button>
+            </div>
+
+            <!-- Fallback Message -->
+            <div id="fallback-message" class="fallback-message hidden">
+                JavaScript failed to load. Here's a sample question:<br>
+                <strong>What is the purpose of the PRIMARY KEY in MySQL?</strong><br>
+                a) Uniquely identifies each row in a table<br>
+                b) Allows duplicate values<br>
+                c) Defines a foreign key relationship<br>
+                d) Indexes all columns<br>
+                Correct: a) Uniquely identifies each row in a table<br>
+                Please ensure JavaScript is enabled and try again.
+            </div>
+        </div>
+
+        <!-- Character -->
+        <div
+            class="character absolute bottom-10 left-10 w-20 h-20 bg-[url('{{ url_for('static', filename='images/penguin_walk.gif') }}')] bg-contain bg-no-repeat transform transition-all duration-1000">
+        </div>
+
+        <!-- Confetti Canvas -->
+        <canvas id="confetti" class="fixed inset-0 pointer-events-none z-20"></canvas>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What is the purpose of the PRIMARY KEY in MySQL?", options: ["Uniquely identifies each row in a table", "Allows duplicate values", "Defines a foreign key relationship", "Indexes all columns"], correct: ["Uniquely identifies each row in a table"] },
+            { question: "Which command creates a new database in MySQL?", options: ["CREATE DATABASE", "NEW DATABASE", "ADD DATABASE", "MAKE DATABASE"], correct: ["CREATE DATABASE"] },
+            { question: "What does SELECT * FROM table_name do?", options: ["Retrieves all columns from a table", "Deletes all rows", "Creates a new table", "Updates all columns"], correct: ["Retrieves all columns from a table"] },
+            { question: "Which clause filters rows in a SELECT query?", options: ["WHERE", "FROM", "GROUP BY", "ORDER BY"], correct: ["WHERE"] },
+            { question: "What is the purpose of the AUTO_INCREMENT attribute?", options: ["Automatically generates unique values", "Sets default values", "Creates indexes", "Locks the table"], correct: ["Automatically generates unique values"] },
+            { question: "Which command inserts data into a table?", options: ["INSERT INTO", "ADD TO", "UPDATE", "APPEND"], correct: ["INSERT INTO"] },
+            { question: "What does DROP TABLE do?", options: ["Deletes a table", "Updates a table", "Creates a table", "Renames a table"], correct: ["Deletes a table"] },
+            { question: "Which join returns all rows when there is a match in one table?", options: ["LEFT JOIN", "INNER JOIN", "RIGHT JOIN", "FULL JOIN"], correct: ["LEFT JOIN"] },
+            { question: "What is the purpose of the GROUP BY clause?", options: ["Groups rows by column values", "Filters rows", "Sorts results", "Joins tables"], correct: ["Groups rows by column values"] },
+            { question: "Which function counts the number of rows in a result set?", options: ["COUNT()", "SUM()", "AVG()", "MAX()"], correct: ["COUNT()"] },
+            { question: "What does the FOREIGN KEY constraint do?", options: ["Enforces referential integrity", "Creates an index", "Allows null values", "Duplicates rows"], correct: ["Enforces referential integrity"] },
+            { question: "Which command updates existing rows in a table?", options: ["UPDATE", "ALTER", "MODIFY", "CHANGE"], correct: ["UPDATE"] },
+            { question: "What is the purpose of the ORDER BY clause?", options: ["Sorts query results", "Groups rows", "Filters rows", "Joins tables"], correct: ["Sorts query results"] },
+            { question: "Which data type stores whole numbers in MySQL?", options: ["INT", "VARCHAR", "FLOAT", "TEXT"], correct: ["INT"] },
+            { question: "What does the LIMIT clause do?", options: ["Restricts the number of rows returned", "Sorts rows", "Groups rows", "Joins tables"], correct: ["Restricts the number of rows returned"] },
+            { question: "Which command deletes specific rows from a table?", options: ["DELETE FROM", "DROP TABLE", "TRUNCATE TABLE", "REMOVE"], correct: ["DELETE FROM"] },
+            { question: "What is the purpose of the INDEX in MySQL?", options: ["Improves query performance", "Stores data types", "Enforces constraints", "Locks rows"], correct: ["Improves query performance"] },
+            { question: "Which function returns the maximum value in a column?", options: ["MAX()", "MIN()", "SUM()", "AVG()"], correct: ["MAX()"] },
+            { question: "What does ALTER TABLE do?", options: ["Modifies table structure", "Deletes a table", "Inserts data", "Queries data"], correct: ["Modifies table structure"] },
+            { question: "Which clause combines rows from multiple tables?", options: ["JOIN", "WHERE", "GROUP BY", "HAVING"], correct: ["JOIN"] },
+            { question: "What is the default port for MySQL?", options: ["3306", "8080", "5432", "1521"], correct: ["3306"] },
+            { question: "Which command grants privileges to a user?", options: ["GRANT", "REVOKE", "SET", "ALTER"], correct: ["GRANT"] },
+            { question: "What does the HAVING clause do?", options: ["Filters grouped results", "Filters individual rows", "Sorts results", "Joins tables"], correct: ["Filters grouped results"] },
+            { question: "Which data type stores variable-length strings?", options: ["VARCHAR", "INT", "DATE", "BLOB"], correct: ["VARCHAR"] },
+            { question: "What is the purpose of the TRUNCATE TABLE command?", options: ["Removes all rows but keeps structure", "Deletes the table", "Modifies columns", "Locks the table"], correct: ["Removes all rows but keeps structure"] },
+            { question: "Which function concatenates strings in MySQL?", options: ["CONCAT()", "JOIN()", "MERGE()", "APPEND()"], correct: ["CONCAT()"] },
+            { question: "What does the UNIQUE constraint ensure?", options: ["No duplicate values in a column", "All values are null", "Values are indexed", "Values are sorted"], correct: ["No duplicate values in a column"] },
+            { question: "Which command revokes user privileges?", options: ["REVOKE", "GRANT", "DENY", "REMOVE"], correct: ["REVOKE"] },
+            { question: "What is the purpose of the LIKE operator?", options: ["Pattern matching in strings", "Arithmetic operations", "Joins tables", "Groups rows"], correct: ["Pattern matching in strings"] },
+            { question: "Which function calculates the average of a column?", options: ["AVG()", "SUM()", "COUNT()", "MAX()"], correct: ["AVG()"] },
+            { question: "What does the INNER JOIN return?", options: ["Rows with matching values in both tables", "All rows from both tables", "Rows from the left table", "Rows from the right table"], correct: ["Rows with matching values in both tables"] },
+            { question: "Which command starts a transaction?", options: ["START TRANSACTION", "BEGIN TRANSACTION", "OPEN TRANSACTION", "INIT TRANSACTION"], correct: ["START TRANSACTION"] },
+            { question: "What is the purpose of the COMMIT command?", options: ["Saves transaction changes", "Undoes changes", "Locks the database", "Creates a table"], correct: ["Saves transaction changes"] },
+            { question: "Which function returns the current date and time?", options: ["NOW()", "TODAY()", "CURRENT_DATE()", "GETDATE()"], correct: ["NOW()"] },
+            { question: "What does the ROLLBACK command do?", options: ["Undoes transaction changes", "Saves changes", "Creates a backup", "Locks rows"], correct: ["Undoes transaction changes"] },
+            { question: "Which clause specifies conditions for JOIN operations?", options: ["ON", "WHERE", "HAVING", "GROUP BY"], correct: ["ON"] },
+            { question: "What is the purpose of the SHOW DATABASES command?", options: ["Lists all databases", "Creates a database", "Deletes a database", "Selects a database"], correct: ["Lists all databases"] },
+            { question: "Which data type stores large binary data?", options: ["BLOB", "VARCHAR", "INT", "DATE"], correct: ["BLOB"] },
+            { question: "What does the DESC keyword do in a SELECT query?", options: ["Sorts results in descending order", "Describes a table", "Deletes rows", "Groups results"], correct: ["Sorts results in descending order"] },
+            { question: "Which command selects the current database?", options: ["USE", "SELECT", "SET", "OPEN"], correct: ["USE"] },
+            { question: "What is the purpose of the CHECK constraint?", options: ["Ensures values meet a condition", "Creates an index", "Allows nulls", "Joins tables"], correct: ["Ensures values meet a condition"] },
+            { question: "Which function returns the length of a string?", options: ["LENGTH()", "SIZE()", "COUNT()", "CHAR_LENGTH()"], correct: ["LENGTH()"] },
+            { question: "What does the FULL OUTER JOIN return?", options: ["All rows from both tables", "Matching rows only", "Rows from the left table", "Rows from the right table"], correct: ["All rows from both tables"] },
+            { question: "Which command shows the structure of a table?", options: ["DESCRIBE", "SHOW TABLE", "STRUCTURE", "INFO"], correct: ["DESCRIBE"] },
+            { question: "What is the purpose of the IFNULL() function?", options: ["Replaces NULL with a value", "Checks for NULL", "Counts NULLs", "Removes NULLs"], correct: ["Replaces NULL with a value"] },
+            { question: "Which operator checks for NULL values?", options: ["IS NULL", "NULL", "=", "LIKE"], correct: ["IS NULL"] },
+            { question: "What does the COALESCE() function do?", options: ["Returns the first non-NULL value", "Counts rows", "Concatenates strings", "Sums values"], correct: ["Returns the first non-NULL value"] },
+            { question: "Which command locks a table?", options: ["LOCK TABLE", "BLOCK TABLE", "RESTRICT TABLE", "SECURE TABLE"], correct: ["LOCK TABLE"] },
+            { question: "What is the purpose of the EXPLAIN command?", options: ["Analyzes query execution", "Executes a query", "Creates a table", "Deletes a table"], correct: ["Analyzes query execution"] },
+            { question: "Which function rounds a number to a specified precision?", options: ["ROUND()", "FLOOR()", "CEIL()", "TRUNCATE()"], correct: ["ROUND()"] }
+        ];
+
+        let shuffledQuestions = [];
+        let current = 0;
+        let score = 0;
+        let startTime;
+        let incorrectAnswers = [];
+
+        const questionElement = document.getElementById("question");
+        const quizForm = document.getElementById("quiz-form");
+        const submitBtn = document.getElementById("submit-btn");
+        const messageElement = document.getElementById("message");
+        const progressBar = document.getElementById("progress-bar");
+        const completionMessage = document.getElementById("completion-message");
+        const timeTakenElement = document.getElementById("time-taken");
+        const scoreBreakdownElement = document.getElementById("score-breakdown");
+        const replayBtn = document.getElementById("replay-btn");
+
+        // Shuffle Questions
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            startTime = Date.now();
+            current = 0;
+            score = 0;
+            incorrectAnswers = [];
+            shuffledQuestions = shuffle([...questions]);
+            renderQuestion();
+            updateProgressBarColor();
+        }
+
+        function renderQuestion() {
+            messageElement.textContent = "";
+            completionMessage.classList.add("hidden");
+            quizForm.style.display = "block";
+            submitBtn.style.display = "block";
+
+            if (current >= questions.length) {
+                const timeTaken = ((Date.now() - startTime) / 1000).toFixed(2);
+                questionElement.textContent = "";
+                quizForm.style.display = "none";
+                submitBtn.style.display = "none";
+                completionMessage.classList.remove("hidden");
+                timeTakenElement.textContent = `You completed the quiz in ${timeTaken} seconds!`;
+                scoreBreakdownElement.innerHTML = `Score: ${score} out of ${questions.length}<br>` +
+                    (incorrectAnswers.length > 0
+                        ? `<strong>Incorrect Answers:</strong><ul class="mt-2 text-left max-h-64 overflow-y-auto">${incorrectAnswers.map(a => `<li class="mb-2"><strong>Q:</strong> ${a.question}<br><strong>Your Answer:</strong> ${a.selected.length > 0 ? a.selected.join(", ") : "None"}<br><strong>Correct:</strong> ${a.correct.join(", ")}</li>`).join("")}</ul>`
+                        : "Perfect score! No mistakes!");
+                triggerConfetti();
+                return;
+            }
+
+            const q = shuffledQuestions[current];
+            questionElement.textContent = `Question ${current + 1} of ${questions.length}: ${q.question}`;
+            quizForm.innerHTML = "";
+            q.options.forEach(option => {
+                const id = `opt-${option.replace(/\s/g, "-")}`;
+                quizForm.innerHTML += `
+                    <div class="option flex items-center p-3 bg-gray-700 bg-opacity-50 rounded-lg transform transition-all duration-300">
+                        <input type="checkbox" id="${id}" value="${option}" class="mr-2 h-5 w-5 text-cyan-500 focus:ring-cyan-400" autocomplete="off" autocorrect="off" spellcheck="false">
+                        <label for="${id}" class="text-lg cursor-pointer">${option}</label>
+                    </div>`;
+            });
+
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const progress = (current / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            updateProgressBarColor();
+        }
+
+        function updateProgressBarColor() {
+            const colors = [
+                'linear-gradient(to right, #10b981, #22c55e)',
+                'linear-gradient(to right, #3b82f6, #00f7ff)',
+                'linear-gradient(to right, #f97316, #ef4444)',
+                'linear-gradient(to right, #8b5cf6, #d946ef)'
+            ];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            progressBar.style.background = randomColor;
+        }
+
+        function showMessage(msg, success = false) {
+            messageElement.textContent = msg;
+            messageElement.className = `mt-4 text-lg font-bold text-center text-high-contrast ${success ? "text-green-400" : "text-red-400"}`;
+            if (success) {
+                animateCharacter();
+                triggerConfetti();
+            }
+        }
+
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const selected = Array.from(document.querySelectorAll("input:checked")).map(x => x.value);
+            const q = shuffledQuestions[current];
+            const correct = q.correct;
+
+            if (selected.length === 0) {
+                showMessage("⚠️ Please select at least one option!", false);
+                return;
+            }
+
+            if (selected.sort().toString() === correct.sort().toString()) {
+                score++;
+                showMessage("✅ Correct! Moving to next question...", true);
+                setTimeout(() => {
+                    current++;
+                    renderQuestion();
+                }, 2000);
+            } else {
+                incorrectAnswers.push({
+                    question: q.question,
+                    selected: selected,
+                    correct: correct
+                });
+                showMessage(`❌ Incorrect! Correct answer: ${correct.join(", ")}`, false);
+                setTimeout(() => {
+                    current++;
+                    renderQuestion();
+                }, 2000);
+            }
+        });
+
+        replayBtn.addEventListener("click", () => {
+            startQuiz();
+        });
+
+        function animateCharacter() {
+            const char = document.querySelector(".character");
+            char.classList.add("translate-x-[80vw]");
+            setTimeout(() => char.classList.remove("translate-x-[80vw]"), 1000);
+        }
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: current < questions.length ? 100 : 200,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ["#00ff95", "#00b3ff", "#ff4d4d"]
+            });
+        }
+
+        // Initialize Quiz
+        startQuiz();
+
+        // Fallback
+        if (!questions || questions.length === 0) {
+            quizForm.style.display = "none";
+            submitBtn.style.display = "none";
+            document.getElementById("fallback-message").classList.remove("hidden");
+        }
+    </script>
+</body>
+{% endblock %}

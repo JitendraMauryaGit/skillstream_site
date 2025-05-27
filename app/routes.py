@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template
-
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 
 main = Blueprint('main', __name__)
 
@@ -17,6 +16,21 @@ def education():
 @main.route('/gaming')
 def gaming():
     return render_template('gaming.html')
+
+
+@main.route('/linux')
+def linux_quiz():
+    return render_template('linux.html')
+
+
+@main.route('/shell')
+def shell_quiz():
+    return render_template('shell.html')
+
+
+@main.route('/sql')
+def sql_quiz():
+    return render_template('sql.html')
 
 
 @main.route('/news')
@@ -71,7 +85,6 @@ def submit_contact():
     subject = request.form.get("subject")
     message = request.form.get("message")
 
-    # You can log it or save to DB here
     print(
         f"Contact form submitted by {name}, Email: {email}, Subject: {subject}, Message: {message}")
 

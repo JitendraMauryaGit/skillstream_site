@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+{% block title %}Linux Quiz Adventure - SkillStream{% endblock %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-900 via-blue-900 to-black text-white font-sans overflow-hidden">
+    <div class="relative min-h-screen flex flex-col items-center justify-center p-4 mb-[3%]">
+        <!-- Game Container with 4% viewport bottom margin -->
+        <div
+            class="game-container relative z-10 max-w-3xl w-full bg-black bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 shadow-2xl shadow-cyan-500/50 border border-cyan-400 mb-[4%]">
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-cyan-300 mb-6 drop-shadow-lg">🐧 Linux Quiz
+                Adventure 🚀</h1>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-700 rounded-full h-4 mb-4">
+                <div id="progress-bar"
+                    class="bg-gradient-to-r from-green-400 to-cyan-500 h-4 rounded-full transition-all duration-500"
+                    style="width: 0%"></div>
+            </div>
+
+            <!-- Question Box -->
+            <div
+                class="question-box bg-gray-800 bg-opacity-70 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+                <div id="question" class="text-xl md:text-2xl font-semibold mb-4 text-center"></div>
+                <form id="quiz-form" class="space-y-4"></form>
+                <button id="submit-btn"
+                    class="mt-6 w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-bold text-lg transform transition-all duration-300 hover:scale-110 hover:shadow-cyan-500/50 shadow-lg">Submit</button>
+                <div id="message" class="mt-4 text-lg font-bold text-center"></div>
+                <div id="timer" class="text-lg font-semibold text-center mt-2">⏳ 30</div>
+            </div>
+
+            <!-- Completion Message -->
+            <div id="completion-message" class="hidden mt-6 text-center">
+                <h2 class="text-3xl font-bold text-green-400">🎉 Congratulations!</h2>
+                <p id="time-taken" class="text-xl mt-2"></p>
+                <button id="replay-btn"
+                    class="mt-4 py-2 px-6 bg-green-500 text-white rounded-lg font-bold transform transition-all duration-300 hover:scale-110 hover:shadow-green-500/50">Replay</button>
+            </div>
+        </div>
+
+        <!-- Character -->
+        <div
+            class="character absolute bottom-10 left-10 w-20 h-20 bg-[url('/static/images/penguin_walk.gif')] bg-contain bg-no-repeat transform transition-all duration-1000">
+        </div>
+
+        <!-- Confetti Canvas -->
+        <canvas id="confetti" class="fixed inset-0 pointer-events-none z-20"></canvas>
+    </div>
+
+    <script>
+        // Questions Array (50 Linux Questions)
+        const questions = [
+            { question: "Which command lists files in Linux?", options: ["ls", "dir", "list", "show"], correct: ["ls"] },
+            { question: "Which file stores user account information?", options: ["/etc/passwd", "/etc/shadow", "/home/user", "/etc/users"], correct: ["/etc/passwd"] },
+            { question: "What does 'chmod' do?", options: ["Change file permissions", "Delete file", "Move file", "Copy file"], correct: ["Change file permissions"] },
+            { question: "Default shell in most Linux distributions?", options: ["bash", "sh", "zsh", "ksh"], correct: ["bash"] },
+            { question: "Command to view running processes?", options: ["ps", "run", "jobs", "top"], correct: ["ps"] },
+            { question: "How to switch user in terminal?", options: ["su", "switch", "user", "login"], correct: ["su"] },
+            { question: "To search text in files, use:", options: ["grep", "find", "scan", "search"], correct: ["grep"] },
+            { question: "Package manager for Ubuntu?", options: ["apt", "yum", "pkg", "dnf"], correct: ["apt"] },
+            { question: "To compress files use:", options: ["tar", "zip", "rar", "7z"], correct: ["tar"] },
+            { question: "Which command shows disk usage?", options: ["df", "du", "disk", "free"], correct: ["df"] },
+            { question: "Command to terminate a process?", options: ["kill", "stop", "end", "term"], correct: ["kill"] },
+            { question: "Which command displays the manual for a command?", options: ["man", "help", "info", "doc"], correct: ["man"] },
+            { question: "To create a directory, use:", options: ["mkdir", "newdir", "dir", "create"], correct: ["mkdir"] },
+            { question: "Which command copies files?", options: ["cp", "mv", "copy", "clone"], correct: ["cp"] },
+            { question: "Command to move files?", options: ["mv", "cp", "move", "shift"], correct: ["mv"] },
+            { question: "To remove a file, use:", options: ["rm", "del", "remove", "erase"], correct: ["rm"] },
+            { question: "Which command shows the current directory?", options: ["pwd", "dir", "where", "loc"], correct: ["pwd"] },
+            { question: "Command to change directory?", options: ["cd", "move", "chdir", "goto"], correct: ["cd"] },
+            { question: "To view file content, use:", options: ["cat", "show", "view", "open"], correct: ["cat"] },
+            { question: "Which command displays system information?", options: ["uname", "info", "sys", "stat"], correct: ["uname"] },
+            { question: "Command to create an empty file?", options: ["touch", "new", "file", "create"], correct: ["touch"] },
+            { question: "Which command lists network interfaces?", options: ["ifconfig", "netstat", "ipconfig", "network"], correct: ["ifconfig"] },
+            { question: "To restart a system, use:", options: ["reboot", "restart", "shutdown", "halt"], correct: ["reboot"] },
+            { question: "Command to check memory usage?", options: ["free", "mem", "ram", "usage"], correct: ["free"] },
+            { question: "Which command updates package lists in Ubuntu?", options: ["apt update", "apt-get update", "yum update", "dnf update"], correct: ["apt update", "apt-get update"] },
+            { question: "To install a package in Ubuntu, use:", options: ["apt install", "yum install", "pkg install", "dnf install"], correct: ["apt install"] },
+            { question: "Command to view file permissions?", options: ["ls -l", "dir -p", "stat", "perm"], correct: ["ls -l"] },
+            { question: "Which command shows the last login?", options: ["last", "log", "history", "who"], correct: ["last"] },
+            { question: "To schedule tasks, use:", options: ["cron", "task", "sched", "at"], correct: ["cron"] },
+            { question: "Command to check CPU info?", options: ["lscpu", "cpuinfo", "proc", "sysinfo"], correct: ["lscpu"] },
+            { question: "Which command displays environment variables?", options: ["env", "vars", "set", "export"], correct: ["env", "set"] },
+            { question: "To create a symbolic link, use:", options: ["ln -s", "link", "symlink", "ln"], correct: ["ln -s"] },
+            { question: "Command to view open ports?", options: ["netstat", "ports", "open", "ss"], correct: ["netstat", "ss"] },
+            { question: "Which command checks disk partitions?", options: ["fdisk -l", "part", "disk", "lsblk"], correct: ["fdisk -l", "lsblk"] },
+            { question: "To extract a tar.gz file, use:", options: ["tar -xzf", "unzip", "extract", "tar -xf"], correct: ["tar -xzf"] },
+            { question: "Command to view system logs?", options: ["journalctl", "logs", "syslog", "dmesg"], correct: ["journalctl", "dmesg"] },
+            { question: "Which command displays file type?", options: ["file", "type", "info", "stat"], correct: ["file"] },
+            { question: "To change file ownership, use:", options: ["chown", "owner", "chgrp", "perm"], correct: ["chown"] },
+            { question: "Command to find files?", options: ["find", "search", "locate", "grep"], correct: ["find", "locate"] },
+            { question: "Which command shows network status?", options: ["ip a", "ifconfig", "netstat", "network"], correct: ["ip a", "ifconfig"] },
+            { question: "To stop a service, use:", options: ["systemctl stop", "service stop", "stop", "halt"], correct: ["systemctl stop"] },
+            { question: "Command to start a service?", options: ["systemctl start", "service start", "start", "run"], correct: ["systemctl start"] },
+            { question: "Which command checks system uptime?", options: ["uptime", "time", "status", "sys"], correct: ["uptime"] },
+            { question: "To view hidden files, use:", options: ["ls -a", "ls -h", "dir -a", "show"], correct: ["ls -a"] },
+            { question: "Command to redirect output to a file?", options: [">", ">>", "tee", "pipe"], correct: [">", ">>"] },
+            { question: "Which command pipes output to another command?", options: ["|", ">", ">>", "&"], correct: ["|"] },
+            { question: "To view the first 10 lines of a file, use:", options: ["head", "tail", "top", "cat"], correct: ["head"] },
+            { question: "To view the last 10 lines of a file, use:", options: ["tail", "head", "cat", "less"], correct: ["tail"] },
+            { question: "Which command displays current user?", options: ["whoami", "user", "id", "who"], correct: ["whoami"] },
+            { question: "Command to check file system type?", options: ["df -T", "fsck", "fstype", "disk"], correct: ["df -T"] }
+        ];
+
+        // Shuffle Questions
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        let shuffledQuestions = shuffle([...questions]);
+        let current = 0;
+        let timer;
+        let startTime = Date.now();
+        const timeLimit = 30;
+
+        // Progress Bar Update
+        function updateProgressBar() {
+            const progress = (current / questions.length) * 100;
+            document.getElementById("progress-bar").style.width = `${progress}%`;
+        }
+
+        // Render Question
+        function renderQuestion() {
+            document.getElementById("message").textContent = "";
+            document.getElementById("completion-message").classList.add("hidden");
+            document.getElementById("quiz-form").style.display = "block";
+            document.getElementById("submit-btn").style.display = "block";
+            document.getElementById("timer").style.display = "block";
+
+            if (current >= questions.length) {
+                clearInterval(timer);
+                const endTime = Date.now();
+                const timeTaken = Math.floor((endTime - startTime) / 1000);
+                document.getElementById("question").textContent = "";
+                document.getElementById("quiz-form").style.display = "none";
+                document.getElementById("submit-btn").style.display = "none";
+                document.getElementById("timer").style.display = "none";
+                document.getElementById("completion-message").classList.remove("hidden");
+                document.getElementById("time-taken").textContent = `You completed the quiz in ${timeTaken} seconds!`;
+                triggerConfetti();
+                return;
+            }
+
+            const q = shuffledQuestions[current];
+            document.getElementById("question").textContent = q.question;
+
+            const form = document.getElementById("quiz-form");
+            form.innerHTML = "";
+            q.options.forEach(option => {
+                const id = `opt-${option.replace(/\s/g, "-")}`;
+                form.innerHTML += `
+                    <div class="option flex items-center p-3 bg-gray-700 bg-opacity-50 rounded-lg transform transition-all duration-300 hover:scale-105 hover:bg-cyan-500/20">
+                        <input type="checkbox" id="${id}" value="${option}" class="mr-2 h-5 w-5 text-cyan-500 focus:ring-cyan-400">
+                        <label for="${id}" class="text-lg cursor-pointer">${option}</label>
+                    </div>`;
+            });
+
+            let time = timeLimit;
+            document.getElementById("timer").textContent = `⏳ ${time}`;
+            clearInterval(timer);
+            timer = setInterval(() => {
+                time--;
+                document.getElementById("timer").textContent = `⏳ ${time}`;
+                if (time <= 0) {
+                    clearInterval(timer);
+                    showMessage("⏰ Time's up! Try again.", false);
+                }
+            }, 1000);
+
+            updateProgressBar();
+        }
+
+        // Show Message
+        function showMessage(msg, success = false) {
+            const messageDiv = document.getElementById("message");
+            messageDiv.textContent = msg;
+            messageDiv.className = `mt-4 text-lg font-bold text-center ${success ? "text-green-400" : "text-red-400"}`;
+            if (success) {
+                animateCharacter();
+                setTimeout(() => {
+                    current++;
+                    renderQuestion();
+                }, 2000);
+            }
+        }
+
+        // Submit Button Event with Audio Error Handling
+        document.getElementById("submit-btn").addEventListener("click", () => {
+            clearInterval(timer);
+            const selected = Array.from(document.querySelectorAll("input:checked")).map(x => x.value);
+            const correct = shuffledQuestions[current].correct;
+
+            // Attempt to play audio with error handling
+            try {
+                const audio = new Audio(selected.sort().toString() === correct.sort().toString() ? "/static/success.mp3" : "/static/fail.mp3");
+                audio.play().catch(err => {
+                    console.warn("Audio playback failed:", err.message);
+                });
+            } catch (err) {
+                console.warn("Failed to load audio:", err.message);
+            }
+
+            if (selected.sort().toString() === correct.sort().toString()) {
+                showMessage("✅ Correct! Moving to next question...", true);
+            } else {
+                showMessage("❌ Incorrect! Try again.");
+            }
+        });
+
+        // Replay Button
+        document.getElementById("replay-btn").addEventListener("click", () => {
+            current = 0;
+            startTime = Date.now();
+            shuffledQuestions = shuffle([...questions]);
+            renderQuestion();
+        });
+
+        // Character Animation
+        function animateCharacter() {
+            const char = document.querySelector(".character");
+            char.classList.add("translate-x-[80vw]");
+            setTimeout(() => char.classList.remove("translate-x-[80vw]"), 1000);
+        }
+
+        // Confetti Effect
+        function triggerConfetti() {
+            confetti({
+                particleCount: 200,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ["#00ff95", "#00b3ff", "#ff4d4d"],
+            });
+        }
+
+        // Initialize Quiz
+        renderQuestion();
+    </script>
+</body>
+{% endblock %}

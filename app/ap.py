@@ -1,7 +1,9 @@
+from app import routes
 from flask import Flask, render_template
-from flask import Flask
 from dotenv import load_dotenv
 import os
+app = Flask(__name__)
+
 
 load_dotenv()  # Load environment variables
 
@@ -32,6 +34,11 @@ def education():
 @app.route('/gaming')
 def gaming():
     return render_template('gaming.html')
+
+
+@app.route('/linux')
+def gaming():
+    return render_template('linux.html')
 
 
 @app.route('/news')
