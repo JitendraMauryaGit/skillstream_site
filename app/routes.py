@@ -33,6 +33,21 @@ def sql_quiz():
     return render_template('sql.html')
 
 
+@main.route('/devops-basic')
+def devops_basic():
+    return render_template('devops-basic.html')
+
+
+@main.route('/devops-intermediate')
+def devops_intermediate():
+    return render_template('devops-intermediate.html')
+
+
+@main.route('/devops-advanced')
+def devops_advanced():
+    return render_template('devops-advanced.html')
+
+
 @main.route('/news')
 def news():
     return render_template('news.html')

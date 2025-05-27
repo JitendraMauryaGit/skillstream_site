@@ -2,141 +2,330 @@
 
 {% block content %}
 <style>
+    body {
+        overflow-x: hidden;
+        /* Hide horizontal scrollbar */
+    }
+
+    .container {
+        max-width: 1200px;
+        /* Constrain layout */
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
     .news-wrapper {
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(to bottom right, #f1f8e9, #dcedc8);
-        padding: 3rem 1rem;
-        color: #2e2e2e;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        padding: 2rem 0;
+        color: #333;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 1.5rem;
+        border-top: 4px solid #000;
+        border-bottom: 4px solid #000;
+        overflow-x: hidden;
+        /* Ensure no horizontal scroll */
+    }
+
+    .news-main {
+        flex: 0 0 70%;
+        /* 70% width */
+    }
+
+    .news-corner {
+        flex: 0 0 30%;
+        /* 30% width */
+        max-width: 300px;
+        min-width: 200px;
+        /* Ensure visibility */
+        margin-right: 2%;
+        /* 2% right margin */
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        animation: slideInRight 1.5s ease;
+        display: block;
+        /* Ensure rendering */
+        transition: max-width 0.3s ease, margin 0.3s ease;
+        /* Smooth resizing */
     }
 
     .news-header {
         text-align: center;
-        margin-bottom: 3rem;
-        animation: slideInTop 1.5s ease;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid #000;
+        padding-bottom: 1rem;
     }
 
     .news-header h1 {
-        font-size: 3rem;
-        font-weight: 900;
-        background: linear-gradient(to right, #33691e, #558b2f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        font-family: Georgia, serif;
+        font-size: 2.8rem;
+        font-weight: bold;
+        color: #000;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
     }
 
     .news-header p {
-        font-size: 1.1rem;
+        font-size: 1rem;
         max-width: 700px;
-        margin: 1rem auto;
-        color: #4e4e4e;
+        margin: 0 auto;
+        color: #555;
+        font-style: italic;
     }
 
     .card-grid-news {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
     }
 
     .news-card {
-        background: #fff;
-        border-radius: 20px;
-        padding: 2rem;
-        width: 300px;
-        box-shadow: 0 15px 30px rgba(85, 139, 47, 0.15);
-        transition: transform 0.6s ease, box-shadow 0.6s ease, filter 0.6s ease;
-        transform-style: preserve-3d;
-        transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
-        will-change: transform;
-        opacity: 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
         animation: fadeInNewsCard 1s ease forwards;
+        will-change: transform, filter, box-shadow;
     }
 
-    /* 3+2 Layout Animation Delays */
     .news-card:nth-child(1) {
+        background: #f9f9f9;
         animation-delay: 0.3s;
     }
 
+    /* Light gray */
     .news-card:nth-child(2) {
+        background: #f0f4f8;
         animation-delay: 0.6s;
     }
 
+    /* Light blue-gray */
     .news-card:nth-child(3) {
+        background: #fff8e6;
         animation-delay: 0.9s;
     }
 
+    /* Light cream */
     .news-card:nth-child(4) {
+        background: #f6f6f6;
         animation-delay: 1.2s;
     }
 
+    /* Off-white */
     .news-card:nth-child(5) {
+        background: #e8f4f0;
         animation-delay: 1.5s;
     }
 
+    /* Light mint */
+
     .news-card:hover {
-        transform: perspective(1000px) scale(1.06) rotateX(5deg) rotateY(5deg);
-        box-shadow: 0 25px 40px rgba(85, 139, 47, 0.25);
-        filter: brightness(1.1) contrast(1.15) saturate(1.2);
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0.15);
+        filter: brightness(1.1);
     }
 
     .news-card .tag {
-        font-size: 0.75rem;
-        font-weight: 600;
-        background: #dcedc8;
-        color: #33691e;
+        font-size: 0.7rem;
+        font-weight: bold;
+        background: #e0e0e0;
+        color: #333;
         padding: 0.3rem 0.75rem;
-        border-radius: 15px;
+        border-radius: 12px;
         margin-bottom: 0.8rem;
         display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .news-card:hover .tag {
+        filter: brightness(1.1);
     }
 
     .news-card h3 {
-        font-size: 1.4rem;
-        color: #33691e;
+        font-family: Georgia, serif;
+        font-size: 1.3rem;
+        color: #000;
         margin-bottom: 0.6rem;
     }
 
     .news-card p {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #444;
+    }
+
+    .news-corner h2 {
+        font-family: Georgia, serif;
+        font-size: 1.6rem;
+        color: #000;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 0.5rem;
+    }
+
+    .news-item {
+        margin-bottom: 1.2rem;
+        padding-bottom: 1.2rem;
+        border-bottom: 1px dashed #ccc;
+        animation: fadeInNewsCard 1s ease forwards;
+        transition: all 0.3s ease;
+        will-change: transform, filter, box-shadow;
+    }
+
+    .news-item:last-child {
+        border-bottom: none;
+    }
+
+    .news-item:nth-child(1) {
+        background: #f9f9f9;
+        animation-delay: 0.3s;
+    }
+
+    /* Light gray */
+    .news-item:nth-child(2) {
+        background: #f0f4f8;
+        animation-delay: 0.6s;
+    }
+
+    /* Light blue-gray */
+    .news-item:nth-child(3) {
+        background: #fff8e6;
+        animation-delay: 0.9s;
+    }
+
+    /* Cream */
+    .news-item:nth-child(4) {
+        background: #f6f6f6;
+        animation-delay: 1.2s;
+    }
+
+    /* Off-white */
+    .news-item:nth-child(5) {
+        background: #e8f4f0;
+        animation-delay: 1.5s;
+    }
+
+    /* Light mint */
+    .news-item:nth-child(6) {
+        background: #f9ece6;
+        animation-delay: 1.8s;
+    }
+
+    /* Light peach */
+
+    .news-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        filter: brightness(1.1);
+    }
+
+    .news-item .tag {
+        font-size: 0.7rem;
+        font-weight: bold;
+        background: #e0e0e0;
+        color: #333;
+        padding: 0.3rem 0.75rem;
+        border-radius: 12px;
+        margin-bottom: 0.8rem;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .news-item:hover .tag {
+        filter: brightness(1.1);
+    }
+
+    .news-item h3 {
+        font-family: Georgia, serif;
+        font-size: 1.1rem;
+        color: #000;
+        margin-bottom: 0.5rem;
+    }
+
+    .news-item p {
+        font-size: 0.85rem;
         line-height: 1.5;
-        color: #555;
+        color: #444;
+        margin-bottom: 0.6rem;
+    }
+
+    .news-item .date {
+        font-size: 0.75rem;
+        color: #666;
+        margin-bottom: 0.6rem;
+    }
+
+    .news-item a {
+        font-size: 0.85rem;
+        color: #0066cc;
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .news-item a:hover {
+        color: #003366;
+        text-decoration: underline;
     }
 
     .cta-news {
-        margin-top: 4rem;
-        background: linear-gradient(to right, #7cb342, #9ccc65);
-        padding: 2rem;
-        border-radius: 20px;
+        margin-top: 2rem;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 1.5rem;
         text-align: center;
-        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         animation: slideInBottom 2s ease;
+        transition: all 0.3s ease;
+        will-change: transform, filter, box-shadow;
+    }
+
+    .cta-news:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        filter: brightness(1.1);
     }
 
     .cta-news h2 {
-        font-size: 2rem;
+        font-family: Georgia, serif;
+        font-size: 1.8rem;
+        color: #000;
         margin-bottom: 0.8rem;
+    }
+
+    .cta-news p {
+        font-size: 0.95rem;
+        color: #444;
+        margin-bottom: 1rem;
     }
 
     .cta-news a {
         display: inline-block;
-        background: white;
-        color: #558b2f;
+        background: #0066cc;
+        color: #fff;
         padding: 0.75rem 1.5rem;
-        border-radius: 10px;
+        border-radius: 8px;
         font-weight: bold;
         text-decoration: none;
-        transition: background 0.3s ease;
+        transition: all 0.3s ease;
     }
 
     .cta-news a:hover {
-        background: #f1f8e9;
+        background: #003366;
+        transform: scale(1.05);
     }
 
     @keyframes slideInTop {
         0% {
             opacity: 0;
-            transform: translateY(-50px);
+            transform: translateY(-30px);
         }
 
         100% {
@@ -145,22 +334,22 @@
         }
     }
 
-    @keyframes slideInBottom {
+    @keyframes slideInRight {
         0% {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateX(30px);
         }
 
         100% {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
         }
     }
 
     @keyframes fadeInNewsCard {
         0% {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(20px);
         }
 
         100% {
@@ -169,74 +358,209 @@
         }
     }
 
-    @media (max-width: 767px) {
-        .news-header h1 {
-            font-size: 2.2rem;
+    @media (max-width: 1024px) {
+        .news-wrapper {
+            gap: 1rem;
         }
 
-        .cta-news h2 {
-            font-size: 1.6rem;
+        .news-corner {
+            max-width: 280px;
+            min-width: 180px;
+            margin-right: 1%;
+            /* Reduced margin */
         }
 
         .news-card {
-            width: 100%;
+            padding: 1.2rem;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .news-wrapper {
+            flex-direction: column;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+
+        .news-main {
+            flex: 1 1 100%;
+            order: 1;
+        }
+
+        .news-corner {
+            flex: 1 1 100%;
+            max-width: 100%;
+            min-width: 100%;
+            margin-right: 0;
+            /* No margin on mobile */
+            margin-top: 1.5rem;
+            order: 2;
+        }
+
+        .news-header h1 {
+            font-size: 2rem;
+        }
+
+        .cta-news h2 {
+            font-size: 1.5rem;
+        }
+
+        .news-card {
+            padding: 1rem;
+        }
+
+        .news-item h3 {
+            font-size: 1rem;
+        }
+
+        .news-item p {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .news-header h1 {
+            font-size: 1.8rem;
+        }
+
+        .news-header p {
+            font-size: 0.9rem;
+        }
+
+        .card-grid-news {
+            grid-template-columns: 1fr;
+        }
+
+        .news-card h3 {
+            font-size: 1.2rem;
+        }
+
+        .news-card p {
+            font-size: 0.9rem;
+        }
+
+        .cta-news {
+            padding: 1rem;
         }
     }
 </style>
 
-<div class="news-wrapper">
-    <div class="news-header">
-        <h1>Tech News & Insights</h1>
-        <p>SkillStream Insights brings you in-house journalism, tech updates, thought leadership, and engineering trends
-            from our internal and global ecosystem.</p>
-    </div>
+<div class="container">
+    <div class="news-wrapper">
+        <div class="news-main">
+            <div class="news-header">
+                <h1>SkillStream Insights</h1>
+                <p>SkillStream Insights (SSI) delivers global tech & innovation news, driven by student publishing and
+                    fresh perspectives.</p>
+            </div>
 
-    <div class="card-grid-news">
-        <!-- Card 1 -->
-        <div class="news-card">
-            <div class="tag">📢 Update</div>
-            <h3>Launch of Our Microservices Architecture</h3>
-            <p>Learn how SkillStream re-architected its core platforms with containerized services and async processing.
-                A major performance leap.</p>
+            <div class="card-grid-news">
+                <!-- Card 1 -->
+                <div class="news-card">
+                    <div class="tag">📢 Update</div>
+                    <h3>Launch of Our Microservices Architecture</h3>
+                    <p>SkillStream Virtual Institute (SSVI) re-architected its core platforms with containerized
+                        services and async processing, boosting performance for global users.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="news-card">
+                    <div class="tag">🧠 Thought Leadership</div>
+                    <h3>SSVI Interns Building Production Systems</h3>
+                    <p>At SkillStream Virtual Institute (SSVI), we hire interns and trainees exclusively from our
+                        programs, empowering them to ship live modules and gain real-world tech experience.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="news-card">
+                    <div class="tag">🔥 Trending</div>
+                    <h3>Top 5 DevOps Trends to Watch in 2025</h3>
+                    <p>SSVI engineers explore Infrastructure-as-Code, platform engineering, and GitOps, shaping the
+                        future of DevOps with insights from our global training programs.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="news-card">
+                    <div class="tag">🕵️‍♂️ Behind the Scenes</div>
+                    <h3>How SSVI Handles Downtime & Outages</h3>
+                    <p>Our SSVI incident team shares their approach to real-time response, root cause analysis, and
+                        global war rooms, ensuring robust platform reliability.</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="news-card">
+                    <div class="tag">📊 Insight</div>
+                    <h3>SSVI Students Lead Tech Publishing</h3>
+                    <p>SkillStream Virtual Institute (SSVI) students drive our newsroom, publishing cutting-edge tech
+                        insights, from AI trends to global innovation, with fresh perspectives.</p>
+                </div>
+            </div>
+
+            <div class="cta-news">
+                <h2>Share Your Tech Insights</h2>
+                <p>SkillStream Insights, powered by SSVI students, welcomes your tech deep dives and innovative ideas
+                    for global publication.</p>
+                <a href="/contact">📝 Submit Your Article</a>
+            </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="news-card">
-            <div class="tag">🧠 Thought Leadership</div>
-            <h3>Interns Building Production Systems</h3>
-            <p>We trust interns with real systems. Here's how they ship live modules and gain deep industry exposure
-                before graduation.</p>
+        <div class="news-corner">
+            <h2>News Corner: Top Updates</h2>
+            <!-- News Item 1: Tech -->
+            <div class="news-item">
+                <div class="tag">🖥️ Tech</div>
+                <h3>HP Leads Indian PC Market in Q1 2025</h3>
+                <p>HP tops India’s PC market with an 8.1% year-on-year shipment growth in Q1 2025, driven by demand for
+                    laptops and desktops.</p>
+                <div class="date">May 27, 2025</div>
+                <a href="https://gadgets.ndtv.com" target="_blank">Read More</a>
+            </div>
+            <!-- News Item 2: Indian -->
+            <div class="news-item">
+                <div class="tag">🇮🇳 India</div>
+                <h3>India Now World’s 4th Largest Economy</h3>
+                <p>India overtakes Japan to become the fourth-largest economy in 2025, with IMF forecasting it as the
+                    fastest-growing major economy.</p>
+                <div class="date">May 26, 2025</div>
+                <a href="https://indianexpress.com" target="_blank">Read More</a>
+            </div>
+            <!-- News Item 3: Tech -->
+            <div class="news-item">
+                <div class="tag">🖥️ Tech</div>
+                <h3>Google I/O 2025 Showcases AI Advances</h3>
+                <p>Google unveils AI-powered Search Mode and Project Mariner upgrades at I/O 2025, enhancing
+                    multitasking and 3D video calls.</p>
+                <div class="date">May 25, 2025</div>
+                <a href="https://timesofindia.indiatimes.com" target="_blank">Read More</a>
+            </div>
+            <!-- News Item 4: Global -->
+            <div class="news-item">
+                <div class="tag">🌐 Global</div>
+                <h3>Tech Layoffs Hit Indian Economy</h3>
+                <p>Global tech layoffs, with 28,000 jobs cut in India since January 2025, impact IT services and
+                    economic spending.</p>
+                <div class="date">May 24, 2025</div>
+                <a href="https://indiatoday.in" target="_blank">Read More</a>
+            </div>
+            <!-- News Item 5: Tech -->
+            <div class="news-item">
+                <div class="tag">🖥️ Tech</div>
+                <h3>Indian Talent Fuels Saudi Tech Growth</h3>
+                <p>Indian engineers lead Saudi Arabia’s digital transformation under Vision 2030, driving AI and fintech
+                    innovations.</p>
+                <div class="date">May 23, 2025</div>
+                <a href="https://timesofindia.indiatimes.com" target="_blank">Read More</a>
+            </div>
+            <!-- News Item 6: Indian -->
+            <div class="news-item">
+                <div class="tag">🇮🇳 India</div>
+                <h3>India-Pakistan Ceasefire Agreement</h3>
+                <p>India and Pakistan reach a ceasefire after missile exchanges, with US-led talks aiming to de-escalate
+                    tensions.</p>
+                <div class="date">May 22, 2025</div>
+                <a href="https://theguardian.com" target="_blank">Read More</a>
+            </div>
         </div>
-
-        <!-- Card 3 -->
-        <div class="news-card">
-            <div class="tag">🔥 Trending</div>
-            <h3>Top 5 DevOps Trends to Watch in 2025</h3>
-            <p>Infrastructure-as-Code, platform engineering, GitOps, and more. Our engineers discuss what’s next in
-                DevOps culture and tooling.</p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="news-card">
-            <div class="tag">🕵️‍♂️ Behind the Scenes</div>
-            <h3>How We Handle Downtime & Outages</h3>
-            <p>Our incident team shares their approach to real-time response, RCA, and internal war rooms — from Yes
-                Bank days to SkillStream now.</p>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="news-card">
-            <div class="tag">📊 Insight</div>
-            <h3>Why Observability Beats Monitoring</h3>
-            <p>Beyond metrics: our ops team reflects on proactive vs. reactive observability and why it's a mindset
-                shift for every engineer.</p>
-        </div>
-    </div>
-
-    <div class="cta-news">
-        <h2>Have a story or insight to share?</h2>
-        <p>We publish thought pieces, tech deep dives, and internal knowledge from SkillStreamers like you.</p>
-        <a href="/contact">📝 Submit Your Article</a>
     </div>
 </div>
 {% endblock %}

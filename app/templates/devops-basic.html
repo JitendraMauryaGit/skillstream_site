@@ -1,0 +1,453 @@
+{% extends 'base.html' %}
+{% block title %}DevOps Basics Quiz Adventure - SkillStream{% endblock %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Ensure page is scrollable */
+        body {
+            overflow-y: auto;
+            min-height: 100vh;
+        }
+
+        /* Game Container Styling */
+        .game-container {
+            margin: 5%;
+            padding: 3%;
+            transform: perspective(1000px) rotateX(2deg) rotateY(1deg);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .game-container:hover {
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(20px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Question Box Styling */
+        .question-box {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .question-box:hover {
+            transform: scale(1.05) translateZ(10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Option Styling */
+        .option {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .option:hover {
+            transform: scale(1.05);
+            background-color: rgba(6, 182, 212, 0.2);
+        }
+
+        /* Checkbox Styling */
+        input[type="checkbox"] {
+            accent-color: #06b6d4;
+            transform: scale(1.2);
+            transition: transform 0.2s ease;
+        }
+
+        input[type="checkbox"]:hover {
+            transform: scale(1.4);
+        }
+
+        /* Submit Button Styling */
+        .submit-btn {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.1) translateZ(10px);
+            box-shadow: 0 10px 20px rgba(6, 182, 212, 0.5);
+        }
+
+        /* Replay Button Styling */
+        .replay-btn {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .replay-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.5);
+        }
+
+        /* High Contrast Text */
+        .text-high-contrast {
+            color: #f9fafb;
+            text-shadow: 0 0 6px rgba(0, 255, 255, 0.6);
+        }
+
+        /* Progress Bar Random Effect */
+        .progress-bar {
+            transition: width 0.5s ease, background 0.5s ease;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 640px) {
+            .game-container {
+                margin: 3%;
+                padding: 2%;
+                margin-bottom: 3%;
+            }
+
+            .question-box {
+                padding: 0.8rem;
+            }
+
+            .text-4xl {
+                font-size: 1.25rem;
+            }
+
+            .text-xl {
+                font-size: 0.75rem;
+            }
+
+            .submit-btn {
+                width: 80%;
+            }
+
+            .replay-btn {
+                width: 60%;
+            }
+
+            .character {
+                width: 12px;
+                height: 12px;
+                bottom: 6px;
+                left: 6px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .game-container {
+                max-width: 90%;
+            }
+        }
+
+        /* Particle Background */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 4s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateY(-20px);
+                opacity: 0.9;
+            }
+        }
+
+        /* Fallback Message */
+        .fallback-message {
+            color: #f9fafb;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 0.8rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-gray-900 via-blue-900 to-black text-white font-sans">
+    <div class="relative min-h-fit flex flex-col items-center justify-center p-4 mb-[3%] pb-[2%]">
+        <!-- Particle Background -->
+        <div class="fixed inset-0 pointer-events-none z-0">
+            <div class="particle" style="left: 15%; top: 25%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 35%; top: 55%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 55%; top: 35%; animation-delay: 2s;"></div>
+            <!-- Generating particle divs -->
+            <div class="particle" style="left: 75%; top: 65%; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 85%; top: 45%; animation-delay: 4s;"></div>
+        </div>
+
+        <!-- Game Container -->
+        <div
+            class="game-container relative z-10 max-w-2xl w-full bg-black bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 shadow-2xl shadow-cyan-500/50 border border-cyan-400 my-auto">
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-cyan-300 mb-6 drop-shadow-lg text-high-contrast">
+                🚀 DevOps Basics Quiz Adventure 🛠️</h1>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-700 rounded-full h-4 mb-4">
+                <div id="progress-bar" class="progress-bar h-4 rounded-full transition-all duration-500"
+                    style="width: 0%"></div>
+            </div>
+
+            <!-- Question Box -->
+            <div class="question-box bg-gray-800 bg-opacity-70 rounded-xl p-6 transform transition-all duration-300">
+                <div id="question" class="text-xl md:text-2xl font-semibold mb-4 text-center text-high-contrast"></div>
+                <form id="quiz-form" class="space-y-4" autocomplete="off"></form>
+                <button id="submit-btn"
+                    class="submit-btn mt-6 w-1/2 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-bold text-lg transform transition-all duration-300">Submit</button>
+                <div id="message" class="mt-4 text-lg font-bold text-center text-high-contrast"></div>
+            </div>
+
+            <!-- Completion Message -->
+            <div id="completion-message" class="hidden mt-6 text-center">
+                <h2 class="text-3xl font-bold text-green-400 text-high-contrast">🎉 Congratulations!</h2>
+                <p id="time-taken" class="text-xl mt-2 text-high-contrast"></p>
+                <p id="score-breakdown" class="text-lg mt-2 text-high-contrast"></p>
+                <button id="replay-btn"
+                    class="replay-btn mt-4 w-1/3 py-2 px-6 bg-green-500 text-white rounded-lg font-bold transform transition-all duration-300">Play
+                    Again</button>
+            </div>
+
+            <!-- Fallback Message -->
+            <div id="fallback-message" class="fallback-message hidden">
+                JavaScript failed to load. Here's a sample question:<br>
+                <strong>What is the primary purpose of Continuous Integration (CI)?</strong><br>
+                a) Automate and integrate code changes frequently<br>
+                b) Deploy applications to production<br>
+                c) Monitor server performance<br>
+                d) Manage container orchestration<br>
+                Correct: a) Automate and integrate code changes frequently<br>
+                Please ensure JavaScript is enabled and try again.
+            </div>
+        </div>
+
+        <!-- Character -->
+        <div
+            class="character absolute bottom-10 left-10 w-20 h-20 bg-[url('{{ url_for('static', filename='images/penguin_walk.gif') }}')] bg-contain bg-no-repeat transform transition-all duration-1000">
+        </div>
+
+        <!-- Confetti Canvas -->
+        <canvas id="confetti" class="fixed inset-0 pointer-events-none z-20"></canvas>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What is the primary purpose of Continuous Integration (CI)?", options: ["Automate and integrate code changes frequently", "Deploy applications to production", "Monitor server performance", "Manage container orchestration"], correct: ["Automate and integrate code changes frequently"] },
+            { question: "Which tool is commonly used for version control in DevOps?", options: ["Git", "Jenkins", "Docker", "Ansible"], correct: ["Git"] },
+            { question: "What does Continuous Deployment (CD) automate?", options: ["Code deployment to production", "Code testing", "Infrastructure provisioning", "Log monitoring"], correct: ["Code deployment to production"] },
+            { question: "Which DevOps principle emphasizes collaboration between development and operations?", options: ["Culture", "Automation", "Measurement", "Sharing"], correct: ["Culture"] },
+            { question: "What is the purpose of Docker in DevOps?", options: ["Containerization", "Version control", "Configuration management", "Monitoring"], correct: ["Containerization"] },
+            { question: "Which tool is used for infrastructure as code?", options: ["Terraform", "Jenkins", "Kubernetes", "Prometheus"], correct: ["Terraform"] },
+            { question: "What does a CI/CD pipeline primarily aim to achieve?", options: ["Faster and reliable software delivery", "Server monitoring", "Database management", "Network optimization"], correct: ["Faster and reliable software delivery"] },
+            { question: "Which command initializes a new Git repository?", options: ["git init", "git clone", "git commit", "git push"], correct: ["git init"] },
+            { question: "What is the role of Jenkins in DevOps?", options: ["CI/CD automation", "Container orchestration", "Log aggregation", "Infrastructure monitoring"], correct: ["CI/CD automation"] },
+            { question: "Which Kubernetes component manages containerized applications?", options: ["Kubelet", "Kube-apiserver", "Kube-scheduler", "Kube-controller"], correct: ["Kubelet"] },
+            { question: "What does Infrastructure as Code (IaC) enable?", options: ["Programmatic infrastructure management", "Manual server setup", "Code testing", "Application monitoring"], correct: ["Programmatic infrastructure management"] },
+            { question: "Which tool is used for configuration management?", options: ["Ansible", "Docker", "GitLab", "Nagios"], correct: ["Ansible"] },
+            { question: "What is the purpose of a Dockerfile?", options: ["Define container image instructions", "Manage CI/CD pipelines", "Monitor application logs", "Configure network settings"], correct: ["Define container image instructions"] },
+            { question: "Which command stages changes in Git?", options: ["git add", "git commit", "git push", "git pull"], correct: ["git add"] },
+            { question: "What is the main function of Kubernetes?", options: ["Container orchestration", "Version control", "Log analysis", "CI/CD automation"], correct: ["Container orchestration"] },
+            { question: "Which tool is used for monitoring and alerting?", options: ["Prometheus", "Jenkins", "Terraform", "Git"], correct: ["Prometheus"] },
+            { question: "What does the 'git commit' command do?", options: ["Saves changes to the local repository", "Pushes changes to remote", "Clones a repository", "Merges branches"], correct: ["Saves changes to the local repository"] },
+            { question: "Which DevOps practice involves monitoring application performance?", options: ["Observability", "Automation", "Versioning", "Deployment"], correct: ["Observability"] },
+            { question: "What is the purpose of a load balancer in DevOps?", options: ["Distributes network traffic", "Manages containers", "Automates testing", "Stores code"], correct: ["Distributes network traffic"] },
+            { question: "Which tool is used for log aggregation?", options: ["ELK Stack", "Docker", "Ansible", "GitHub"], correct: ["ELK Stack"] },
+            { question: "What does 'git push' do?", options: ["Uploads local changes to a remote repository", "Downloads changes", "Stages changes", "Reverts commits"], correct: ["Uploads local changes to a remote repository"] },
+            { question: "Which cloud platform is commonly used in DevOps?", options: ["AWS", "Jenkins", "Docker", "Git"], correct: ["AWS"] },
+            { question: "What is the purpose of a CI/CD tool like GitLab CI?", options: ["Automate build and deployment", "Monitor servers", "Manage containers", "Configure networks"], correct: ["Automate build and deployment"] },
+            { question: "Which command creates a new branch in Git?", options: ["git branch", "git checkout", "git merge", "git clone"], correct: ["git branch"] },
+            { question: "What is a microservice in DevOps?", options: ["Small, independent service", "Large monolithic application", "Database management tool", "Network protocol"], correct: ["Small, independent service"] },
+            { question: "Which tool automates server provisioning?", options: ["Puppet", "Git", "Prometheus", "Kubernetes"], correct: ["Puppet"] },
+            { question: "What does 'git merge' do?", options: ["Combines branches", "Creates a new branch", "Stages changes", "Pushes changes"], correct: ["Combines branches"] },
+            { question: "Which DevOps practice reduces manual intervention?", options: ["Automation", "Monitoring", "Collaboration", "Versioning"], correct: ["Automation"] },
+            { question: "What is the purpose of a container registry?", options: ["Stores container images", "Manages CI/CD pipelines", "Monitors applications", "Configures servers"], correct: ["Stores container images"] },
+            { question: "Which command checks the status of a Git repository?", options: ["git status", "git log", "git diff", "git commit"], correct: ["git status"] },
+            { question: "What does a monitoring tool like Nagios do?", options: ["Tracks system performance", "Automates deployments", "Manages containers", "Stores code"], correct: ["Tracks system performance"] },
+            { question: "Which file defines tasks in Ansible?", options: ["Playbook", "Dockerfile", "Jenkinsfile", "Terraform script"], correct: ["Playbook"] },
+            { question: "What is the purpose of a Jenkinsfile?", options: ["Defines CI/CD pipeline", "Configures containers", "Monitors logs", "Manages infrastructure"], correct: ["Defines CI/CD pipeline"] },
+            { question: "Which command pulls changes from a remote Git repository?", options: ["git pull", "git push", "git fetch", "git clone"], correct: ["git pull"] },
+            { question: "What is the role of a reverse proxy in DevOps?", options: ["Routes traffic to servers", "Builds applications", "Stores containers", "Automates testing"], correct: ["Routes traffic to servers"] },
+            { question: "Which tool is used for secrets management?", options: ["Vault", "Jenkins", "Docker", "GitLab"], correct: ["Vault"] },
+            { question: "What does 'git clone' do?", options: ["Copies a repository", "Commits changes", "Merges branches", "Stages files"], correct: ["Copies a repository"] },
+            { question: "Which DevOps practice involves tracking metrics?", options: ["Measurement", "Automation", "Collaboration", "Deployment"], correct: ["Measurement"] },
+            { question: "What is the purpose of a Kubernetes pod?", options: ["Runs one or more containers", "Manages CI/CD", "Stores logs", "Configures networks"], correct: ["Runs one or more containers"] },
+            { question: "Which command shows the commit history in Git?", options: ["git log", "git status", "git diff", "git branch"], correct: ["git log"] },
+            { question: "What is the purpose of blue-green deployment?", options: ["Minimize downtime during updates", "Automate testing", "Monitor performance", "Manage containers"], correct: ["Minimize downtime during updates"] },
+            { question: "Which tool is used for network monitoring?", options: ["Zabbix", "Docker", "Ansible", "Git"], correct: ["Zabbix"] },
+            { question: "What does 'git checkout' do?", options: ["Switches branches or restores files", "Commits changes", "Pushes changes", "Clones repositories"], correct: ["Switches branches or restores files"] },
+            { question: "Which DevOps concept involves sharing knowledge?", options: ["Sharing", "Automation", "Monitoring", "Versioning"], correct: ["Sharing"] },
+            { question: "What is the purpose of a service mesh?", options: ["Manages microservice communication", "Builds containers", "Automates CI/CD", "Monitors logs"], correct: ["Manages microservice communication"] },
+            { question: "Which command reverts changes in Git?", options: ["git revert", "git reset", "git undo", "git rollback"], correct: ["git revert"] },
+            { question: "What is the role of Helm in Kubernetes?", options: ["Manages application packages", "Monitors clusters", "Automates deployments", "Configures networks"], correct: ["Manages application packages"] },
+            { question: "Which tool is used for cloud orchestration?", options: ["AWS CloudFormation", "Git", "Prometheus", "Jenkins"], correct: ["AWS CloudFormation"] },
+            { question: "What does 'git diff' show?", options: ["Changes between commits", "Commit history", "Branch list", "Repository status"], correct: ["Changes between commits"] },
+            { question: "Which DevOps practice involves rolling back failed deployments?", options: ["Canary deployment", "Blue-green deployment", "Rollback strategy", "Continuous monitoring"], correct: ["Rollback strategy"] }
+        ];
+
+        let shuffledQuestions = [];
+        let current = 0;
+        let score = 0;
+        let startTime;
+        let incorrectAnswers = [];
+
+        const questionElement = document.getElementById("question");
+        const quizForm = document.getElementById("quiz-form");
+        const submitBtn = document.getElementById("submit-btn");
+        const messageElement = document.getElementById("message");
+        const progressBar = document.getElementById("progress-bar");
+        const completionMessage = document.getElementById("completion-message");
+        const timeTakenElement = document.getElementById("time-taken");
+        const scoreBreakdownElement = document.getElementById("score-breakdown");
+        const replayBtn = document.getElementById("replay-btn");
+
+        // Shuffle Questions
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            startTime = Date.now();
+            current = 0;
+            score = 0;
+            incorrectAnswers = [];
+            shuffledQuestions = shuffle([...questions]);
+            renderQuestion();
+            updateProgressBarColor();
+        }
+
+        function renderQuestion() {
+            messageElement.textContent = "";
+            completionMessage.classList.add("hidden");
+            quizForm.style.display = "block";
+            submitBtn.style.display = "block";
+
+            if (current >= questions.length) {
+                const timeTaken = ((Date.now() - startTime) / 1000).toFixed(2);
+                questionElement.textContent = "";
+                quizForm.style.display = "none";
+                submitBtn.style.display = "none";
+                completionMessage.classList.remove("hidden");
+                timeTakenElement.textContent = `You completed the quiz in ${timeTaken} seconds!`;
+                scoreBreakdownElement.innerHTML = `Score: ${score} out of ${questions.length}<br>` +
+                    (incorrectAnswers.length > 0
+                        ? `<strong>Incorrect Answers:</strong><ul class="mt-2 text-left max-h-64 overflow-y-auto">${incorrectAnswers.map(a => `<li class="mb-2"><strong>Q:</strong> ${a.question}<br><strong>Your Answer:</strong> ${a.selected.length > 0 ? a.selected.join(", ") : "None"}<br><strong>Correct:</strong> ${a.correct.join(", ")}</li>`).join("")}</ul>`
+                        : "Perfect score! No mistakes!");
+                triggerConfetti();
+                return;
+            }
+
+            const q = shuffledQuestions[current];
+            questionElement.textContent = `Question ${current + 1} of ${questions.length}: ${q.question}`;
+            quizForm.innerHTML = "";
+            q.options.forEach(option => {
+                const id = `opt-${option.replace(/\s/g, "-")}`;
+                quizForm.innerHTML += `
+                    <div class="option flex items-center p-3 bg-gray-700 bg-opacity-50 rounded-lg transform transition-all duration-300">
+                        <input type="checkbox" id="${id}" value="${option}" class="mr-2 h-5 w-5 text-cyan-500 focus:ring-cyan-400" autocomplete="off" autocorrect="off" spellcheck="false">
+                        <label for="${id}" class="text-lg cursor-pointer">${option}</label>
+                    </div>`;
+            });
+
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const progress = (current / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            updateProgressBarColor();
+        }
+
+        function updateProgressBarColor() {
+            const colors = [
+                'linear-gradient(to right, #10b981, #22c55e)',
+                'linear-gradient(to right, #3b82f6, #00f7ff)',
+                'linear-gradient(to right, #f97316, #ef4444)',
+                'linear-gradient(to right, #8b5cf6, #d946ef)'
+            ];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            progressBar.style.background = randomColor;
+        }
+
+        function showMessage(msg, success = false) {
+            messageElement.textContent = msg;
+            messageElement.className = `mt-4 text-lg font-bold text-center text-high-contrast ${success ? "text-green-400" : "text-red-400"}`;
+            if (success) {
+                animateCharacter();
+                triggerConfetti();
+            }
+        }
+
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const selected = Array.from(document.querySelectorAll("input:checked")).map(x => x.value);
+            const q = shuffledQuestions[current];
+            const correct = q.correct;
+
+            if (selected.length === 0) {
+                showMessage("⚠️ Please select at least one option!", false);
+                return;
+            }
+
+            if (selected.sort().toString() === correct.sort().toString()) {
+                score++;
+                showMessage("✅ Correct! Moving to next question...", true);
+                setTimeout(() => {
+                    current++;
+                    renderQuestion();
+                }, 2000);
+            } else {
+                incorrectAnswers.push({
+                    question: q.question,
+                    selected: selected,
+                    correct: correct
+                });
+                showMessage(`❌ Incorrect! Correct answer: ${correct.join(", ")}`, false);
+                setTimeout(() => {
+                    current++;
+                    renderQuestion();
+                }, 2000);
+            }
+        });
+
+        replayBtn.addEventListener("click", () => {
+            startQuiz();
+        });
+
+        function animateCharacter() {
+            const char = document.querySelector(".character");
+            char.classList.add("translate-x-[80vw]");
+            setTimeout(() => char.classList.remove("translate-x-[80vw]"), 1000);
+        }
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: current < questions.length ? 100 : 200,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ["#00ff95", "#00b3ff", "#ff4d4d"]
+            });
+        }
+
+        // Initialize Quiz
+        startQuiz();
+
+        // Fallback
+        if (!questions || questions.length === 0) {
+            quizForm.style.display = "none";
+            submitBtn.style.display = "none";
+            document.getElementById("fallback-message").classList.remove("hidden");
+        }
+    </script>
+</body>
+{% endblock %}
