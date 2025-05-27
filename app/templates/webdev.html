@@ -8,6 +8,22 @@
         padding: 3rem 1rem;
         color: #333;
         overflow-x: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .main-content {
+        flex: 2;
+        min-width: 300px;
+    }
+
+    .news-sidebar {
+        flex: 1;
+        min-width: 300px;
+        max-width: 400px;
     }
 
     .webdev-header {
@@ -40,7 +56,8 @@
         animation: fadeIn 1s ease forwards;
     }
 
-    .webdev-card {
+    .webdev-card,
+    .news-card {
         background: #fff;
         border-radius: 20px;
         padding: 2rem;
@@ -53,7 +70,7 @@
         animation: fadeUpCard 1s ease forwards;
     }
 
-    /* Staggered animation delays */
+    /* Staggered animation delays for webdev cards */
     .webdev-card:nth-child(1) {
         animation-delay: 0.3s;
     }
@@ -78,7 +95,29 @@
         animation-delay: 1.8s;
     }
 
-    .webdev-card:hover {
+    /* Staggered animation delays for news cards */
+    .news-card:nth-child(1) {
+        animation-delay: 0.3s;
+    }
+
+    .news-card:nth-child(2) {
+        animation-delay: 0.6s;
+    }
+
+    .news-card:nth-child(3) {
+        animation-delay: 0.9s;
+    }
+
+    .news-card:nth-child(4) {
+        animation-delay: 1.2s;
+    }
+
+    .news-card:nth-child(5) {
+        animation-delay: 1.5s;
+    }
+
+    .webdev-card:hover,
+    .news-card:hover {
         transform: scale(1.05) rotateX(5deg) rotateY(5deg);
         box-shadow: 0 25px 40px rgba(33, 150, 243, 0.3);
         filter: brightness(1.1) contrast(1.2);
@@ -96,16 +135,67 @@
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
     }
 
-    .webdev-card h3 {
+    .webdev-card h3,
+    .news-card h3 {
         color: #1976d2;
         font-size: 1.6rem;
         margin-bottom: 0.5rem;
     }
 
-    .webdev-card p {
+    .webdev-card p,
+    .news-card p {
         font-size: 1rem;
         color: #555;
         line-height: 1.6;
+    }
+
+    .news-card .date {
+        font-size: 0.85rem;
+        color: #777;
+        margin-top: 0.5rem;
+    }
+
+    .news-card a {
+        display: inline-block;
+        color: #1976d2;
+        font-weight: 600;
+        text-decoration: none;
+        margin-top: 1rem;
+    }
+
+    .news-card a:hover {
+        text-decoration: underline;
+    }
+
+    /* Unique colors for news cards */
+    .news-card:nth-child(1) {
+        background: #e3f2fd;
+    }
+
+    .news-card:nth-child(2) {
+        background: #f0f4c3;
+    }
+
+    .news-card:nth-child(3) {
+        background: #ffebee;
+    }
+
+    .news-card:nth-child(4) {
+        background: #e1f5fe;
+    }
+
+    .news-card:nth-child(5) {
+        background: #f3e5f5;
+    }
+
+    .news-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .news-header h2 {
+        font-size: 2rem;
+        color: #1976d2;
     }
 
     .cta-webdev {
@@ -154,7 +244,7 @@
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(50px);
+            transform3D translateY(50px);
         }
 
         to {
@@ -175,12 +265,6 @@
         }
     }
 
-    @media (min-width: 768px) {
-        .card-grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
     @media (max-width: 767px) {
         .webdev-header h1 {
             font-size: 2.2rem;
@@ -189,70 +273,130 @@
         .cta-webdev h2 {
             font-size: 1.6rem;
         }
+
+        .news-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .webdev-wrapper {
+            flex-direction: column;
+        }
     }
 </style>
 
 <div class="webdev-wrapper">
-    <div class="webdev-header">
-        <h1>Web & App Development</h1>
-        <p>We build future-ready websites and apps — from in-house products to client solutions — with robust
-            technology, agile delivery, and UX excellence.</p>
+    <div class="main-content">
+        <div class="webdev-header">
+            <h1>Web & App Development</h1>
+            <p>We build future-ready websites and apps — from in-house products to client solutions — with robust
+                technology, agile delivery, and UX excellence.</p>
+        </div>
+
+        <div class="card-grid">
+            <!-- Card 1 -->
+            <div class="webdev-card">
+                <div class="badge">📦 In-House</div>
+                <h3>Product Engineering</h3>
+                <p>From SkillStream Virtual Institute to our game studios and news portals — all web platforms are
+                    designed
+                    and engineered by our in-house team.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="webdev-card">
+                <div class="badge">💼 Client Work</div>
+                <h3>Full-Stack Projects</h3>
+                <p>We build scalable websites, e-commerce apps, CRMs, and dashboards using modern stacks like MERN,
+                    Django,
+                    Laravel, React Native, and Flutter.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="webdev-card">
+                <div class="badge">🎓 Talent Pipeline</div>
+                <h3>Intern to Hire</h3>
+                <p>All development projects involve our SSVI interns. After 6–12 months of live training, high
+                    performers
+                    are hired full-time or placed with clients.</p>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="webdev-card">
+                <div class="badge">🎨 Design First</div>
+                <h3>UI/UX Excellence</h3>
+                <p>We start with user journeys and Figma prototypes. Clean interfaces, accessibility, and mobile-first
+                    layouts are baked into every project.</p>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="webdev-card">
+                <div class="badge">📱 Multi-Platform</div>
+                <h3>Web + Mobile</h3>
+                <p>We create progressive web apps, cross-platform mobile apps, admin dashboards, and hybrid native apps
+                    with
+                    responsive behavior across devices.</p>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="webdev-card">
+                <div class="badge">🌀 Agile</div>
+                <h3>Sprints & DevOps</h3>
+                <p>Using Git, CI/CD, Jira, and automated testing, we deliver weekly sprint releases and maintain DevOps
+                    practices for performance and scalability.</p>
+            </div>
+        </div>
+
+        <div class="cta-webdev">
+            <h2>Need a team to build your app or website?</h2>
+            <p>We build. We maintain. We scale — across web and mobile platforms.</p>
+            <a href="/contact">🚀 Start Your Project</a>
+        </div>
     </div>
 
-    <div class="card-grid">
-        <!-- Card 1 -->
-        <div class="webdev-card">
-            <div class="badge">📦 In-House</div>
-            <h3>Product Engineering</h3>
-            <p>From SkillStream Virtual Institute to our game studios and news portals — all web platforms are designed
-                and engineered by our in-house team.</p>
+    <div class="news-sidebar">
+        <div class="news-header">
+            <h2>Web & App Development News Corner</h2>
         </div>
-
-        <!-- Card 2 -->
-        <div class="webdev-card">
-            <div class="badge">💼 Client Work</div>
-            <h3>Full-Stack Projects</h3>
-            <p>We build scalable websites, e-commerce apps, CRMs, and dashboards using modern stacks like MERN, Django,
-                Laravel, React Native, and Flutter.</p>
+        <!-- News Item 1 -->
+        <div class="news-card">
+            <h3>React 19 Beta Introduces New Hooks</h3>
+            <p>React 19 Beta brings new hooks like useOptimistic and useActionState, enhancing state management and form
+                handling for better UX.</p>
+            <div class="date">May 27, 2025</div>
+            <a href="https://react.dev/blog/2024/04/25/react-19" target="_blank">Read More</a>
         </div>
-
-        <!-- Card 3 -->
-        <div class="webdev-card">
-            <div class="badge">🎓 Talent Pipeline</div>
-            <h3>Intern to Hire</h3>
-            <p>All development projects involve our SSVI interns. After 6–12 months of live training, high performers
-                are hired full-time or placed with clients.</p>
+        <!-- News Item 2 -->
+        <div class="news-card">
+            <h3>Flutter 3.22 Boosts Performance</h3>
+            <p>Flutter's latest update improves rendering speed and adds support for WebGPU, making it a top choice for
+                cross-platform apps.</p>
+            <div class="date">May 26, 2025</div>
+            <a href="https://flutter.dev" target="_blank">Read More</a>
         </div>
-
-        <!-- Card 4 -->
-        <div class="webdev-card">
-            <div class="badge">🎨 Design First</div>
-            <h3>UI/UX Excellence</h3>
-            <p>We start with user journeys and Figma prototypes. Clean interfaces, accessibility, and mobile-first
-                layouts are baked into every project.</p>
+        <!-- News Item 3 -->
+        <div class="news-card">
+            <h3>WebAssembly Gains Traction in 2025</h3>
+            <p>WebAssembly is becoming a go-to for high-performance web apps, with new tools simplifying integration
+                with JavaScript frameworks.</p>
+            <div class="date">May 25, 2025</div>
+            <a href="https://webassembly.org" target="_blank">Read More</a>
         </div>
-
-        <!-- Card 5 -->
-        <div class="webdev-card">
-            <div class="badge">📱 Multi-Platform</div>
-            <h3>Web + Mobile</h3>
-            <p>We create progressive web apps, cross-platform mobile apps, admin dashboards, and hybrid native apps with
-                responsive behavior across devices.</p>
+        <!-- News Item 4 -->
+        <div class="news-card">
+            <h3>Next.js 15 Enhances Static Rendering</h3>
+            <p>Next.js 15 introduces improved static site generation and caching, streamlining development for
+                SEO-friendly web apps.</p>
+            <div class="date">May 24, 2025</div>
+            <a href="https://nextjs.org" target="_blank">Read More</a>
         </div>
-
-        <!-- Card 6 -->
-        <div class="webdev-card">
-            <div class="badge">🌀 Agile</div>
-            <h3>Sprints & DevOps</h3>
-            <p>Using Git, CI/CD, Jira, and automated testing, we deliver weekly sprint releases and maintain DevOps
-                practices for performance and scalability.</p>
+        <!-- News Item 5 -->
+        <div class="news-card">
+            <h3>AI-Powered Dev Tools Trend Up</h3>
+            <p>AI-driven tools like GitHub Copilot and Tabnine are transforming coding workflows, boosting productivity
+                for developers.</p>
+            <div class="date">May 23, 2025</div>
+            <a href="https://github.blog" target="_blank">Read More</a>
         </div>
-    </div>
-
-    <div class="cta-webdev">
-        <h2>Need a team to build your app or website?</h2>
-        <p>We build. We maintain. We scale — across web and mobile platforms.</p>
-        <a href="/contact">🚀 Start Your Project</a>
     </div>
 </div>
 {% endblock %}

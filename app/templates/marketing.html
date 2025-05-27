@@ -8,6 +8,98 @@
         padding: 3rem 1rem;
         color: #333;
         overflow-x: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .main-content {
+        flex: 3;
+        min-width: 280px;
+    }
+
+    .sidebar {
+        flex: 1;
+        min-width: 280px;
+        background: #fff;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(255, 111, 0, 0.15);
+        animation: fadeIn 1s ease forwards;
+    }
+
+    .news-section h2 {
+        font-size: 1.8rem;
+        color: #e65100;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .news-item {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        border-radius: 10px;
+        border-bottom: none;
+        /* Removed border to emphasize color distinction */
+    }
+
+    .news-item h3 {
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .news-item p {
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.5;
+        margin-bottom: 0.5rem;
+    }
+
+    .news-item .date {
+        font-size: 0.8rem;
+        color: #777;
+        margin-bottom: 0.5rem;
+    }
+
+    .news-item a {
+        color: #ff6f00;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .news-item a:hover {
+        text-decoration: underline;
+    }
+
+    /* Unique colors for news items */
+    .news-item:nth-child(1) {
+        background: #fff3e0;
+        /* Light orange */
+    }
+
+    .news-item:nth-child(2) {
+        background: #e0f7fa;
+        /* Light cyan */
+    }
+
+    .news-item:nth-child(3) {
+        background: #f3e5f5;
+        /* Light purple */
+    }
+
+    .news-item:nth-child(4) {
+        background: #e8f5e9;
+        /* Light green */
+    }
+
+    .news-item:nth-child(5) {
+        background: #ffebee;
+        /* Light red */
     }
 
     .marketing-header {
@@ -41,7 +133,6 @@
     }
 
     .marketing-card {
-        background: #fff;
         border-radius: 20px;
         padding: 2rem;
         box-shadow: 0 10px 30px rgba(255, 111, 0, 0.15);
@@ -53,28 +144,40 @@
         animation: fadeUpCard 1s ease forwards;
     }
 
-    /* Delayed animation for each card */
+    /* Unique colors for marketing cards */
     .marketing-card:nth-child(1) {
+        background: #fff3e0;
+        /* Light orange */
         animation-delay: 0.3s;
     }
 
     .marketing-card:nth-child(2) {
+        background: #e0f7fa;
+        /* Light cyan */
         animation-delay: 0.6s;
     }
 
     .marketing-card:nth-child(3) {
+        background: #f3e5f5;
+        /* Light purple */
         animation-delay: 0.9s;
     }
 
     .marketing-card:nth-child(4) {
+        background: #e8f5e9;
+        /* Light green */
         animation-delay: 1.2s;
     }
 
     .marketing-card:nth-child(5) {
+        background: #ffebee;
+        /* Light red */
         animation-delay: 1.5s;
     }
 
     .marketing-card:nth-child(6) {
+        background: #eceff1;
+        /* Light gray */
         animation-delay: 1.8s;
     }
 
@@ -163,6 +266,16 @@
         }
     }
 
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
     @keyframes fadeUpCard {
         0% {
             opacity: 0;
@@ -175,13 +288,11 @@
         }
     }
 
-    @media (min-width: 768px) {
-        .card-grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
     @media (max-width: 767px) {
+        .marketing-wrapper {
+            flex-direction: column;
+        }
+
         .marketing-header h1 {
             font-size: 2.2rem;
         }
@@ -189,70 +300,123 @@
         .cta-marketing h2 {
             font-size: 1.6rem;
         }
+
+        .sidebar {
+            margin-top: 2rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .card-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
     }
 </style>
 
 <div class="marketing-wrapper">
-    <div class="marketing-header">
-        <h1>SkillStream Digital Marketing</h1>
-        <p>Marketing solutions built for modern startups, creators, and product teams — powered by real projects and
-            hands-on expertise.</p>
+    <div class="main-content">
+        <div class="marketing-header">
+            <h1>SkillStream Digital Marketing</h1>
+            <p>Marketing solutions built for modern startups, creators, and product teams — powered by real projects and
+                hands-on expertise.</p>
+        </div>
+
+        <div class="card-grid">
+            <!-- Card 1 -->
+            <div class="marketing-card">
+                <div class="badge">🏢 In-House</div>
+                <h3>Product Branding</h3>
+                <p>We handle marketing for our own verticals: Education (SSVI), Gaming (SSGS), Tech News (SSI), and Web
+                    Services — using integrated campaigns and storytelling.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="marketing-card">
+                <div class="badge">🤝 Clients</div>
+                <h3>Third-party Campaigns</h3>
+                <p>From social media to search ads, we manage creative & data-driven campaigns for SMEs, startups, and
+                    digital-first brands across India and abroad.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="marketing-card">
+                <div class="badge">🎓 Talent</div>
+                <h3>Internship-to-Hire Model</h3>
+                <p>SSVI interns work on real projects for 6–12 months. Based on performance, we offer full-time roles or
+                    refer them to hiring partners and clients.</p>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="marketing-card">
+                <div class="badge">🧠 Strategy</div>
+                <h3>Campaign Planning</h3>
+                <p>We create end-to-end marketing strategies: research, competitor analysis, customer journey mapping,
+                    KPI targeting, and launch timelines.</p>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="marketing-card">
+                <div class="badge">📊 Analytics</div>
+                <h3>Real-Time Optimization</h3>
+                <p>Using tools like Google Analytics, Meta Pixel, and SEMrush, we continuously monitor, optimize, and
+                    report on campaign performance.</p>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="marketing-card">
+                <div class="badge">🧰 Tech Stack</div>
+                <h3>Tools We Use</h3>
+                <p>We rely on HubSpot, Buffer, Canva, Mailchimp, WordPress, and Trello — blending automation with
+                    creativity to streamline delivery.</p>
+            </div>
+        </div>
+
+        <div class="cta-marketing">
+            <h2>Need marketing for your brand or idea?</h2>
+            <p>Let’s build something impactful together — in-house or outsourced.</p>
+            <a href="/contact">📬 Let’s Talk</a>
+        </div>
     </div>
 
-    <div class="card-grid">
-        <!-- Card 1 -->
-        <div class="marketing-card">
-            <div class="badge">🏢 In-House</div>
-            <h3>Product Branding</h3>
-            <p>We handle marketing for our own verticals: Education (SSVI), Gaming (SSGS), Tech News (SSI), and Web
-                Services — using integrated campaigns and storytelling.</p>
+    <div class="sidebar">
+        <div class="news-section">
+            <h2>Digital Marketing News Corner</h2>
+            <div class="news-item">
+                <h3>OnePlus AI Enhances Digital Marketing for Smartphones</h3>
+                <p>OnePlus introduces AI-driven marketing features like live call summaries and personalized ads for the
+                    OnePlus 13s, setting a new standard for tech campaigns.</p>
+                <div class="date">May 27, 2025</div>
+                <a href="https://www.oneplus.com/news" target="_blank">Read More</a>
+            </div>
+            <div class="news-item">
+                <h3>India’s Digital Ad Spend to Reach Rs 52,992 Crore</h3>
+                <p>India’s digital marketing sector is projected to hit Rs 52,992 crore in 2025, with 65% of marketers
+                    leveraging AI for personalized advertising.</p>
+                <div class="date">May 26, 2025</div>
+                <a href="https://www.financialexpress.com/industry/digital-ad-spend" target="_blank">Read More</a>
+            </div>
+            <div class="news-item">
+                <h3>Voice Search Surges in Digital Marketing</h3>
+                <p>Over 40% of searches are expected to be voice-based by 2026, pushing marketers to optimize content
+                    for voice assistants like Alexa and Siri.</p>
+                <div class="date">May 25, 2025</div>
+                <a href="https://www.searchengineland.com/voice-search-optimization" target="_blank">Read More</a>
+            </div>
+            <div class="news-item">
+                <h3>Video Content Dominates Indian Internet</h3>
+                <p>85% of Indian internet users consume video content weekly, making video marketing a critical strategy
+                    for brands in 2025.</p>
+                <div class="date">May 24, 2025</div>
+                <a href="https://www.livemint.com/industry/video-marketing-trends" target="_blank">Read More</a>
+            </div>
+            <div class="news-item">
+                <h3>SEO Expands Beyond Google</h3>
+                <p>Companies are optimizing for platforms beyond Google, with 45.1 billion daily searches across all
+                    platforms, reshaping SEO strategies for 2025.</p>
+                <div class="date">May 23, 2025</div>
+                <a href="https://www.neilpatel.com/blog/seo-trends-2025" target="_blank">Read More</a>
+            </div>
         </div>
-
-        <!-- Card 2 -->
-        <div class="marketing-card">
-            <div class="badge">🤝 Clients</div>
-            <h3>Third-party Campaigns</h3>
-            <p>From social media to search ads, we manage creative & data-driven campaigns for SMEs, startups, and
-                digital-first brands across India and abroad.</p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="marketing-card">
-            <div class="badge">🎓 Talent</div>
-            <h3>Internship-to-Hire Model</h3>
-            <p>SSVI interns work on real projects for 6–12 months. Based on performance, we offer full-time roles or
-                refer them to hiring partners and clients.</p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="marketing-card">
-            <div class="badge">🧠 Strategy</div>
-            <h3>Campaign Planning</h3>
-            <p>We create end-to-end marketing strategies: research, competitor analysis, customer journey mapping, KPI
-                targeting, and launch timelines.</p>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="marketing-card">
-            <div class="badge">📊 Analytics</div>
-            <h3>Real-Time Optimization</h3>
-            <p>Using tools like Google Analytics, Meta Pixel, and SEMrush, we continuously monitor, optimize, and report
-                on campaign performance.</p>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="marketing-card">
-            <div class="badge">🧰 Tech Stack</div>
-            <h3>Tools We Use</h3>
-            <p>We rely on HubSpot, Buffer, Canva, Mailchimp, WordPress, and Trello — blending automation with creativity
-                to streamline delivery.</p>
-        </div>
-    </div>
-
-    <div class="cta-marketing">
-        <h2>Need marketing for your brand or idea?</h2>
-        <p>Let’s build something impactful together — in-house or outsourced.</p>
-        <a href="/contact">📬 Let’s Talk</a>
     </div>
 </div>
 {% endblock %}

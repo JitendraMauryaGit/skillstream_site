@@ -30,7 +30,6 @@
         will-change: opacity, transform;
     }
 
-    /* Stagger delays for fade-in */
     .fade-in.delay-1 {
         animation-delay: 0.3s;
     }
@@ -94,6 +93,87 @@
         max-width: 1200px;
         margin: 0 auto 80px auto;
         padding: 0 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .main-content {
+        flex: 3;
+        min-width: 300px;
+    }
+
+    .news-sidebar {
+        flex: 1;
+        min-width: 280px;
+        background: linear-gradient(145deg, #1f2937, #0f172a);
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+        margin-top: 40px;
+    }
+
+    .news-sidebar h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fbbf24;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 10px rgba(251, 191, 36, 0.5);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .news-sidebar h2::before {
+        content: "📰";
+        font-size: 1.8rem;
+        animation: bounce 1s ease infinite alternate;
+    }
+
+    .news-item {
+        background: linear-gradient(145deg, #2d3748, #1a202c);
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .news-item:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 20px rgba(251, 191, 36, 0.5);
+    }
+
+    .news-headline {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #f0f4f8;
+        margin-bottom: 8px;
+    }
+
+    .news-content {
+        font-size: 0.95rem;
+        color: #d1d5db;
+        line-height: 1.4;
+        margin-bottom: 10px;
+    }
+
+    .news-date {
+        font-size: 0.85rem;
+        color: #9ca3af;
+        margin-bottom: 8px;
+    }
+
+    .news-link {
+        font-size: 0.9rem;
+        color: #3b82f6;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .news-link:hover {
+        color: #60a5fa;
+        text-decoration: underline;
     }
 
     .section-title {
@@ -146,14 +226,9 @@
         background: linear-gradient(145deg, #1f2937, #0f172a);
         border-radius: 18px;
         padding: 20px;
-        box-shadow:
-            0 15px 30px rgba(0, 0, 0, 0.7),
-            inset 0 0 25px rgba(251, 191, 36, 0.2);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7), inset 0 0 25px rgba(251, 191, 36, 0.2);
         cursor: pointer;
-        transition:
-            transform 0.35s ease,
-            box-shadow 0.35s ease,
-            filter 0.35s ease;
+        transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
         will-change: transform, box-shadow, filter;
         display: flex;
         flex-direction: column;
@@ -164,17 +239,13 @@
         max-width: 260px;
     }
 
-    /* Hover with premium 3D + growing + contrast effect */
     .game-card:hover {
-        box-shadow:
-            0 30px 60px rgba(251, 191, 36, 0.8),
-            inset 0 0 50px rgba(251, 191, 36, 0.5);
+        box-shadow: 0 30px 60px rgba(251, 191, 36, 0.8), inset 0 0 50px rgba(251, 191, 36, 0.5);
         filter: contrast(1.2) brightness(1.15);
         transform: scale(1.1) translateZ(20px);
         z-index: 10;
     }
 
-    /* 3D rotations with incremental delay for multiplayer */
     .multiplayer-games-grid .game-card:nth-child(1):hover {
         transform: scale(1.1) rotateX(8deg) rotateY(10deg) translateZ(20px);
         transition-delay: 0s;
@@ -288,910 +359,428 @@
     .alto {
         margin-top: 50px;
     }
+
+    /* Existing card-specific styles */
+    .top-header {
+        background: linear-gradient(145deg, #0e0e0e, #1a1a2e);
+        color: #ffffff;
+        padding: 60px 30px;
+        border-radius: 25px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 255, 170, 0.1), 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 10px rgba(0, 100, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+        perspective: 1500px;
+        transition: all 0.6s ease-in-out;
+    }
+
+    .top-header:hover {
+        transform: scale(1.015) rotateX(1deg) rotateY(2deg);
+        box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2), 0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 30px rgba(0, 255, 200, 0.2);
+        filter: brightness(1.1);
+    }
+
+    .top-header::before,
+    .top-header::after {
+        content: "";
+        position: absolute;
+        width: 300%;
+        height: 300%;
+        top: -100%;
+        left: -100%;
+        background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent);
+        animation: rotateGlowHeader 20s linear infinite;
+        z-index: 0;
+    }
+
+    @keyframes rotateGlowHeader {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .top-header .section-title {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #00ffd0, #00aaff, #ff00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        margin-bottom: 20px;
+        z-index: 1;
+        position: relative;
+        transition: transform 0.5s ease;
+    }
+
+    .top-header:hover .section-title {
+        transform: scale(1.05) translateZ(20px);
+    }
+
+    .header-description {
+        font-size: 1.2rem;
+        color: #ccc;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.8;
+        z-index: 1;
+        position: relative;
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.08);
+        transition: all 0.5s ease;
+    }
+
+    .top-header:hover .header-description {
+        color: #ffffff;
+        transform: translateZ(15px);
+    }
+
+    .game-card {
+        background: linear-gradient(145deg, #0a0a0a, #1f1f1f);
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 20px 40px rgba(0, 255, 170, 0.25);
+        text-align: center;
+        color: white;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        transition: all 0.5s ease-in-out;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .game-card:hover {
+        transform: rotateY(5deg) scale(1.05);
+        box-shadow: 0 30px 60px rgba(0, 255, 200, 0.4), inset 0 0 30px rgba(0, 255, 200, 0.2);
+        z-index: 2;
+    }
+
+    .game-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1), transparent);
+        animation: rotateGlow 10s linear infinite;
+        z-index: 0;
+    }
+
+    @keyframes rotateGlow {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .game-image-placeholder {
+        height: 160px;
+        background: linear-gradient(135deg, #007bff, #00ffaa);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 20px;
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 255, 255, 0.3);
+        transform-style: preserve-3d;
+        transition: transform 0.4s ease;
+    }
+
+    .game-card:hover .game-image-placeholder {
+        transform: rotateX(8deg) scale(1.05);
+    }
+
+    .play-btn {
+        padding: 15px 25px;
+        background: linear-gradient(145deg, #00ff95, #00b3ff);
+        border-radius: 50px;
+        font-size: 20px;
+        color: white;
+        text-decoration: none;
+        transition: all 0.4s ease;
+        display: inline-block;
+        margin-top: 10px;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 8px 20px rgba(0, 255, 200, 0.4);
+    }
+
+    .play-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .play-btn:hover {
+        transform: scale(1.15) rotate(1deg);
+        box-shadow: 0 12px 30px rgba(0, 255, 200, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+
+    .play-btn:hover::after {
+        opacity: 1;
+    }
+
+    .game-name {
+        font-size: 30px;
+        margin: 15px 0 5px 0;
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+    }
+
+    .game-type {
+        font-size: 16px;
+        color: #ccc;
+        margin-bottom: 12px;
+        font-style: italic;
+    }
+
+    .game-desc {
+        font-size: 16px;
+        color: #eee;
+        margin-bottom: 20px;
+    }
+
+    .devops-card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        padding: 40px 20px;
+    }
+
+    .devops-basic {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+    }
+
+    .devops-intermediate {
+        background: linear-gradient(135deg, #3b3b3b, #5e5e5e);
+    }
+
+    .devops-advanced {
+        background: linear-gradient(135deg, #3e1c4b, #7c4dff);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .top-header {
+            padding: 40px 20px;
+        }
+
+        .top-header .section-title {
+            font-size: 2.2rem;
+        }
+
+        .header-description {
+            font-size: 1rem;
+        }
+
+        .game-card {
+            padding: 20px;
+            transform: none !important;
+        }
+
+        .game-name {
+            font-size: 24px;
+        }
+
+        .game-image-placeholder {
+            height: 120px;
+            font-size: 20px;
+        }
+
+        .play-btn {
+            font-size: 18px;
+            padding: 12px 20px;
+        }
+
+        .game-section {
+            flex-direction: column;
+        }
+
+        .news-sidebar {
+            margin-top: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .top-header .section-title {
+            font-size: 1.7rem;
+        }
+
+        .header-description {
+            font-size: 0.95rem;
+        }
+
+        .game-card {
+            padding: 15px;
+        }
+
+        .game-desc,
+        .game-type {
+            font-size: 14px;
+        }
+
+        .news-headline {
+            font-size: 1rem;
+        }
+
+        .news-content {
+            font-size: 0.85rem;
+        }
+
+        .news-date,
+        .news-link {
+            font-size: 0.8rem;
+        }
+    }
 </style>
 
 <section class="game-section" id="game-cards-container">
-    <!-- New gaming header with your text -->
-    <header class="gaming-header fade-in delay-1" role="banner" aria-label="Gaming Section Intro">
-        <h1>🎮 SkillStream Game Studios (SSGS)</h1>
-
-    </header>
-
-    <!-- --- ===== ===== Start: Support Engineer L2 Game Card     ===== ===== -->
-    <div class="top-header fade-in delay-2" aria-label="Gaming Section Header">
-        <h3 class="section-title" tabindex="0">🎮 Explore Support Engineer L2 Quiz Gaming</h3>
-        <p class="header-description">
-            Sharpen your job-ready skills through immersive quiz games designed for L2 Application Support
-            Engineers.<br />
-            Play, Learn, and Level Up with real-time scenarios across Linux, Shell, SQL & more.
-        </p>
-
-        <style>
-            .top-header {
-                background: linear-gradient(145deg, #0e0e0e, #1a1a2e);
-                color: #ffffff;
-                padding: 60px 30px;
-                border-radius: 25px;
-                text-align: center;
-                box-shadow:
-                    0 10px 25px rgba(0, 255, 170, 0.1),
-                    0 0 20px rgba(0, 255, 255, 0.1),
-                    inset 0 0 10px rgba(0, 100, 255, 0.2);
-                position: relative;
-                overflow: hidden;
-                perspective: 1500px;
-                transition: all 0.6s ease-in-out;
-            }
-
-            .top-header:hover {
-                transform: scale(1.015) rotateX(1deg) rotateY(2deg);
-                box-shadow:
-                    0 20px 40px rgba(0, 255, 255, 0.2),
-                    0 0 30px rgba(0, 255, 255, 0.3),
-                    inset 0 0 30px rgba(0, 255, 200, 0.2);
-                filter: brightness(1.1);
-            }
-
-            .top-header::before,
-            .top-header::after {
-                content: "";
-                position: absolute;
-                width: 300%;
-                height: 300%;
-                top: -100%;
-                left: -100%;
-                background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent);
-                animation: rotateGlowHeader 20s linear infinite;
-                z-index: 0;
-            }
-
-            @keyframes rotateGlowHeader {
-                0% {
-                    transform: rotate(0deg);
-                }
-
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
-
-            .section-title {
-                font-size: 3rem;
-                font-weight: 800;
-                background: linear-gradient(90deg, #00ffd0, #00aaff, #ff00ff);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                text-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
-                margin-bottom: 20px;
-                z-index: 1;
-                position: relative;
-                transition: transform 0.5s ease;
-            }
-
-            .top-header:hover .section-title {
-                transform: scale(1.05) translateZ(20px);
-            }
-
-            .header-description {
-                font-size: 1.2rem;
-                color: #ccc;
-                max-width: 800px;
-                margin: 0 auto;
-                line-height: 1.8;
-                z-index: 1;
-                position: relative;
-                text-shadow: 0 0 8px rgba(0, 255, 255, 0.08);
-                transition: all 0.5s ease;
-            }
-
-            .top-header:hover .header-description {
-                color: #ffffff;
-                transform: translateZ(15px);
-            }
-
-            /* Responsive Design */
-            @media (max-width: 768px) {
-                .top-header {
-                    padding: 40px 20px;
-                }
-
-                .section-title {
-                    font-size: 2.2rem;
-                }
-
-                .header-description {
-                    font-size: 1rem;
-                }
-            }
-
-            @media (max-width: 480px) {
-                .section-title {
-                    font-size: 1.7rem;
-                }
-
-                .header-description {
-                    font-size: 0.95rem;
-                }
-            }
-        </style>
-    </div>
-    <div class="games-grid fade-in delay-3" aria-label="Single Player Games" role="list">
-        <!-- === Start: Linux Quiz Adventure Game Card === -->
-        <article class="game-card" role="listitem" tabindex="0" aria-label="Linux Quiz Adventure Game">
-            <div class="game-image-placeholder">
-                <a href="/linux" class="play-btn">🐧 Play Linux Quiz Adventure</a>
-            </div>
-            <h3 class="game-name">Linux Quiz Adventure</h3>
-            <p class="game-type">Browser-Based | MCQ Journey</p>
-            <p class="game-desc">Test your Linux skills! Solve timed MCQs at every stop to move ahead on an exciting
-                adventure trail.</p>
-
-            <style>
-                .game-card {
-                    background: linear-gradient(145deg, #0a0a0a, #1f1f1f);
-                    border-radius: 20px;
-                    padding: 25px;
-                    box-shadow: 0 20px 40px rgba(0, 255, 170, 0.25);
-                    text-align: center;
-                    color: white;
-                    perspective: 1000px;
-                    transform-style: preserve-3d;
-                    transition: all 0.5s ease-in-out;
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                .game-card:hover {
-                    transform: rotateY(5deg) scale(1.05);
-                    box-shadow: 0 30px 60px rgba(0, 255, 200, 0.4), inset 0 0 30px rgba(0, 255, 200, 0.2);
-                    z-index: 2;
-                }
-
-                .game-card::before {
-                    content: "";
-                    position: absolute;
-                    top: -50%;
-                    left: -50%;
-                    width: 200%;
-                    height: 200%;
-                    background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1), transparent);
-                    animation: rotateGlow 10s linear infinite;
-                    z-index: 0;
-                }
-
-                @keyframes rotateGlow {
-                    from {
-                        transform: rotate(0deg);
-                    }
-
-                    to {
-                        transform: rotate(360deg);
-                    }
-                }
-
-                .game-image-placeholder {
-                    height: 160px;
-                    background: linear-gradient(135deg, #007bff, #00ffaa);
-                    border-radius: 15px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 28px;
-                    font-weight: bold;
-                    color: white;
-                    margin-bottom: 20px;
-                    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 255, 255, 0.3);
-                    transform-style: preserve-3d;
-                    transition: transform 0.4s ease;
-                }
-
-                .game-card:hover .game-image-placeholder {
-                    transform: rotateX(8deg) scale(1.05);
-                }
-
-                .play-btn {
-                    padding: 15px 25px;
-                    background: linear-gradient(145deg, #00ff95, #00b3ff);
-                    border-radius: 50px;
-                    font-size: 20px;
-                    color: white;
-                    text-decoration: none;
-                    transition: all 0.4s ease;
-                    display: inline-block;
-                    margin-top: 10px;
-                    position: relative;
-                    z-index: 1;
-                    box-shadow: 0 8px 20px rgba(0, 255, 200, 0.4);
-                }
-
-                .play-btn::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    border-radius: 50px;
-                    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
-                    opacity: 0;
-                    transition: opacity 0.4s ease;
-                }
-
-                .play-btn:hover {
-                    transform: scale(1.15) rotate(1deg);
-                    box-shadow: 0 12px 30px rgba(0, 255, 200, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.2);
-                }
-
-                .play-btn:hover::after {
-                    opacity: 1;
-                }
-
-                .game-name {
-                    font-size: 30px;
-                    margin: 15px 0 5px 0;
-                    text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
-                }
-
-                .game-type {
-                    font-size: 16px;
-                    color: #ccc;
-                    margin-bottom: 12px;
-                    font-style: italic;
-                }
-
-                .game-desc {
-                    font-size: 16px;
-                    color: #eee;
-                    margin-bottom: 20px;
-                }
-
-                /* Responsive */
-                @media (max-width: 768px) {
-                    .game-card {
-                        padding: 20px;
-                        transform: none !important;
-                    }
-
-                    .game-name {
-                        font-size: 24px;
-                    }
-
-                    .game-image-placeholder {
-                        height: 120px;
-                        font-size: 20px;
-                    }
-
-                    .play-btn {
-                        font-size: 18px;
-                        padding: 12px 20px;
-                    }
-                }
-
-                @media (max-width: 480px) {
-                    .game-card {
-                        padding: 15px;
-                    }
-
-                    .game-desc {
-                        font-size: 14px;
-                    }
-
-                    .game-type {
-                        font-size: 14px;
-                    }
-                }
-            </style>
-        </article>
-        <!-- === End: Linux Quiz Adventure Game Card === -->
-        <!-- === START: Shell Quiz Adventure Game Card === -->
-        <article class="game-card" role="listitem" tabindex="0" aria-label="Shell Scripting Quiz Adventure Game">
-            <div class="game-image-placeholder">
-                <a href="/shell" class="play-btn">🖥️ Play Shell Scripting Quiz Adventure</a>
-            </div>
-            <h3 class="game-name">Shell Scripting Quiz Adventure</h3>
-            <p class="game-type">Terminal-Based | Bash MCQ Challenge</p>
-            <p class="game-desc">Master shell scripting! Solve command-line MCQs and automate your way through each
-                level.</p>
-
-            <style>
-                .game-card {
-                    background: linear-gradient(145deg, #0a0a0a, #1f1f1f);
-                    border-radius: 20px;
-                    padding: 25px;
-                    box-shadow: 0 20px 40px rgba(0, 255, 170, 0.25);
-                    text-align: center;
-                    color: white;
-                    perspective: 1000px;
-                    transform-style: preserve-3d;
-                    transition: all 0.5s ease-in-out;
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                .game-card:hover {
-                    transform: rotateY(5deg) scale(1.05);
-                    box-shadow: 0 30px 60px rgba(0, 255, 200, 0.4), inset 0 0 30px rgba(0, 255, 200, 0.2);
-                    z-index: 2;
-                }
-
-                .game-card::before {
-                    content: "";
-                    position: absolute;
-                    top: -50%;
-                    left: -50%;
-                    width: 200%;
-                    height: 200%;
-                    background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1), transparent);
-                    animation: rotateGlow 10s linear infinite;
-                    z-index: 0;
-                }
-
-                @keyframes rotateGlow {
-                    from {
-                        transform: rotate(0deg);
-                    }
-
-                    to {
-                        transform: rotate(360deg);
-                    }
-                }
-
-                .game-image-placeholder {
-                    height: 160px;
-                    background: linear-gradient(135deg, #222222, #00ffaa);
-                    border-radius: 15px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 28px;
-                    font-weight: bold;
-                    color: white;
-                    margin-bottom: 20px;
-                    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 255, 255, 0.3);
-                    transform-style: preserve-3d;
-                    transition: transform 0.4s ease;
-                }
-
-                .game-card:hover .game-image-placeholder {
-                    transform: rotateX(8deg) scale(1.05);
-                }
-
-                .play-btn {
-                    padding: 15px 25px;
-                    background: linear-gradient(145deg, #00ff95, #00b3ff);
-                    border-radius: 50px;
-                    font-size: 20px;
-                    color: white;
-                    text-decoration: none;
-                    transition: all 0.4s ease;
-                    display: inline-block;
-                    margin-top: 10px;
-                    position: relative;
-                    z-index: 1;
-                    box-shadow: 0 8px 20px rgba(0, 255, 200, 0.4);
-                }
-
-                .play-btn::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    border-radius: 50px;
-                    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
-                    opacity: 0;
-                    transition: opacity 0.4s ease;
-                }
-
-                .play-btn:hover {
-                    transform: scale(1.15) rotate(1deg);
-                    box-shadow: 0 12px 30px rgba(0, 255, 200, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.2);
-                }
-
-                .play-btn:hover::after {
-                    opacity: 1;
-                }
-
-                .game-name {
-                    font-size: 30px;
-                    margin: 15px 0 5px 0;
-                    text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
-                }
-
-                .game-type {
-                    font-size: 16px;
-                    color: #ccc;
-                    margin-bottom: 12px;
-                    font-style: italic;
-                }
-
-                .game-desc {
-                    font-size: 16px;
-                    color: #eee;
-                    margin-bottom: 20px;
-                }
-
-                /* Responsive */
-                @media (max-width: 768px) {
-                    .game-card {
-                        padding: 20px;
-                        transform: none !important;
-                    }
-
-                    .game-name {
-                        font-size: 24px;
-                    }
-
-                    .game-image-placeholder {
-                        height: 120px;
-                        font-size: 20px;
-                    }
-
-                    .play-btn {
-                        font-size: 18px;
-                        padding: 12px 20px;
-                    }
-                }
-
-                @media (max-width: 480px) {
-                    .game-card {
-                        padding: 15px;
-                    }
-
-                    .game-desc {
-                        font-size: 14px;
-                    }
-
-                    .game-type {
-                        font-size: 14px;
-                    }
-                }
-            </style>
-        </article>
-        <!-- === END: Shell Quiz Adventure Game Card === -->
-        <!-- === START: SQL Quiz Adventure Game Card === -->
-        <article class="game-card" role="listitem" tabindex="0" aria-label="SQL Quiz Adventure Game">
-            <div class="game-image-placeholder">
-                <a href="/sql" class="play-btn">🧠 Play SQL Quiz Adventure</a>
-            </div>
-            <h3 class="game-name">SQL Quiz Adventure</h3>
-            <p class="game-type">Database-Based | SQL MCQ Journey</p>
-            <p class="game-desc">Query your way to victory! Answer SQL-based MCQs to progress through the data-driven
-                trail.</p>
-
-            <style>
-                .game-card {
-                    background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
-                    border-radius: 20px;
-                    padding: 25px;
-                    box-shadow: 0 20px 40px rgba(0, 255, 170, 0.25);
-                    text-align: center;
-                    color: white;
-                    perspective: 1000px;
-                    transform-style: preserve-3d;
-                    transition: all 0.5s ease-in-out;
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                .game-card:hover {
-                    transform: rotateY(5deg) scale(1.05);
-                    box-shadow: 0 30px 60px rgba(0, 255, 200, 0.4), inset 0 0 30px rgba(0, 255, 200, 0.2);
-                    z-index: 2;
-                }
-
-                .game-card::before {
-                    content: "";
-                    position: absolute;
-                    top: -50%;
-                    left: -50%;
-                    width: 200%;
-                    height: 200%;
-                    background: radial-gradient(circle at center, rgba(0, 204, 255, 0.1), transparent);
-                    animation: rotateGlow 10s linear infinite;
-                    z-index: 0;
-                }
-
-                @keyframes rotateGlow {
-                    from {
-                        transform: rotate(0deg);
-                    }
-
-                    to {
-                        transform: rotate(360deg);
-                    }
-                }
-
-                .game-image-placeholder {
-                    height: 160px;
-                    background: linear-gradient(135deg, #1f1f1f, #00aaff);
-                    border-radius: 15px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 28px;
-                    font-weight: bold;
-                    color: white;
-                    margin-bottom: 20px;
-                    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 204, 255, 0.3);
-                    transform-style: preserve-3d;
-                    transition: transform 0.4s ease;
-                }
-
-                .game-card:hover .game-image-placeholder {
-                    transform: rotateX(8deg) scale(1.05);
-                }
-
-                .play-btn {
-                    padding: 15px 25px;
-                    background: linear-gradient(145deg, #00ffcc, #007bff);
-                    border-radius: 50px;
-                    font-size: 20px;
-                    color: white;
-                    text-decoration: none;
-                    transition: all 0.4s ease;
-                    display: inline-block;
-                    margin-top: 10px;
-                    position: relative;
-                    z-index: 1;
-                    box-shadow: 0 8px 20px rgba(0, 255, 255, 0.4);
-                }
-
-                .play-btn::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    border-radius: 50px;
-                    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
-                    opacity: 0;
-                    transition: opacity 0.4s ease;
-                }
-
-                .play-btn:hover {
-                    transform: scale(1.15) rotate(1deg);
-                    box-shadow: 0 12px 30px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.2);
-                }
-
-                .play-btn:hover::after {
-                    opacity: 1;
-                }
-
-                .game-name {
-                    font-size: 30px;
-                    margin: 15px 0 5px 0;
-                    text-shadow: 0 0 8px rgba(0, 204, 255, 0.3);
-                }
-
-                .game-type {
-                    font-size: 16px;
-                    color: #ccc;
-                    margin-bottom: 12px;
-                    font-style: italic;
-                }
-
-                .game-desc {
-                    font-size: 16px;
-                    color: #eee;
-                    margin-bottom: 20px;
-                }
-
-                /* Responsive */
-                @media (max-width: 768px) {
-                    .game-card {
-                        padding: 20px;
-                        transform: none !important;
-                    }
-
-                    .game-name {
-                        font-size: 24px;
-                    }
-
-                    .game-image-placeholder {
-                        height: 120px;
-                        font-size: 20px;
-                    }
-
-                    .play-btn {
-                        font-size: 18px;
-                        padding: 12px 20px;
-                    }
-                }
-
-                @media (max-width: 480px) {
-                    .game-card {
-                        padding: 15px;
-                    }
-
-                    .game-desc,
-                    .game-type {
-                        font-size: 14px;
-                    }
-                }
-            </style>
-        </article>
-        <!-- === END: SQL Quiz Adventure Game Card === -->
-    </div>
-    <!-- --- ===== ===== END: Support Engineer L2 Game Card       ===== ===== -->
-
-    <!-- 🔝 DevOps Quiz Gaming Header -->
-    <div class="top-header fade-in delay-2" aria-label="DevOps Quiz Gaming Section Header">
-        <h2 class="section-title" tabindex="0">🎮 Explore DevOps Engineer Quiz Gaming</h2>
-        <p class="header-description">
-            Strengthen your DevOps career journey with interactive quiz games designed to simulate real-world
-            scenarios.<br />
-            Challenge yourself across foundational, intermediate, and expert levels while mastering tools and workflows
-            used in modern DevOps pipelines.
-        </p>
-
-        <style>
-            .top-header {
-                background: linear-gradient(145deg, #0e0e0e, #1a1a2e);
-                color: #ffffff;
-                padding: 60px 30px;
-                border-radius: 25px;
-                text-align: center;
-                box-shadow:
-                    0 10px 25px rgba(0, 255, 170, 0.1),
-                    0 0 20px rgba(0, 255, 255, 0.1),
-                    inset 0 0 10px rgba(0, 100, 255, 0.2);
-                position: relative;
-                overflow: hidden;
-                perspective: 1500px;
-                transition: all 0.6s ease-in-out;
-            }
-
-            .top-header:hover {
-                transform: scale(1.015) rotateX(1deg) rotateY(2deg);
-                box-shadow:
-                    0 20px 40px rgba(0, 255, 255, 0.2),
-                    0 0 30px rgba(0, 255, 255, 0.3),
-                    inset 0 0 30px rgba(0, 255, 200, 0.2);
-                filter: brightness(1.1);
-            }
-
-            .top-header::before,
-            .top-header::after {
-                content: "";
-                position: absolute;
-                width: 300%;
-                height: 300%;
-                top: -100%;
-                left: -100%;
-                background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent);
-                animation: rotateGlowHeader 20s linear infinite;
-                z-index: 0;
-            }
-
-            @keyframes rotateGlowHeader {
-                0% {
-                    transform: rotate(0deg);
-                }
-
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
-
-            .section-title {
-                font-size: 3rem;
-                font-weight: 800;
-                background: linear-gradient(90deg, #00ffd0, #00aaff, #ff00ff);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                text-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
-                margin-bottom: 20px;
-                z-index: 1;
-                position: relative;
-                transition: transform 0.5s ease;
-            }
-
-            .top-header:hover .section-title {
-                transform: scale(1.05) translateZ(20px);
-            }
-
-            .header-description {
-                font-size: 1.2rem;
-                color: #ccc;
-                max-width: 800px;
-                margin: 0 auto;
-                line-height: 1.8;
-                z-index: 1;
-                position: relative;
-                text-shadow: 0 0 8px rgba(0, 255, 255, 0.08);
-                transition: all 0.5s ease;
-            }
-
-            .top-header:hover .header-description {
-                color: #ffffff;
-                transform: translateZ(15px);
-            }
-
-            @media (max-width: 768px) {
-                .top-header {
-                    padding: 40px 20px;
-                }
-
-                .section-title {
-                    font-size: 2.2rem;
-                }
-
-                .header-description {
-                    font-size: 1rem;
-                }
-            }
-
-            @media (max-width: 480px) {
-                .section-title {
-                    font-size: 1.7rem;
-                }
-
-                .header-description {
-                    font-size: 0.95rem;
-                }
-            }
-        </style>
-    </div>
-
-    <!-- 🧱 DevOps Quiz Cards -->
-    <div class="devops-card-container" role="list" aria-label="DevOps Quiz Levels">
-
-        <!-- 🟦 BASIC LEVEL -->
-        <article class="game-card devops-basic" role="listitem" tabindex="0" aria-label="DevOps Basic Level">
-            <div class="game-image-placeholder">⚙️
-                <a href="/devops-basic" class="play-btn">Play DevOps Basic Quiz</a>
-            </div>
-            <h3 class="game-name">DevOps Beginner Quest</h3>
-            <p class="game-type">Level 1 | Foundational Tools</p>
-            <p class="game-desc">
-                Kickstart your DevOps journey! Master basics of Git, Linux commands, CI/CD concepts, and shell scripting
-                fundamentals in a gamified format.
+    <div class="main-content">
+        <header class="gaming-header fade-in delay-1" role="banner" aria-label="Gaming Section Intro">
+            <h1>🎮 SkillStream Game Studios (SSGS)</h1>
+        </header>
+
+        <!-- Support Engineer L2 Game Card -->
+        <div class="top-header fade-in delay-2" aria-label="Gaming Section Header">
+            <h3 class="section-title" tabindex="0">🎮 Explore Support Engineer L2 Quiz Gaming</h3>
+            <p class="header-description">
+                Sharpen your job-ready skills through immersive quiz games designed for L2 Application Support
+                Engineers.<br />
+                Play, Learn, and Level Up with real-time scenarios across Linux, Shell, SQL & more.
             </p>
-        </article>
+        </div>
+        <div class="games-grid fade-in delay-3" aria-label="Single Player Games" role="list">
+            <article class="game-card" role="listitem" tabindex="0" aria-label="Linux Quiz Adventure Game">
+                <div class="game-image-placeholder">
+                    <a href="/linux" class="play-btn">🐧 Play Linux Quiz Adventure</a>
+                </div>
+                <h3 class="game-name">Linux Quiz Adventure</h3>
+                <p class="game-type">Browser-Based | MCQ Journey</p>
+                <p class="game-desc">Test your Linux skills! Solve timed MCQs at every stop to move ahead on an exciting
+                    adventure trail.</p>
+            </article>
+            <article class="game-card" role="listitem" tabindex="0" aria-label="Shell Scripting Quiz Adventure Game">
+                <div class="game-image-placeholder">
+                    <a href="/shell" class="play-btn">🖥️ Play Shell Scripting Quiz Adventure</a>
+                </div>
+                <h3 class="game-name">Shell Scripting Quiz Adventure</h3>
+                <p class="game-type">Terminal-Based | Bash MCQ Challenge</p>
+                <p class="game-desc">Master shell scripting! Solve command-line MCQs and automate your way through each
+                    level.</p>
+            </article>
+            <article class="game-card" role="listitem" tabindex="0" aria-label="SQL Quiz Adventure Game">
+                <div class="game-image-placeholder">
+                    <a href="/sql" class="play-btn">🧠 Play SQL Quiz Adventure</a>
+                </div>
+                <h3 class="game-name">SQL Quiz Adventure</h3>
+                <p class="game-type">Database-Based | SQL MCQ Journey</p>
+                <p class="game-desc">Query your way to victory! Answer SQL-based MCQs to progress through the
+                    data-driven trail.</p>
+            </article>
+        </div>
 
-        <!-- 🟫 INTERMEDIATE LEVEL -->
-        <article class="game-card devops-intermediate" role="listitem" tabindex="0"
-            aria-label="DevOps Intermediate Level">
-            <div class="game-image-placeholder">🚀
-                <a href="/devops-intermediate" class="play-btn">Play DevOps Intermediate Quiz</a>
-            </div>
-            <h3 class="game-name">DevOps Mid-Level Expedition</h3>
-            <p class="game-type">Level 2 | Toolchain Integration</p>
-            <p class="game-desc">
-                Elevate your expertise with scenario-based questions on Docker, Jenkins pipelines, Terraform IaC, and
-                real-time monitoring stacks like Prometheus.
+        <!-- DevOps Quiz Gaming Header -->
+        <div class="top-header fade-in delay-2" aria-label="DevOps Quiz Gaming Section Header">
+            <h2 class="section-title" tabindex="0">🎮 Explore DevOps Engineer Quiz Gaming</h2>
+            <p class="header-description">
+                Strengthen your DevOps career journey with interactive quiz games designed to simulate real-world
+                scenarios.<br />
+                Challenge yourself across foundational, intermediate, and expert levels while mastering tools and
+                workflows used in modern DevOps pipelines.
             </p>
-        </article>
+        </div>
 
-        <!-- 🟪 ADVANCED LEVEL -->
-        <article class="game-card devops-advanced" role="listitem" tabindex="0" aria-label="DevOps Advanced Level">
-            <div class="game-image-placeholder">🔥
-                <a href="/devops-advanced" class="play-btn">Play DevOps Advanced Quiz</a>
-            </div>
-            <h3 class="game-name">DevOps Mastery Challenge</h3>
-            <p class="game-type">Level 3 | Scalable Architecture</p>
-            <p class="game-desc">
-                Prove your mastery with expert-level quizzes covering Kubernetes clusters, SRE, observability, incident
-                response, and multi-cloud CI/CD workflows.
-            </p>
-        </article>
-
-        <style>
-            .devops-card-container {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 30px;
-                padding: 40px 20px;
-            }
-
-            .game-card {
-                border-radius: 20px;
-                padding: 20px;
-                text-align: center;
-                color: white;
-                position: relative;
-                overflow: hidden;
-                transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
-                perspective: 1000px;
-                box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
-            }
-
-            .game-card:hover {
-                transform: scale(1.03) rotateX(1deg) rotateY(2deg);
-                filter: brightness(1.1);
-                box-shadow:
-                    0 15px 35px rgba(0, 255, 255, 0.2),
-                    0 0 30px rgba(255, 255, 255, 0.15),
-                    inset 0 0 30px rgba(0, 255, 200, 0.1);
-            }
-
-            .game-image-placeholder {
-                height: 150px;
-                border-radius: 15px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 24px;
-                margin-bottom: 15px;
-                flex-direction: column;
-            }
-
-            .play-btn {
-                padding: 12px 20px;
-                background: linear-gradient(145deg, #00ff95, #00b3ff);
-                border-radius: 12px;
-                font-size: 16px;
-                color: white;
-                text-decoration: none;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                display: inline-block;
-                margin-top: 10px;
-            }
-
-            .play-btn:hover {
-                transform: scale(1.1);
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            }
-
-            .game-name {
-                font-size: 26px;
-                font-weight: bold;
-                margin: 10px 0 5px 0;
-                text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
-            }
-
-            .game-type {
-                font-size: 14px;
-                color: #ddd;
-                margin-bottom: 10px;
-            }
-
-            .game-desc {
-                font-size: 15px;
-                color: #f0f0f0;
-                margin-bottom: 15px;
-                line-height: 1.6;
-            }
-
-            /* Unique backgrounds for each card */
-            .devops-basic {
-                background: linear-gradient(135deg, #1e3c72, #2a5298);
-                /* Blue Gradient */
-            }
-
-            .devops-intermediate {
-                background: linear-gradient(135deg, #3b3b3b, #5e5e5e);
-                /* Dark Gray Gradient */
-            }
-
-            .devops-advanced {
-                background: linear-gradient(135deg, #3e1c4b, #7c4dff);
-                /* Purple Gradient */
-            }
-
-            @media (max-width: 480px) {
-                .game-name {
-                    font-size: 22px;
-                }
-
-                .game-desc {
-                    font-size: 14px;
-                }
-
-                .play-btn {
-                    font-size: 14px;
-                    padding: 10px 18px;
-                }
-            }
-        </style>
+        <!-- DevOps Quiz Cards -->
+        <div class="devops-card-container" role="list" aria-label="DevOps Quiz Levels">
+            <article class="game-card devops-basic" role="listitem" tabindex="0" aria-label="DevOps Basic Level">
+                <div class="game-image-placeholder">⚙️
+                    <a href="/devops-basic" class="play-btn">Play DevOps Basic Quiz</a>
+                </div>
+                <h3 class="game-name">DevOps Beginner Quest</h3>
+                <p class="game-type">Level 1 | Foundational Tools</p>
+                <p class="game-desc">Kickstart your DevOps journey! Master basics of Git, Linux commands, CI/CD
+                    concepts, and shell scripting fundamentals in a gamified format.</p>
+            </article>
+            <article class="game-card devops-intermediate" role="listitem" tabindex="0"
+                aria-label="DevOps Intermediate Level">
+                <div class="game-image-placeholder">🚀
+                    <a href="/devops-intermediate" class="play-btn">Play DevOps Intermediate Quiz</a>
+                </div>
+                <h3 class="game-name">DevOps Mid-Level Expedition</h3>
+                <p class="game-type">Level 2 | Toolchain Integration</p>
+                <p class="game-desc">Elevate your expertise with scenario-based questions on Docker, Jenkins pipelines,
+                    Terraform IaC, and real-time monitoring stacks like Prometheus.</p>
+            </article>
+            <article class="game-card devops-advanced" role="listitem" tabindex="0" aria-label="DevOps Advanced Level">
+                <div class="game-image-placeholder">🔥
+                    <a href="/devops-advanced" class="play-btn">Play DevOps Advanced Quiz</a>
+                </div>
+                <h3 class="game-name">DevOps Mastery Challenge</h3>
+                <p class="game-type">Level 3 | Scalable Architecture</p>
+                <p class="game-desc">Prove your mastery with expert-level quizzes covering Kubernetes clusters, SRE,
+                    observability, incident response, and multi-cloud CI/CD workflows.</p>
+            </article>
+        </div>
     </div>
 
-
-
-
-    </div>
+    <!-- Gaming News Corner -->
+    <aside class="news-sidebar fade-in delay-4" aria-label="Gaming News Corner">
+        <h2>Gaming News Corner</h2>
+        <div class="news-item">
+            <h3 class="news-headline">Fortnite's New Chapter 6 Leaks Surface</h3>
+            <p class="news-date">May 27, 2025</p>
+            <p class="news-content">Leaked details about Fortnite Chapter 6 reveal a potential open-world overhaul with
+                new biomes and dynamic weather systems, set to launch later this year.</p>
+            <a href="https://www.gamespot.com/articles/fortnite-chapter-6-leaks/1100-6534567/" class="news-link"
+                target="_blank">Read More</a>
+        </div>
+        <div class="news-item">
+            <h3 class="news-headline">Valorant Console Release Expands</h3>
+            <p class="news-date">May 26, 2025</p>
+            <p class="news-content">Riot Games announces Valorant’s console version now supports cross-progression with
+                PC, enhancing accessibility for competitive players.</p>
+            <a href="https://www.theverge.com/2025/5/26/valorant-console-cross-progression" class="news-link"
+                target="_blank">Read More</a>
+        </div>
+        <div class="news-item">
+            <h3 class="news-headline">Esports Revenue to Hit $2.8B in 2025</h3>
+            <p class="news-date">May 25, 2025</p>
+            <p class="news-content">A new report predicts esports revenue will reach $2.8 billion this year, driven by
+                sponsorships and streaming platforms like Twitch.</p>
+            <a href="https://www.linkedin.com/pulse/esports-revenue-2025-growth" class="news-link" target="_blank">Read
+                More</a>
+        </div>
+        <div class="news-item">
+            <h3 class="news-headline">Overwatch 2 Season 12 Updates</h3>
+            <p class="news-date">May 24, 2025</p>
+            <p class="news-content">Blizzard introduces new hero skins and a revamped competitive mode in Overwatch 2’s
+                latest season, aiming to retain its player base.</p>
+            <a href="https://www.pcgamer.com/overwatch-2-season-12-updates" class="news-link" target="_blank">Read
+                More</a>
+        </div>
+        <div class="news-item">
+            <h3 class="news-headline">Cloud Gaming Surges with New Tech</h3>
+            <p class="news-date">May 23, 2025</p>
+            <p class="news-content">Advancements in cloud gaming tech from NVIDIA and Google Stadia promise lower
+                latency and higher resolutions for online gamers.</p>
+            <a href="https://www.techradar.com/news/cloud-gaming-2025-advancements" class="news-link"
+                target="_blank">Read More</a>
+        </div>
+    </aside>
 </section>
 {% endblock %}
